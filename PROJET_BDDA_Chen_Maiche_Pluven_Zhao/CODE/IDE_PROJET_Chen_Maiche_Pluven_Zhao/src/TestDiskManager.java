@@ -31,7 +31,7 @@ public class TestDiskManager {
 		 * return: le nombre courant de page allouée
 		 */
 		System.out.println("Test getCurrentCountAllocPages : "); 
-		System.out.println("Le nombre de page alloué est :" + dm.GetCurrentCountAllocPages());
+		System.out.println("Le nombre de page alloue est :" + dm.GetCurrentCountAllocPages());
 		PageId p2= dm.AllocPage();
 		PageId p3= dm.AllocPage();
 		PageId p4= dm.AllocPage();
@@ -41,7 +41,7 @@ public class TestDiskManager {
 		PageId p8= dm.AllocPage();
 		dm.DeallocPage(p2);
 		
-		System.out.println("Le nombre de page alloué à la fin est :" + dm.GetCurrentCountAllocPages());
+		System.out.println("Le nombre de page alloue� la fin est :" + dm.GetCurrentCountAllocPages());
 		System.out.println("Fin de test getCurrentCountAllocPages : "); 
 	}
 }
