@@ -56,8 +56,26 @@ public class BufferManager {
 	}
 
 	public void freePage(PageId pageId, boolean dirty) {
-		//TODO Decrementer le pincount
-		//TODO quand le pinCount de la Frame passe a 0 faire  /////  pool.elementAt(caseIdACtuelle).setPosFile(file.add(caseIdActuelle));
+
+		boolean trouve = false;
+		Frame caseAFree = null;
+		
+		for (int i = 0; i < DBParams.frameCount&&!trouve; i++) { 
+			if(pool.elementAt(i).getpId().equals(pageId)) {
+				trouve = true;
+				caseAFree = pool.elementAt(i);
+			}
+		}
+		
+		if(dirty) {
+			caseAFree.setDirty(true);
+		}
+		
+		caseAFree.decPinCount();
+		
+		if(caseAFree.getPinCount()==0) {
+			caseAFree.setPosFile(file.add(caseAFree.getCaseId())); //J'ajoute dans la file la case et je met la cellule correspondatne dans la var PosFile
+		}
 	}
 
 	public void flushAll() {
