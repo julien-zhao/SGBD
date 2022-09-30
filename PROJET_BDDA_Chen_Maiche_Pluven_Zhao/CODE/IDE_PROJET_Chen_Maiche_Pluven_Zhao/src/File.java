@@ -18,16 +18,19 @@ public class File {
 		c.suiv = fin;
 	}
 	
-	public Cellule pop() {
+	public int pop() {
 		Cellule c = debut.suiv;
 		debut.suiv = c.suiv;
 		c.suiv.prev = debut;
-		return c;
+		 int cId = c.caseId;
+		 c = null;
+		return cId;
 	}
 	
 	public void del(Cellule c) {
 		
 		c.prev.suiv=c.suiv;
 		c.suiv.prev=c.prev;
+		c = null;
 	}
 }

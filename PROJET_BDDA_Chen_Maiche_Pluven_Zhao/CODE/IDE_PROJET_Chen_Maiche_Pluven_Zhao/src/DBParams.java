@@ -14,4 +14,7 @@ public class DBParams {
 	 * nombre maximal de pages dans un fichier 
 	 */
 	public static int maxPagesPerFiles;
+	
+	
+	public static int frameCount;
 }

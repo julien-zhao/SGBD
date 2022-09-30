@@ -35,7 +35,7 @@ public class TestDiskManager {
 		 */
 		System.out.println("\nTest de WritePage");
 		ByteBuffer bf1 =  ByteBuffer.allocate(1000);
-		bf1.put("Coucou");	
+		//bf1.put("Coucou");	
 		dm.WritePage(p1, bf1);
 		System.out.println("\nFin test de WritePage");
 		

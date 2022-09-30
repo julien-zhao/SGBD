@@ -7,6 +7,7 @@ public class Main {
 		DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
+		DBParams.frameCount = 2;
 		
 		
 		/*
