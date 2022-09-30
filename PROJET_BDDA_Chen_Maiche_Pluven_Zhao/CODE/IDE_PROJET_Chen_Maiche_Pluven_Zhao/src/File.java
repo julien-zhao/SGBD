@@ -25,12 +25,7 @@ public class File {
 		return c;
 	}
 	
-	public void del(int val) {
-
-		Cellule c = debut;
-		while(c.caseId!=val) {
-			c=c.suiv;
-		}
+	public void del(Cellule c) {
 		
 		c.prev.suiv=c.suiv;
 		c.suiv.prev=c.prev;
