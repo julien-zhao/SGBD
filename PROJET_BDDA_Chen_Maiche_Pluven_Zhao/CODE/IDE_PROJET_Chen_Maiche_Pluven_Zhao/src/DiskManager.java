@@ -20,7 +20,7 @@ public class DiskManager {
 		return g_instance;
 	}
 	
-	public static PageId AllocPage() throws IOException {
+	public static PageId allocPage() throws IOException {
 		if(!(new File(DBParams.DBPath+"F0.bdda").exists())) {
 			Fichier.newFile(0);
 			log.put(0,new Vector<Integer>(DBParams.maxPagesPerFiles));
@@ -56,7 +56,7 @@ public class DiskManager {
 
 	}
 	
-	public static void ReadPage(PageId unePageId, ByteBuffer buff) throws IOException {
+	public static void readPage(PageId unePageId, ByteBuffer buff) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "r");
 		int offset = unePageId.pageIdx*DBParams.pageSize;
@@ -64,7 +64,7 @@ public class DiskManager {
 		r.close();
 	}
 	
-	public static void WritePage(PageId unePageId, ByteBuffer buff) throws IOException {
+	public static void writePage(PageId unePageId, ByteBuffer buff) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "w");
 		int offset = unePageId.pageIdx*DBParams.pageSize;
@@ -72,11 +72,11 @@ public class DiskManager {
 		r.close();
 	}
 
-	public static void DeallocPage(PageId unePageId) throws NullPointerException{
+	public static void deallocPage(PageId unePageId) throws NullPointerException{
 		log.get(unePageId.fileIdx).removeElement(unePageId.pageIdx);
 	}
 	
-	public static int GetCurrentCountAllocPages() {
+	public static int getCurrentCountAllocPages() {
 		int sum=0;
 		for(int i = 0; i < log.size();i++) {
 			sum+= log.get(i).size();

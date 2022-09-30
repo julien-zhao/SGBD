@@ -18,4 +18,16 @@ public class PageId {
 	public String toString() {
 		return "("+fileIdx+","+pageIdx+")";
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+	    if(obj instanceof PageId) {
+	    	PageId equalsSample = (PageId) obj;
+	        if(equalsSample.fileIdx == this.fileIdx && equalsSample.pageIdx == this.pageIdx){
+	            return true;
+	        }
+	    }
+	    return false;       
+	}
 }

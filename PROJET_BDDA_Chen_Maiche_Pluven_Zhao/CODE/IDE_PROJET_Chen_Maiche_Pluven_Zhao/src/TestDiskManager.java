@@ -20,8 +20,8 @@ public class TestDiskManager {
 		 * return: type void -> désalloue une page
 		 */
 		System.out.println("Test DeallocPage : "); 
-		PageId p1= dm.AllocPage();
-		dm.DeallocPage(p1);
+		PageId p1= dm.allocPage();
+		dm.deallocPage(p1);
 		System.out.println("Fin de Test DeallocPage : "); 
 		
 
@@ -35,8 +35,8 @@ public class TestDiskManager {
 		 */
 		System.out.println("\nTest de WritePage");
 		ByteBuffer bf1 =  ByteBuffer.allocate(1000);
-		//bf1.put("Coucou");	
-		dm.WritePage(p1, bf1);
+		//bf1.wr("Coucou");	
+		dm.writePage(p1, bf1);
 		System.out.println("\nFin test de WritePage");
 		
 		/*
@@ -49,7 +49,7 @@ public class TestDiskManager {
 		 */
 		System.out.println("\nTest de readPage");
 		ByteBuffer bf2 = ByteBuffer.allocate(1000);
-		dm.ReadPage(p1, bf2);
+		dm.readPage(p1, bf2);
 		System.out.println("\nFin test de readPage");
 		
 		// on compare si bf2 est égale à l'argument "Coucou"
@@ -66,21 +66,21 @@ public class TestDiskManager {
 		 * return: le nombre courant de page allouée
 		 */
 		System.out.println("Test getCurrentCountAllocPages : "); 
-		System.out.println("Le nombre de page allouee est :" + dm.GetCurrentCountAllocPages());
-		PageId p2= dm.AllocPage();
-		PageId p3= dm.AllocPage();
-		PageId p4= dm.AllocPage();
-		PageId p5= dm.AllocPage();
-		PageId p6= dm.AllocPage();
-		PageId p7= dm.AllocPage();
-		PageId p8= dm.AllocPage();
-		dm.DeallocPage(p2);
+		System.out.println("Le nombre de page allouee est :" + dm.getCurrentCountAllocPages());
+		PageId p2= dm.allocPage();
+		PageId p3= dm.allocPage();
+		PageId p4= dm.allocPage();
+		PageId p5= dm.allocPage();
+		PageId p6= dm.allocPage();
+		PageId p7= dm.allocPage();
+		PageId p8= dm.allocPage();
+		dm.deallocPage(p2);
 		
-<<<<<<< Updated upstream
-		System.out.println("Le nombre de page allouee la fin est :" + dm.GetCurrentCountAllocPages());
-=======
-		System.out.println("Le nombre de page alloue� la fin est :" + dm.GetCurrentCountAllocPages());
->>>>>>> Stashed changes
+
+		System.out.println("Le nombre de page allouee la fin est :" + dm.getCurrentCountAllocPages());
+
+		System.out.println("Le nombre de page alloue� la fin est :" + dm.getCurrentCountAllocPages());
+
 		System.out.println("Fin de test getCurrentCountAllocPages : "); 
 	}
 }
