@@ -1,6 +1,8 @@
 import java.nio.ByteBuffer;
 
 public class Frame {
+	
+	private int caseId;
 	private buff bb;
 	private PageId pId;
 	private int pinCount;
@@ -45,6 +47,14 @@ public class Frame {
 	
 	public void setBb(buff bb) {
 		this.bb = bb;
+	}
+
+	public int getCaseId() {
+		return caseId;
+	}
+
+	public void setCaseId(int caseId) {
+		this.caseId = caseId;
 	}
 	
 	
