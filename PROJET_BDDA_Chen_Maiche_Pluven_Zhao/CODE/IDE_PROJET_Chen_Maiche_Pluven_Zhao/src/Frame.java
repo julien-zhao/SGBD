@@ -3,11 +3,22 @@ import java.nio.ByteBuffer;
 public class Frame {
 	
 	private int caseId;
-	private buff bb;
+	private ByteBuffer bb;
 	private PageId pId;
 	private int pinCount;
 	private boolean dirty;
 	private Cellule posFile;
+	
+	
+	public Frame() {
+		this.caseId = -1;
+		this.bb = null;
+		this.pId = null;
+		this.pinCount = 0;
+		this.dirty = false;
+		this.posFile = null;
+	}
+	
 	
 	public Cellule getPosFile() {
 		return posFile;
@@ -29,8 +40,12 @@ public class Frame {
 		return pinCount;
 	}
 	
-	public void setPinCount(int pinCount) {
-		this.pinCount = pinCount;
+	public void incPinCount() {
+		this.pinCount += 1;
+	}
+	
+	public void decPinCount() {
+		this.pinCount -= 1;
 	}
 	
 	public PageId getpId() {
@@ -41,11 +56,11 @@ public class Frame {
 		this.pId = pId;
 	}
 	
-	public buff getBb() {
+	public ByteBuffer getBb() {
 		return bb;
 	}
 	
-	public void setBb(buff bb) {
+	public void setBb(ByteBuffer bb) {
 		this.bb = bb;
 	}
 

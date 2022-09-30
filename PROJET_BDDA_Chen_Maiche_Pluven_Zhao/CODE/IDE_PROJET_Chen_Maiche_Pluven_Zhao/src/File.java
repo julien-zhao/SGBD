@@ -10,12 +10,13 @@ public class File {
 		fin.prev = debut;
 	}
 	
-	public void add(int val) {
+	public Cellule add(int val) {
 		Cellule c = new Cellule(val); 
 		fin.prev.suiv = c;
 		c.prev = fin.prev;
 		fin.prev = c;
 		c.suiv = fin;
+		return c;
 	}
 	
 	public int pop() {
@@ -32,5 +33,12 @@ public class File {
 		c.prev.suiv=c.suiv;
 		c.suiv.prev=c.prev;
 		c = null;
+	}
+	
+	public boolean isVoid() {
+		if(debut.suiv==fin && fin.prev == debut) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -1,10 +1,12 @@
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Vector;
 
 public class BufferManager {
 	private static BufferManager g_instanceBM = new BufferManager();
 
 	private Vector<Frame> pool;
-	private File file;
+	private File file; // File doublement chainee des id de cases pour l'ordonnacement de type LRU
 
 	private BufferManager() {
 		pool = new Vector<Frame>(DBParams.frameCount);
@@ -20,7 +22,7 @@ public class BufferManager {
 		return g_instanceBM;
 	}
 
-	public buff getPage(PageId pageId) {
+	public ByteBuffer getPage(PageId pageId) throws IOException {
 		
 		boolean libre = false;
 		int iFrameLibre = -1;
@@ -33,19 +35,29 @@ public class BufferManager {
 
 		}
 
-		if (libre) { //Frame Libre ou Frame deja charché dans la case i
-				return pool.elementAt(iFrameLibre).getBb();
+		if (libre) { //Frame Libre ou Frame deja chargee dans la case i
+			Frame f = pool.elementAt(iFrameLibre);
+			
+			if(f.getPinCount()==0 && !file.isVoid()) { //Si la case est dans la liste
+				file.del(f.getPosFile());
+			}
+			
+			f.incPinCount();
+			return f.getBb();
 			
 		} else {// Aucune Frame Libre
 			
+			Frame caseAR= pool.elementAt(file.pop()); //case A Remplacer
+			freePage(caseAR.getpId(),caseAR.isDirty());
+			caseAR.incPinCount();
+			return caseAR.getBb();
+			
 		}
-
-		return null;
 	}
 
 	public void freePage(PageId pageId, boolean dirty) {
-		//TODO
-		//TODO quand le pinCount de la Frame passe a 0 faire file.add()
+		//TODO Decrementer le pincount
+		//TODO quand le pinCount de la Frame passe a 0 faire  /////  pool.elementAt(caseIdACtuelle).setPosFile(file.add(caseIdActuelle));
 	}
 
 	public void flushAll() {
