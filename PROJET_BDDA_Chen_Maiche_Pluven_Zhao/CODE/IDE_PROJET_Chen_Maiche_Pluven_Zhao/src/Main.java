@@ -9,7 +9,7 @@ public class Main {
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
 		
-		
+		//Test
 		/*
 		PageId pageId= DiskManager.AllocPage();
 		
