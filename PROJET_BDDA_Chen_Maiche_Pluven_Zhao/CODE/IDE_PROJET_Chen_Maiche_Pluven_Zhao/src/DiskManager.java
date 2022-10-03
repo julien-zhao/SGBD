@@ -26,7 +26,7 @@ public class DiskManager {
 		try {
 			//saveLog(); //RESET FICHIER SAVELOG
 			getSaveLog();
-			System.out.println(log);
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -112,17 +112,16 @@ public class DiskManager {
 		FileOutputStream fos = new FileOutputStream(DBParams.DBPath+"saveLog.bdda");
 	    ObjectOutputStream oos = new ObjectOutputStream(fos);
 	    oos.flush();
+
+	    oos.writeObject(log);
 	    
-	    for(int i = 0; i < log.size();i++) {
-	    		oos.writeObject(log.get(i));
-	    }
 	    fos.close();
 	    oos.close();
 	}
 	
 	
 	
-	@SuppressWarnings({ "unchecked", "resource" })
+	@SuppressWarnings({ "unchecked" })
 	public void getSaveLog() throws IOException {
 		//source https://attacomsian.com/blog/java-read-object-from-file
 		
@@ -135,20 +134,22 @@ public class DiskManager {
 
 		ois = new ObjectInputStream(fis);
 
-					    
-		Vector<Integer> vec;
-	    boolean vide = false;
-		for(int i = 0; !vide ; i++) {
-			try {
-				vec = (Vector<Integer>) ois.readObject();
-					log.put(i, vec);
-			}catch (Exception e) {
-				vide = true;
-				e.getStackTrace();
-			}
+
+		try {
+			log = (Map<Integer, Vector<Integer>>) ois.readObject();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
 		fis.close();
 		ois.close();
+	}
+	
+	public HashMap<Integer,Vector<Integer>> getLog(){
+		return  (HashMap<Integer, Vector<Integer>>) log;
 	}
 	
 }

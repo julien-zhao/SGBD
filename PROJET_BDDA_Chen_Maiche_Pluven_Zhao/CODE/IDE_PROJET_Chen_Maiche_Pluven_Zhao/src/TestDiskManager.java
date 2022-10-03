@@ -68,6 +68,8 @@ public class TestDiskManager {
 		 */
 		System.out.println("Test getCurrentCountAllocPages : "); 
 		System.out.println("Le nombre de page allouee est :" + dm.getCurrentCountAllocPages());
+		
+		/*
 		PageId p2= dm.allocPage();
 		PageId p3= dm.allocPage();
 		PageId p4= dm.allocPage();
@@ -75,11 +77,12 @@ public class TestDiskManager {
 		PageId p6= dm.allocPage();
 		PageId p7= dm.allocPage();
 		PageId p8= dm.allocPage();
-		
+		*/
 
-		dm.deallocPage(p3);
+		dm.deallocPage(new PageId(0,3));
 		
 		dm.saveLog();
+		System.out.println("Log : "+dm.getLog());
 
 		System.out.println("Le nombre de page allouee la fin est :" + dm.getCurrentCountAllocPages());
 
