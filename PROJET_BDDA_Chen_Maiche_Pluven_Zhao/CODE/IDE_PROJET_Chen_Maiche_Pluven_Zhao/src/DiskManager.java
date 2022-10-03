@@ -1,6 +1,11 @@
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.util.Map;
@@ -11,12 +16,25 @@ public class DiskManager {
 	
 	private static Map<Integer ,Vector<Integer>> log;
 	
+
 	private static DiskManager g_instance = new DiskManager();
+
 	
-	private DiskManager(){
+	
+	private DiskManager() {
 		log = new HashMap<Integer,Vector<Integer>>();
+		try {
+			//saveLog(); //RESET FICHIER SAVELOG
+			getSaveLog();
+			System.out.println(log);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	public static DiskManager getSingleton() {
+	
+	
+	public static DiskManager getSingleton()  {
 		return g_instance;
 	}
 	
@@ -66,7 +84,7 @@ public class DiskManager {
 	
 	public static void writePage(PageId unePageId, ByteBuffer buff) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
-		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "w");
+		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "rw");
 		int offset = unePageId.pageIdx*DBParams.pageSize;
 		r.write(buff.array(),offset,DBParams.pageSize);
 		r.close();
@@ -82,6 +100,55 @@ public class DiskManager {
 			sum+= log.get(i).size();
 		}
 		return sum;
-
 	}
+	
+	
+	public void saveLog() throws IOException {
+		//Source https://attacomsian.com/blog/java-write-object-to-file
+		
+		
+
+		
+		FileOutputStream fos = new FileOutputStream(DBParams.DBPath+"saveLog.bdda");
+	    ObjectOutputStream oos = new ObjectOutputStream(fos);
+	    oos.flush();
+	    
+	    for(int i = 0; i < log.size();i++) {
+	    		oos.writeObject(log.get(i));
+	    }
+	    fos.close();
+	    oos.close();
+	}
+	
+	
+	
+	@SuppressWarnings({ "unchecked", "resource" })
+	public void getSaveLog() throws IOException {
+		//source https://attacomsian.com/blog/java-read-object-from-file
+		
+		FileInputStream fis = null;
+
+		fis = new FileInputStream(DBParams.DBPath+"saveLog.bdda");
+		
+			
+		ObjectInputStream ois = null;
+
+		ois = new ObjectInputStream(fis);
+
+					    
+		Vector<Integer> vec;
+	    boolean vide = false;
+		for(int i = 0; !vide ; i++) {
+			try {
+				vec = (Vector<Integer>) ois.readObject();
+					log.put(i, vec);
+			}catch (Exception e) {
+				vide = true;
+				e.getStackTrace();
+			}
+		}
+		fis.close();
+		ois.close();
+	}
+	
 }

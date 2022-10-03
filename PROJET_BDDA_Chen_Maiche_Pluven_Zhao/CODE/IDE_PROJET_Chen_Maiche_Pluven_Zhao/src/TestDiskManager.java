@@ -36,8 +36,8 @@ public class TestDiskManager {
 		System.out.println("\nTest de WritePage");
 		ByteBuffer bf1 =  ByteBuffer.allocate(1000);
 		//bf1.wr("Coucou");	
-		dm.writePage(p1, bf1);
-		System.out.println("\nFin test de WritePage");
+		//dm.writePage(p1, bf1);
+		//System.out.println("\nFin test de WritePage");
 		
 		/*
 		 * Test de lecture de page
@@ -47,6 +47,7 @@ public class TestDiskManager {
 		 * la page identifiée par p1. Il s'agit ici d'une page qui
 		 * existe déjà
 		 */
+		/*
 		System.out.println("\nTest de readPage");
 		ByteBuffer bf2 = ByteBuffer.allocate(1000);
 		dm.readPage(p1, bf2);
@@ -56,7 +57,7 @@ public class TestDiskManager {
 		System.out.println("\nTest de comparaion");
 		System.out.println(bf2.equals("Coucou"));
 		System.out.println("\nFin test de comparaison");
-		
+		*/
 		
 		
 		
@@ -74,12 +75,14 @@ public class TestDiskManager {
 		PageId p6= dm.allocPage();
 		PageId p7= dm.allocPage();
 		PageId p8= dm.allocPage();
-		dm.deallocPage(p2);
 		
+
+		dm.deallocPage(p3);
+		
+		dm.saveLog();
 
 		System.out.println("Le nombre de page allouee la fin est :" + dm.getCurrentCountAllocPages());
 
-		System.out.println("Le nombre de page alloue� la fin est :" + dm.getCurrentCountAllocPages());
 
 		System.out.println("Fin de test getCurrentCountAllocPages : "); 
 	}
