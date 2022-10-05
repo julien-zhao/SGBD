@@ -1,7 +1,6 @@
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,10 +15,7 @@ public class DiskManager {
 	
 	private static Map<Integer ,Vector<Integer>> log;
 	
-
 	private static DiskManager g_instance = new DiskManager();
-
-	
 	
 	private DiskManager() {
 		log = new HashMap<Integer,Vector<Integer>>();

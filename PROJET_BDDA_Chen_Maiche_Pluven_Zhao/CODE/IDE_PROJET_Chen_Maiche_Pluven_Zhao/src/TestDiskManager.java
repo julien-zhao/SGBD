@@ -19,10 +19,12 @@ public class TestDiskManager {
 		 * 
 		 * return: type void -> désalloue une page
 		 */
+		System.out.println("=============================");
 		System.out.println("Test DeallocPage : "); 
 		PageId p1= dm.allocPage();
 		dm.deallocPage(p1);
-		System.out.println("Fin de Test DeallocPage : "); 
+		System.out.println("Fin de Test DeallocPage : ");
+		System.out.println("=============================");
 		
 
 		/*
