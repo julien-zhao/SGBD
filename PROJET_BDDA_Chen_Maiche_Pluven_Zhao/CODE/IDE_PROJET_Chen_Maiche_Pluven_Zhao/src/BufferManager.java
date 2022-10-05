@@ -14,11 +14,10 @@ public class BufferManager {
 			pool.add(new Frame());
 			pool.elementAt(i).setCaseId(i);
 		}
-		
 		this.file = new File();
 	}
 
-	public BufferManager getSingleton() {
+	public static BufferManager getSingleton() {
 		return g_instanceBM;
 	}
 

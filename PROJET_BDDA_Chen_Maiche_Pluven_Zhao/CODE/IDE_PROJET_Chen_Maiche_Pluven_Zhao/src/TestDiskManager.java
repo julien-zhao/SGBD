@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.ReadOnlyBufferException;
 
 public class TestDiskManager {
 	public static void main(String []args ) throws IOException {
@@ -22,7 +23,9 @@ public class TestDiskManager {
 		System.out.println("\n=============================");
 		System.out.println("Test DeallocPage : "); 
 		PageId p1= dm.allocPage();
+		System.out.println("Le nombre de page allouee est :" + dm.getCurrentCountAllocPages());
 		dm.deallocPage(p1);
+		System.out.println("Le nombre de page allouee après dealloc est :" + dm.getCurrentCountAllocPages());
 		System.out.println("Fin de Test DeallocPage : ");
 		System.out.println("=============================");
 		
@@ -35,14 +38,32 @@ public class TestDiskManager {
 		 * l'argument bf1 dans le fichier et à une position indiqués 
 		 * par l'argument p1
 		 */
+		//source : https://fr.acervolima.com/classe-java-nio-bytebuffer-en-java/
 		System.out.println("\n=============================");
 		System.out.println("Test de WritePage");
-		ByteBuffer bf1 =  ByteBuffer.allocate(1000);
-		System.out.println("=============================");
-		//bf1.wr("Coucou");	
-		//dm.writePage(p1, bf1);
-		//System.out.println("\nFin test de WritePage");
+		int capacity = 10;
+		PageId p2= dm.allocPage(); //aloue une page
+		/*
+		try {
+		ByteBuffer bb =  ByteBuffer.allocate(capacity);
 		
+		bb.putChar('x');
+		dm.writePage(p2, bb); // ecris 'x' dans p2
+		dm.readPage(p2, bb); 
+
+		}
+		catch (IllegalArgumentException e) {
+  
+            System.out.println("IllegalArgumentException catched");
+        }
+  
+        catch (ReadOnlyBufferException e) {
+  
+            System.out.println("ReadOnlyBufferException catched");
+        }
+		System.out.println("\nFin test de WritePage");
+		System.out.println("===============================");
+		*/
 		/*
 		 * Test de lecture de page
 		 * p1 l'identifiant de page et bf2 le buffer

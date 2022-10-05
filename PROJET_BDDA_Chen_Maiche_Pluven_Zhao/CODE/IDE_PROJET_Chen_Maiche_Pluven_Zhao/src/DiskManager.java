@@ -22,8 +22,7 @@ public class DiskManager {
 		try {
 			//saveLog(); //RESET FICHIER SAVELOG
 			getSaveLog();
-			
-			
+				
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -67,7 +66,6 @@ public class DiskManager {
 		}
 		
 		return null;
-
 	}
 	
 	public static void readPage(PageId unePageId, ByteBuffer buff) throws IOException {
@@ -101,14 +99,9 @@ public class DiskManager {
 	
 	public void saveLog() throws IOException {
 		//Source https://attacomsian.com/blog/java-write-object-to-file
-		
-		
-
-		
 		FileOutputStream fos = new FileOutputStream(DBParams.DBPath+"saveLog.bdda");
 	    ObjectOutputStream oos = new ObjectOutputStream(fos);
 	    oos.flush();
-
 	    oos.writeObject(log);
 	    
 	    fos.close();
@@ -124,8 +117,7 @@ public class DiskManager {
 		FileInputStream fis = null;
 
 		fis = new FileInputStream(DBParams.DBPath+"saveLog.bdda");
-		
-			
+				
 		ObjectInputStream ois = null;
 
 		ois = new ObjectInputStream(fis);
