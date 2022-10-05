@@ -19,7 +19,7 @@ public class TestDiskManager {
 		 * 
 		 * return: type void -> désalloue une page
 		 */
-		System.out.println("=============================");
+		System.out.println("\n=============================");
 		System.out.println("Test DeallocPage : "); 
 		PageId p1= dm.allocPage();
 		dm.deallocPage(p1);
@@ -35,8 +35,10 @@ public class TestDiskManager {
 		 * l'argument bf1 dans le fichier et à une position indiqués 
 		 * par l'argument p1
 		 */
-		System.out.println("\nTest de WritePage");
+		System.out.println("\n=============================");
+		System.out.println("Test de WritePage");
 		ByteBuffer bf1 =  ByteBuffer.allocate(1000);
+		System.out.println("=============================");
 		//bf1.wr("Coucou");	
 		//dm.writePage(p1, bf1);
 		//System.out.println("\nFin test de WritePage");
@@ -68,9 +70,10 @@ public class TestDiskManager {
 		 * 
 		 * return: le nombre courant de page allouée
 		 */
+		System.out.println("\n=============================");
 		System.out.println("Test getCurrentCountAllocPages : "); 
 		System.out.println("Le nombre de page allouee est :" + dm.getCurrentCountAllocPages());
-		
+		System.out.println("=============================");
 		/*
 		PageId p2= dm.allocPage();
 		PageId p3= dm.allocPage();
@@ -81,14 +84,12 @@ public class TestDiskManager {
 		PageId p8= dm.allocPage();
 		*/
 
+		System.out.println("\n=============================");
 		dm.deallocPage(new PageId(0,3));
-		
 		dm.saveLog();
 		System.out.println("Log : "+dm.getLog());
-
 		System.out.println("Le nombre de page allouee la fin est :" + dm.getCurrentCountAllocPages());
-
-
 		System.out.println("Fin de test getCurrentCountAllocPages : "); 
+		System.out.println("=============================");
 	}
 }
