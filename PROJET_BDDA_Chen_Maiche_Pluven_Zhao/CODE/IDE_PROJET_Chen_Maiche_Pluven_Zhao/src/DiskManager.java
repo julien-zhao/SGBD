@@ -68,19 +68,25 @@ public class DiskManager {
 		return null;
 	}
 	
-	public static void readPage(PageId unePageId, ByteBuffer buff) throws IOException {
+	public static void readPage(PageId unePageId, byte[] buff) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "r");
-		int offset = unePageId.pageIdx*DBParams.pageSize;
-		r.readFully(buff.array(),offset,DBParams.pageSize);
+		byte[]res = new byte[buff.length];
+		//int offset = unePageId.pageIdx*DBParams.pageSize;
+		r.readFully(res);
+		String srt1 = new String(res);
+		System.out.println(srt1);
+		//r.readFully(buff,DBParams.pageSize,offset-1);
+		r.seek(0);
 		r.close();
 	}
-	
-	public static void writePage(PageId unePageId, ByteBuffer buff) throws IOException {
+	public static void writePage(PageId unePageId, byte[] buff) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "rw");
 		int offset = unePageId.pageIdx*DBParams.pageSize;
-		r.write(buff.array(),offset,DBParams.pageSize);
+		r.seek(0);
+		r.write(buff);
+		//r.write(buff,DBParams.pageSize,offset-1);
 		r.close();
 	}
 

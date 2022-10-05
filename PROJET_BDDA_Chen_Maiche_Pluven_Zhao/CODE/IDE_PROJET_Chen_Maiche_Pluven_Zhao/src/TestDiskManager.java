@@ -11,7 +11,6 @@ public class TestDiskManager {
 		System.out.println(DBParams.DBPath);
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
-		
 		/**
 		 * 
 		 * Test de la methode DeallocPage(pageId) 
@@ -20,14 +19,14 @@ public class TestDiskManager {
 		 * 
 		 * return: type void -> désalloue une page
 		 */
-		System.out.println("\n=============================");
+		System.out.println("\n===============================");
 		System.out.println("Test DeallocPage : "); 
 		PageId p1= dm.allocPage();
 		System.out.println("Le nombre de page allouee est :" + dm.getCurrentCountAllocPages());
 		dm.deallocPage(p1);
 		System.out.println("Le nombre de page allouee après dealloc est :" + dm.getCurrentCountAllocPages());
 		System.out.println("Fin de Test DeallocPage : ");
-		System.out.println("=============================");
+		System.out.println("================================");
 		
 
 		/*
@@ -39,17 +38,14 @@ public class TestDiskManager {
 		 * par l'argument p1
 		 */
 		//source : https://fr.acervolima.com/classe-java-nio-bytebuffer-en-java/
-		System.out.println("\n=============================");
+		System.out.println("\n===============================");
 		System.out.println("Test de WritePage");
-		int capacity = 10;
 		PageId p2= dm.allocPage(); //aloue une page
-		/*
-		try {
-		ByteBuffer bb =  ByteBuffer.allocate(capacity);
 		
-		bb.putChar('x');
-		dm.writePage(p2, bb); // ecris 'x' dans p2
-		dm.readPage(p2, bb); 
+		try {
+			byte[] bb =  "hello its me".getBytes();
+			dm.writePage(p2, bb); // ecris "Hello its me" dans p2
+			dm.readPage(p2, bb); 
 
 		}
 		catch (IllegalArgumentException e) {
@@ -61,40 +57,18 @@ public class TestDiskManager {
   
             System.out.println("ReadOnlyBufferException catched");
         }
-		System.out.println("\nFin test de WritePage");
+		System.out.println("Fin test de WritePage");
 		System.out.println("===============================");
-		*/
-		/*
-		 * Test de lecture de page
-		 * p1 l'identifiant de page et bf2 le buffer
-		 * 
-		 * Ici on remplit l'argument bf2 avec le contenu du disque de 
-		 * la page identifiée par p1. Il s'agit ici d'une page qui
-		 * existe déjà
-		 */
-		/*
-		System.out.println("\nTest de readPage");
-		ByteBuffer bf2 = ByteBuffer.allocate(1000);
-		dm.readPage(p1, bf2);
-		System.out.println("\nFin test de readPage");
-		
-		// on compare si bf2 est égale à l'argument "Coucou"
-		System.out.println("\nTest de comparaion");
-		System.out.println(bf2.equals("Coucou"));
-		System.out.println("\nFin test de comparaison");
-		*/
-		
-		
+			
 		
 		/**
 		 * Test de getCurrentCountAllocPages
 		 * 
 		 * return: le nombre courant de page allouée
 		 */
-		System.out.println("\n=============================");
+		System.out.println("\n==============================");
 		System.out.println("Test getCurrentCountAllocPages : "); 
 		System.out.println("Le nombre de page allouee est :" + dm.getCurrentCountAllocPages());
-		System.out.println("=============================");
 		/*
 		PageId p2= dm.allocPage();
 		PageId p3= dm.allocPage();
@@ -104,13 +78,11 @@ public class TestDiskManager {
 		PageId p7= dm.allocPage();
 		PageId p8= dm.allocPage();
 		*/
-
-		System.out.println("\n=============================");
 		dm.deallocPage(new PageId(0,3));
 		dm.saveLog();
 		System.out.println("Log : "+dm.getLog());
 		System.out.println("Le nombre de page allouee la fin est :" + dm.getCurrentCountAllocPages());
 		System.out.println("Fin de test getCurrentCountAllocPages : "); 
-		System.out.println("=============================");
+		System.out.println("==============================");
 	}
 }
