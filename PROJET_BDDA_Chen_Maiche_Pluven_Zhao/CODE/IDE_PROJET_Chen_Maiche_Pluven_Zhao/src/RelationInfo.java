@@ -23,6 +23,10 @@ public class RelationInfo {
 		this.nbColonnes = nbColonnes;
 	}
 	
+	public RelationInfo() {
+		this("",0);
+	}
+	
 	public String getNomRelation() {
 		return nomRelation;
 	}
