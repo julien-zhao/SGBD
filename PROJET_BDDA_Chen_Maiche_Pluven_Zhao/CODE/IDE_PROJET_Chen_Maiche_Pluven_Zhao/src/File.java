@@ -20,14 +20,15 @@ public class File {
 	}
 	
 	public int pop() {
-		Cellule c = debut.suiv;
-		System.out.println(c);
-		debut.suiv = c.suiv;
-		System.out.println(debut.suiv);
-		c.suiv.prev = debut;
-		 int cId = c.caseId;
-		 c = null;
-		return cId;
+		if(!this.isVoid()) {
+			Cellule c = debut.suiv;
+			debut.suiv = c.suiv;
+			c.suiv.prev = debut;
+			 int cId = c.caseId;
+			 c = null;
+			return cId;
+		}
+		return -1;
 	}
 	
 	public void del(Cellule c) {

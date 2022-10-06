@@ -16,7 +16,7 @@ public class BufferManager {
 		for (int i = 0; i < DBParams.frameCount; i++) {
 			pool.add(new Frame());
 			pool.elementAt(i).setCaseId(i);
-			file.add(pool.elementAt(i).getCaseId());
+			pool.elementAt(i).setPosFile(file.add(pool.elementAt(i).getCaseId())); 
 		}
 		
 	}
@@ -26,7 +26,6 @@ public class BufferManager {
 	}
 
 	public byte[] getPage(PageId pageId) throws IOException {
-		file.afficheFile();
 		boolean libre = false;
 		int iFrameLibre = -1;
 
@@ -39,7 +38,6 @@ public class BufferManager {
 		}
 		
 		if (libre) { //Frame Libre ou Frame deja chargee dans la case i
-			System.out.println("rentre dans if");
 			Frame f = pool.elementAt(iFrameLibre);
 			
 			if(f.getPinCount()==0 && !file.isVoid()) { //Si la case est dans la liste
@@ -51,10 +49,10 @@ public class BufferManager {
 			return f.getBb();
 			
 		} else {// Aucune Frame Libre
-			System.out.println("rentre dans else");
 			Frame caseAR= pool.elementAt(file.pop()); //case A Remplacer
-			System.out.println("apres caseAR");
-			if(caseAR.getPinCount()>1) {
+
+			if(!(caseAR.getPinCount()>0)) {
+
 				freePage(caseAR.getpId(),caseAR.isDirty());
 				caseAR.incPinCount();
 				caseAR.setpId(pageId);
@@ -70,7 +68,6 @@ public class BufferManager {
 				}
 		
 			}
-	
 		}
 	}
 
@@ -80,7 +77,7 @@ public class BufferManager {
 		Frame caseAFree = null;
 		
 		for (int i = 0; i < DBParams.frameCount&&!trouve; i++) { 
-			if(pool.elementAt(i).getpId().equals(pageId)) {
+			if(pageId.equals(pool.elementAt(i).getpId())) {
 				trouve = true;
 				caseAFree = pool.elementAt(i);
 			}
@@ -103,7 +100,7 @@ public class BufferManager {
 			if(c.isDirty()) {
 				DiskManager.writePage(c.getpId(), c.getBb());
 			}
-			c.setBb(null);
+			c.setBb(new byte[DBParams.pageSize]);
 			c.setpId(null);
 			c.setPinCount(0);
 			c.setDirty(false);

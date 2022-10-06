@@ -83,7 +83,7 @@ public class DiskManager {
 		r.close();
 	}
 
-	public static void deallocPage(PageId unePageId) throws NullPointerException{
+	public static void deallocPage(PageId unePageId) throws Exception{
 		log.get(unePageId.fileIdx).removeElement(unePageId.pageIdx);
 	}
 	

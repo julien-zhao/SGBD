@@ -12,8 +12,8 @@ public class Frame {
 	
 	public Frame() {
 		this.caseId = -1;
-		this.bb = null;
-		this.pId = null;
+		this.bb = new byte[DBParams.pageSize];
+		this.pId =  null;
 		this.pinCount = 0;
 		this.dirty = false;
 		this.posFile = null;
@@ -41,11 +41,11 @@ public class Frame {
 	}
 	
 	public void incPinCount() {
-		this.pinCount += 1;
+		this.pinCount ++;
 	}
 	
 	public void decPinCount() {
-		this.pinCount -= 1;
+		this.pinCount --;
 	}
 	
 	public void setPinCount(int c) {

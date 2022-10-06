@@ -22,7 +22,7 @@ public class PageId {
 
 	@Override
 	public boolean equals(Object obj) {
-	    if(obj instanceof PageId) {
+	    if(obj instanceof PageId||obj != null) {
 	    	PageId equalsSample = (PageId) obj;
 	        if(equalsSample.fileIdx == this.fileIdx && equalsSample.pageIdx == this.pageIdx){
 	            return true;

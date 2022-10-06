@@ -1,5 +1,6 @@
 
 public class RelationInfo {
+<<<<<<< Updated upstream
 	private String nomRelation; // le nom de la relation
 	private int nbColonnes;		// le nombre de colonnes
 	//private String[] nomColonnes;	// les noms des colonnes
@@ -41,4 +42,9 @@ public class RelationInfo {
 	public String toString() {
 		return "Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+this.getNbColonnes();
 	}
+=======
+	String relation;
+	int col;
+	String colName;
+>>>>>>> Stashed changes
 }

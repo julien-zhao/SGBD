@@ -3,7 +3,7 @@ import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
 
 public class TestDiskManager {
-	public static void main(String []args ) throws IOException {
+	public static void main(String []args ) throws Exception {
 		DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;

@@ -10,7 +10,10 @@ public class FileTest {
 		f.add(4);
 		f.del(a);
 		f.afficheFile();
-
+		System.out.println(f.isVoid());
+		System.out.println(f.pop());
+		System.out.println(f.pop());
+		System.out.println(f.isVoid());
 	}
 
 }
