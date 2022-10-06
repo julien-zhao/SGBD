@@ -46,7 +46,11 @@ public class TestDiskManager {
 			byte[] bb =  "hello its me".getBytes();
 			dm.writePage(p2, bb); // ecris "Hello its me" dans p2
 			dm.readPage(p2, bb); 
-
+			System.out.println(new String(bb));
+			bb =  "helo i".getBytes();
+			dm.writePage(p2, bb); // ecris "Hello its me" dans p2
+			dm.readPage(p2, bb);
+			System.out.println(new String(bb));
 		}
 		catch (IllegalArgumentException e) {
   

@@ -25,7 +25,7 @@ public class BufferManager {
 		return g_instanceBM;
 	}
 
-	public ByteBuffer getPage(PageId pageId) throws IOException {
+	public byte[] getPage(PageId pageId) throws IOException {
 		
 		boolean libre = false;
 		int iFrameLibre = -1;

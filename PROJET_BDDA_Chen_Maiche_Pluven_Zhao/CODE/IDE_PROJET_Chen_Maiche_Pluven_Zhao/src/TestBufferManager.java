@@ -15,27 +15,29 @@ public class TestBufferManager {
 		System.out.println("Test DeallocPage : "); 
 		PageId p1= DiskManager.allocPage();
 		PageId p2= DiskManager.allocPage();
-		byte[] bb = "hello".getBytes();
+		byte[] bb = "hellodsgdfs".getBytes();
+		byte[] ba = "hello".getBytes();
+		byte[] bc = "y".getBytes();
 		dm.writePage(p1, bb);
-		dm.writePage(p2, bb);
+		dm.writePage(p2, ba);
 		dm.readPage(p1, bb);
-		dm.readPage(p2, bb);
+		dm.readPage(p2, bc);
 		System.out.println("=============================");
 		
 		System.out.println("\n=============================");
 		System.out.println("Test de GetPage");
-		//bm.getPage(p1);
+		bm.getPage(p1);
 		System.out.println("=============================");
 		
 		
 		System.out.println("\n=============================");
 		System.out.println("Test de FreePage");
-		//bm.freePage(p1, true);
+		bm.freePage(p1, true);
 		System.out.println("=============================");
 		
 		System.out.println("\n=============================");
 		System.out.println("Test de FlushAll");
-		//bm.flushAll();
+		bm.flushAll();
 		System.out.println("=============================");
 		
 	}
