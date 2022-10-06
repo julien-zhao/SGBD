@@ -26,7 +26,7 @@ public class BufferManager {
 	}
 
 	public byte[] getPage(PageId pageId) throws IOException {
-		
+		file.afficheFile();
 		boolean libre = false;
 		int iFrameLibre = -1;
 
@@ -46,15 +46,29 @@ public class BufferManager {
 			}
 			
 			f.incPinCount();
+			f.setpId(pageId);
 			return f.getBb();
 			
 		} else {// Aucune Frame Libre
 			
 			Frame caseAR= pool.elementAt(file.pop()); //case A Remplacer
-			freePage(caseAR.getpId(),caseAR.isDirty());
-			caseAR.incPinCount();
-			return caseAR.getBb();
+			if(caseAR.getPinCount()>1) {
+				freePage(caseAR.getpId(),caseAR.isDirty());
+				caseAR.incPinCount();
+				caseAR.setpId(pageId);
+				
+				return caseAR.getBb();
+			}else {
+				try {
+					throw new Exception("AUCUNE FRAME DISPO");
 			
+				}catch(Exception e){
+					System.out.println(e.getMessage()); 
+					return null;
+				}
+		
+			}
+	
 		}
 	}
 
@@ -84,12 +98,15 @@ public class BufferManager {
 	public void flushAll() throws IOException {
 		for (int i = 0; i < DBParams.frameCount; i++) { 
 			Frame c = pool.elementAt(i);
-			if(c.getPinCount()==0) {
-				if(c.isDirty()) {
-					DiskManager.writePage(c.getpId(), c.getBb());
-				}
-				
+			if(c.isDirty()) {
+				DiskManager.writePage(c.getpId(), c.getBb());
 			}
+			c.setBb(null);
+			c.setpId(null);
+			c.setPinCount(0);
+			c.setDirty(false);
+			c.setPosFile(null);	
 		}
+		
 	}
 }

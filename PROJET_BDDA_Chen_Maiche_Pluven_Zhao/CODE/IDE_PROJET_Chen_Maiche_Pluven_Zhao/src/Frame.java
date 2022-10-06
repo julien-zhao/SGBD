@@ -48,6 +48,10 @@ public class Frame {
 		this.pinCount -= 1;
 	}
 	
+	public void setPinCount(int c) {
+		this.pinCount = c;
+	}
+	
 	public PageId getpId() {
 		return pId;
 	}

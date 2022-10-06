@@ -41,4 +41,12 @@ public class File {
 		}
 		return false;
 	}
+	
+	public void afficheFile() {
+		Cellule c = debut;
+		while(c.caseId!=-2) {
+			System.out.println(c.caseId);
+			c=c.suiv;
+		}
+	}
 }
