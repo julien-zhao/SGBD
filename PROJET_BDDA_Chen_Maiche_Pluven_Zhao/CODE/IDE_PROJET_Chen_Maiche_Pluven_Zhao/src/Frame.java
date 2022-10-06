@@ -3,7 +3,7 @@ import java.nio.ByteBuffer;
 public class Frame {
 	
 	private int caseId;
-	private ByteBuffer bb;
+	private byte[] bb;
 	private PageId pId;
 	private int pinCount;
 	private boolean dirty;
@@ -56,11 +56,11 @@ public class Frame {
 		this.pId = pId;
 	}
 	
-	public ByteBuffer getBb() {
+	public byte[] getBb() {
 		return bb;
 	}
 	
-	public void setBb(ByteBuffer bb) {
+	public void setBb(byte[] bb) {
 		this.bb = bb;
 	}
 

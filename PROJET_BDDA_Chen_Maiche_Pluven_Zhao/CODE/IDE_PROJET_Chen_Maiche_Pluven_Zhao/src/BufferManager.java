@@ -81,7 +81,15 @@ public class BufferManager {
 		}
 	}
 
-	public void flushAll() {
-		//TODO
+	public void flushAll() throws IOException {
+		for (int i = 0; i < DBParams.frameCount; i++) { 
+			Frame c = pool.elementAt(i);
+			if(c.getPinCount()==0) {
+				if(c.isDirty()) {
+					DiskManager.writePage(c.getpId(), c.getBb());
+				}
+				
+			}
+		}
 	}
 }
