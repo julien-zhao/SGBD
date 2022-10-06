@@ -9,12 +9,16 @@ public class BufferManager {
 	private File file; // File doublement chainee des id de cases pour l'ordonnacement de type LRU
 
 	private BufferManager() {
+		this.file = new File();
+		
 		pool = new Vector<Frame>(DBParams.frameCount);
+		
 		for (int i = 0; i < DBParams.frameCount; i++) {
 			pool.add(new Frame());
 			pool.elementAt(i).setCaseId(i);
+			file.add(pool.elementAt(i).getCaseId());
 		}
-		this.file = new File();
+		
 	}
 
 	public static BufferManager getSingleton() {
