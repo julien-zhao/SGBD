@@ -8,4 +8,6 @@ public class Record {
 		this.relInfo = relInfo;
 		values = new ArrayList<String>();
 	}
+
+
 }
