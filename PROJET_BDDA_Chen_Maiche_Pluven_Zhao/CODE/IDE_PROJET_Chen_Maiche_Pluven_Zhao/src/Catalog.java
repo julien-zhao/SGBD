@@ -21,14 +21,19 @@ public class Catalog {
 		nbRelation++;
 	}
 	
+	public int getNbRelation() {
+		return nbRelation;
+	}
+	
 	public RelationInfo getRelationInfo(String nomRelation) {
 		for(RelationInfo uneRelation : RelationInfos) {
 			if(uneRelation.getNomRelation().equals(nomRelation)) {
-				//TO DO; toString()
-				return null; 
+				return uneRelation; 
 			}
 		}
-		return null;
+		System.out.println("La relation n'existe pas");
+		return null; 
 	}
+	
 	
 }

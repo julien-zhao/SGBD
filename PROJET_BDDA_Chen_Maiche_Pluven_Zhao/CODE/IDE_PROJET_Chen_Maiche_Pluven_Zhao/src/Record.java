@@ -1,3 +1,4 @@
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class Record {
@@ -8,6 +9,16 @@ public class Record {
 		this.relInfo = relInfo;
 		values = new ArrayList<String>();
 	}
-
-
+	
+	public RelationInfo getRelInfo() {
+		return relInfo;
+	}
+	
+	public String getValues() {
+		return values.toString();
+	}
+	
+	public void writeToBuffer(Buffer buff, int pos) {
+		buff.position(pos);
+	}
 }
