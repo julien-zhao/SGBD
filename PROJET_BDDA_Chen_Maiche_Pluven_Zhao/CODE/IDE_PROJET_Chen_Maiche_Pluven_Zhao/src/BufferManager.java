@@ -37,8 +37,9 @@ public class BufferManager {
 			}
 
 		}
-
+		
 		if (libre) { //Frame Libre ou Frame deja chargee dans la case i
+			System.out.println("rentre dans if");
 			Frame f = pool.elementAt(iFrameLibre);
 			
 			if(f.getPinCount()==0 && !file.isVoid()) { //Si la case est dans la liste
@@ -50,8 +51,9 @@ public class BufferManager {
 			return f.getBb();
 			
 		} else {// Aucune Frame Libre
-			
+			System.out.println("rentre dans else");
 			Frame caseAR= pool.elementAt(file.pop()); //case A Remplacer
+			System.out.println("apres caseAR");
 			if(caseAR.getPinCount()>1) {
 				freePage(caseAR.getpId(),caseAR.isDirty());
 				caseAR.incPinCount();

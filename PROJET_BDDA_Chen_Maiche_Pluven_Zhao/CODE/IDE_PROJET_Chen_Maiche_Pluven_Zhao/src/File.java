@@ -21,7 +21,9 @@ public class File {
 	
 	public int pop() {
 		Cellule c = debut.suiv;
+		System.out.println(c);
 		debut.suiv = c.suiv;
+		System.out.println(debut.suiv);
 		c.suiv.prev = debut;
 		 int cId = c.caseId;
 		 c = null;
