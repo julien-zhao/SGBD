@@ -5,7 +5,7 @@ public class RelationInfo {
 	private String nomRelation; // le nom de la relation
 	private int nbColonnes;		// le nombre de colonnes
 	private ArrayList <String> nomColonnes;	// les noms des colonnes
-	private ArrayList<Integer> typesColonnes;	// les types des colonnes
+	private ArrayList<Object> typesColonnes;	// les types des colonnes
 	/*
 	 *  Stocker les noms des colonnes en tant que liste ou tableau
 	 *  de caractères, et faire de même pour les types des colonnes
@@ -23,7 +23,7 @@ public class RelationInfo {
 		this.nomRelation = nomRelation;
 		this.nbColonnes = nbColonnes;
 		nomColonnes = new ArrayList<String>();
-		typesColonnes = new ArrayList<Integer>();
+		typesColonnes = new ArrayList<Object>();
 	}
 	
 	public RelationInfo() {
