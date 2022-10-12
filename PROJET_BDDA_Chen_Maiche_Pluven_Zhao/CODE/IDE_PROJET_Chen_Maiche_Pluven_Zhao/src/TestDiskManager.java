@@ -1,5 +1,3 @@
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
 
 public class TestDiskManager {
@@ -21,10 +19,10 @@ public class TestDiskManager {
 		 */
 		System.out.println("\n===============================");
 		System.out.println("Test DeallocPage : "); 
-		PageId p1= dm.allocPage();
-		System.out.println("Le nombre de page allouee est :" + dm.getCurrentCountAllocPages());
-		dm.deallocPage(p1);
-		System.out.println("Le nombre de page allouee après dealloc est :" + dm.getCurrentCountAllocPages());
+		PageId p1= DiskManager.allocPage();
+		System.out.println("Le nombre de page allouee est :" + DiskManager.getCurrentCountAllocPages());
+		DiskManager.deallocPage(p1);
+		System.out.println("Le nombre de page allouee après dealloc est :" + DiskManager.getCurrentCountAllocPages());
 		System.out.println("Fin de Test DeallocPage : ");
 		System.out.println("================================");
 		
@@ -40,16 +38,16 @@ public class TestDiskManager {
 		//source : https://fr.acervolima.com/classe-java-nio-bytebuffer-en-java/
 		System.out.println("\n===============================");
 		System.out.println("Test de WritePage");
-		PageId p2= dm.allocPage(); //aloue une page
+		PageId p2= DiskManager.allocPage(); //aloue une page
 		
 		try {
 			byte[] bb =  "hello its me".getBytes();
-			dm.writePage(p2, bb); // ecris "Hello its me" dans p2
-			dm.readPage(p2, bb); 
+			DiskManager.writePage(p2, bb); // ecris "Hello its me" dans p2
+			DiskManager.readPage(p2, bb); 
 			System.out.println(new String(bb));
 			bb =  "helo i".getBytes();
-			dm.writePage(p2, bb); // ecris "Hello its me" dans p2
-			dm.readPage(p2, bb);
+			DiskManager.writePage(p2, bb); // ecris "Hello its me" dans p2
+			DiskManager.readPage(p2, bb);
 			System.out.println(new String(bb));
 		}
 		catch (IllegalArgumentException e) {
@@ -72,7 +70,7 @@ public class TestDiskManager {
 		 */
 		System.out.println("\n==============================");
 		System.out.println("Test getCurrentCountAllocPages : "); 
-		System.out.println("Le nombre de page allouee est :" + dm.getCurrentCountAllocPages());
+		System.out.println("Le nombre de page allouee est :" + DiskManager.getCurrentCountAllocPages());
 		/*
 		PageId p2= dm.allocPage();
 		PageId p3= dm.allocPage();
@@ -82,10 +80,10 @@ public class TestDiskManager {
 		PageId p7= dm.allocPage();
 		PageId p8= dm.allocPage();
 		*/
-		dm.deallocPage(new PageId(0,3));
+		DiskManager.deallocPage(new PageId(0,3));
 		dm.saveLog();
 		System.out.println("Log : "+dm.getLog());
-		System.out.println("Le nombre de page allouee la fin est :" + dm.getCurrentCountAllocPages());
+		System.out.println("Le nombre de page allouee la fin est :" + DiskManager.getCurrentCountAllocPages());
 		System.out.println("Fin de test getCurrentCountAllocPages : "); 
 		System.out.println("==============================");
 	}
