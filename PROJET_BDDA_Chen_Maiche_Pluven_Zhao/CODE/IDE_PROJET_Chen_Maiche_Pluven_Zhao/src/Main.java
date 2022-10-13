@@ -4,7 +4,7 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		DBParams.DBPath = ".//..//..//DB//";
+		DBParams.DBPath = args[0];
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
