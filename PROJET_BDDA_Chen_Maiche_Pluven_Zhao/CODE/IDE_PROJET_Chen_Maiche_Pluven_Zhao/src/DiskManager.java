@@ -108,7 +108,7 @@ public class DiskManager {
 	
 	
 	
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void getSaveLog() throws IOException {
 		//source https://attacomsian.com/blog/java-read-object-from-file
 		

@@ -36,7 +36,6 @@ public class TestBufferManager {
 		System.out.println("Test de FreePage");
 		bm.freePage(p2, false);
 		bm.getPage(p3);
-
 		System.out.println("=============================");
 		
 		
@@ -44,8 +43,6 @@ public class TestBufferManager {
 		
 		System.out.println("\n=============================");
 		System.out.println("Test de FlushAll");
-
-
 		bm.flushAll();
 		System.out.println();
 		System.out.println("=============================");

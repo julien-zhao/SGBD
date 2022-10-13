@@ -2,12 +2,13 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class Record {
+
 	RelationInfo relInfo;
 	ArrayList<String> values;
 	
 	public Record(RelationInfo relInfo) {
 		this.relInfo = relInfo;
-		values = new ArrayList<String>(); 
+		values = new ArrayList<String>();
 	}
 	
 	public RelationInfo getRelInfo() {
@@ -35,6 +36,6 @@ public class Record {
 		}
 		return (int)sommeByte;
 	}
-
-	
+	//relInfo = new RelationInfo(null, 0);
+	//values = new ArrayList();
 }

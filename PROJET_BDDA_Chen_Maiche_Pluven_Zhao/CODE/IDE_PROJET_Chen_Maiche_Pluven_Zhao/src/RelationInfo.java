@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class RelationInfo {
-
 	private String nomRelation; // le nom de la relation
 	private int nbColonnes;		// le nombre de colonnes
 	private ArrayList <String> nomColonnes;	// les noms des colonnes
@@ -70,5 +69,4 @@ public class RelationInfo {
 		return "Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+this.getNbColonnes()
 		+"Nom Colonne"+ afficheNomColonne() +"\n" + "Type colonne"+ afficheTypesColonne();
 	}
-
 }
