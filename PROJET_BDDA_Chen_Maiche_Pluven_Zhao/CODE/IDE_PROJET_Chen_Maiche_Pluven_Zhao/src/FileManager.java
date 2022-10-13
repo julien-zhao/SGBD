@@ -22,13 +22,9 @@ public class FileManager {
 		PageId p=DiskManager.allocPage();
 		
 		BufferManager bm = BufferManager.getSingleton();
+		ByteBuffer bb = bm.getPage(p).putInt(0, 0);
 		
-		byte[] zerobin = ByteBuffer.allocate(4).putInt(0).array();
-		byte[] bb = bm.getPage(p);
-		
-		for(int i = 0;i<32;i++) {
-			bb[i] = zerobin[i];
-		}
+
 		
 		bm.freePage(p, true);
 		return p;

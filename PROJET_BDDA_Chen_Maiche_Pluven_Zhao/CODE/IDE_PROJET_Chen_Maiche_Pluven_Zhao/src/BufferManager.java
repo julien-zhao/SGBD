@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Vector;
 
 public class BufferManager {
@@ -24,7 +25,7 @@ public class BufferManager {
 		return g_instance;
 	}
 
-	public byte[] getPage(PageId pageId) throws IOException {
+	public ByteBuffer getPage(PageId pageId) throws IOException {
 		boolean libre = false;
 		int iFrameLibre = -1;
 
@@ -99,7 +100,7 @@ public class BufferManager {
 			if(c.isDirty()) {
 				DiskManager.writePage(c.getpId(), c.getBb());
 			}
-			c.setBb(new byte[DBParams.pageSize]);
+			c.resetBb();
 			c.setpId(null);
 			c.setPinCount(0);
 			c.setDirty(false);

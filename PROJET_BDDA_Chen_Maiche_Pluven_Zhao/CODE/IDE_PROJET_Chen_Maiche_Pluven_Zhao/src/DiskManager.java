@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Vector;
@@ -67,18 +68,18 @@ public class DiskManager {
 		return null;
 	}
 	
-	public static void readPage(PageId unePageId, byte[] buff) throws IOException {
+	public static void readPage(PageId unePageId, ByteBuffer buff) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "r");
-		r.readFully(buff);
+		r.readFully(buff.array());
 		r.seek(0);
 		r.close();
 	}
-	public static void writePage(PageId unePageId, byte[] buff) throws IOException {
+	public static void writePage(PageId unePageId, ByteBuffer byteBuffer) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "rw");
 		r.seek(0);
-		r.write(buff);
+		r.write(byteBuffer.array());
 		r.close();
 	}
 
