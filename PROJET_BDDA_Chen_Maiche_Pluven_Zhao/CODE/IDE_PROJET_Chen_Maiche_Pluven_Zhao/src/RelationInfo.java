@@ -18,6 +18,11 @@ public class RelationInfo {
 	 */
 	
 	
+	//relInfo = new RelationInfo(null, 0);
+	//values = new ArrayList();
+	
+	
+	
 	public RelationInfo(String nomRelation) {
 		this.nomRelation = nomRelation;
 		tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
@@ -61,6 +66,7 @@ public class RelationInfo {
 		}
 		return sb.toString();
 	}
+
 	
 	public String afficheTypesColonne() {
 		StringBuilder sb = new StringBuilder();
@@ -85,4 +91,14 @@ public class RelationInfo {
 		return "Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+tabInfo.size()
 		+"Nom Colonne"+ afficheNomColonne() +"\n" + "Type colonne"+ afficheTypesColonne();
 	}
+
+
+	
+	
+	/*
+	public String getType_col(int i) {
+		return typesColonnes.get(i).toString();
+	}*/
+	
+
 }
