@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class BufferManager {
-	private static BufferManager g_instanceBM = new BufferManager();
+	private static BufferManager g_instance = new BufferManager();
 
 	private Vector<Frame> pool;
 	private File file; // File doublement chainee des id de cases pour l'ordonnacement de type LRU
@@ -21,7 +21,7 @@ public class BufferManager {
 	}
 
 	public static BufferManager getSingleton() {
-		return g_instanceBM;
+		return g_instance;
 	}
 
 	public byte[] getPage(PageId pageId) throws IOException {
