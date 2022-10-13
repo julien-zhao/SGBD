@@ -1,3 +1,4 @@
+import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
 
 public class TestDiskManager {
@@ -40,15 +41,20 @@ public class TestDiskManager {
 		System.out.println("Test de WritePage");
 		PageId p2= DiskManager.allocPage(); //aloue une page
 		
-		try {
-			byte[] bb =  "hello its me".getBytes();
+		try {			
+			
+			ByteBuffer bb = ByteBuffer.allocate(DBParams.pageSize);
+			ByteBuffer bb2 = ByteBuffer.allocate(DBParams.pageSize);
+			bb.putInt(2002);
 			DiskManager.writePage(p2, bb); // ecris "Hello its me" dans p2
-			DiskManager.readPage(p2, bb); 
-			System.out.println(new String(bb));
-			bb =  "helo i".getBytes();
+			DiskManager.readPage(p2, bb2); 
+			System.out.println(bb2.getInt());
+			bb.position(0);
+			bb.putInt(1985);
 			DiskManager.writePage(p2, bb); // ecris "Hello its me" dans p2
-			DiskManager.readPage(p2, bb);
-			System.out.println(new String(bb));
+			DiskManager.readPage(p2, bb2);
+			bb2.position(0);
+			System.out.println(bb2.getInt());
 		}
 		catch (IllegalArgumentException e) {
   

@@ -1,8 +1,9 @@
+import java.nio.ByteBuffer;
 
 public class Frame {
 	
 	private int caseId;
-	private byte[] bb;
+	private ByteBuffer bb;
 	private PageId pId;
 	private int pinCount;
 	private boolean dirty;
@@ -11,7 +12,7 @@ public class Frame {
 	
 	public Frame() {
 		this.caseId = -1;
-		this.bb = new byte[DBParams.pageSize];
+		bb = ByteBuffer.allocate(DBParams.pageSize);
 		this.pId =  null;
 		this.pinCount = 0;
 		this.dirty = false;
@@ -59,12 +60,13 @@ public class Frame {
 		this.pId = pId;
 	}
 	
-	public byte[] getBb() {
+	public ByteBuffer getBb() {
 		return bb;
 	}
 	
-	public void setBb(byte[] bb) {
-		this.bb = bb;
+	public void resetBb() {
+		this.bb.clear();
+		this.bb= ByteBuffer.allocate(DBParams.pageSize);
 	}
 
 	public int getCaseId() {
