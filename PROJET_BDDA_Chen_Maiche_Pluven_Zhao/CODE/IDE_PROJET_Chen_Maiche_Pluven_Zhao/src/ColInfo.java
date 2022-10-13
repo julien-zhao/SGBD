@@ -7,7 +7,6 @@ public class ColInfo {
 		this.colonne = colonne;
 		this.type = type;
 	}
-	
 	public String getColonne(){
 		return colonne;
 	}

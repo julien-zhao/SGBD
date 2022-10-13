@@ -6,14 +6,14 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Catalog {
-	private static ArrayList<RelationInfo> RelationInfos;
+	private ArrayList<RelationInfo> RelationInfos;
 	private int nbRelation; // le compteur
 	
 	public Catalog(){
 		RelationInfos = new ArrayList<RelationInfo>();
 	}
 	
-	public static ArrayList<RelationInfo> getCatalog(){
+	public ArrayList<RelationInfo> getCatalog(){
 		return RelationInfos;
 	}
 	
@@ -58,10 +58,10 @@ public class Catalog {
 		return nbRelation;
 	}
 	
-	public RelationInfo getRelationInfo(String nomRelation) {
+	public String getRelationInfo(String nomRelation) {
 		for(RelationInfo uneRelation : RelationInfos) {
 			if(uneRelation.getNomRelation().equals(nomRelation)) {
-				return uneRelation; 
+				return uneRelation.afficheRelationInfo(); 
 			}
 		}
 		System.out.println("La relation n'existe pas");
