@@ -1,3 +1,5 @@
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
 
 public class TestTP04 {
 	public static void main(String []args ) throws Exception {
@@ -7,6 +9,8 @@ public class TestTP04 {
 		DiskManager dm = DiskManager.getSingleton();
 		System.out.println(DBParams.DBPath);
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
+		
+		
 		
 		System.out.println("\nTest Relation Info et ColInfo");
 		System.out.println("***********************************************************");
@@ -18,6 +22,9 @@ public class TestTP04 {
 		System.out.println("Nom de la relation : "+Personne.getNomRelation()+"\n");
 		System.out.println("Affiche toute les relations de Personne: "+Personne.afficheRelationInfo());
 		System.out.println("***********************************************************");
+		
+		
+		
 		
 		
 		System.out.println("\n\n\nTest Catalog");
@@ -36,5 +43,28 @@ public class TestTP04 {
 		System.out.println("Obtenir la relation Etudiant : "+ uneCatalog.getRelationInfo(Etudiant.getNomRelation()));
 		System.out.println("***********************************************************");
 		
+		
+		
+		
+		
+		System.out.println("\n\n\nTest Record");
+		System.out.println("***********************************************************");
+		Record unRecord = new Record(Etudiant);
+		System.out.println("Le record de la relation Etudiant : "+unRecord.getValues());
+		System.out.println("***********************************************************");
+		
+		
+		
+		
+		
+		
+		System.out.println("\n\n\nTest lecture et ecriture d'un record dans un buffer");
+		System.out.println("***********************************************************");
+		int capacite = unRecord.getValues().size();
+
+        ByteBuffer bb = ByteBuffer.allocate(capacite);
+		//Buffer unBuffer = new Buffer(capacite);
+		
+		System.out.println("***********************************************************");
 	}
 }

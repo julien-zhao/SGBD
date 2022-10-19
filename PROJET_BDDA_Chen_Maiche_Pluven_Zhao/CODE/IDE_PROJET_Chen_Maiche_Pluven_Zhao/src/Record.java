@@ -1,7 +1,9 @@
 import java.nio.Buffer;
+import java.nio.BufferOverflowException;
 import java.util.ArrayList;
 
 import java.nio.ByteBuffer;
+import java.nio.ReadOnlyBufferException;
 
 public class Record {
 
@@ -18,12 +20,44 @@ public class Record {
 	}
 	
 	
-	public String getValues() {
-		return values.toString();
+	public ArrayList<String> getValues() {
+		for(ColInfo uneCol: relInfo.getTabInfo()){
+			values.add(uneCol.getColonne());
+		}
+		return values;
 	}
 	
-	public void writeToBuffer(Buffer buff, int pos) {
+	public void writeToBuffer(Buffer buff, int pos){
 		buff.position(pos);
+  
+		for (int i=0; i< relInfo.getTabInfo().size();i++) {
+			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
+				int tmp = Integer.parseInt(relInfo.getTabInfo().get(i).getColonne());
+
+
+			}
+			else if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
+				float tmp = Float.parseFloat(relInfo.getTabInfo().get(i).getColonne());
+				
+			}
+			else if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
+
+			}
+		}
+       // buff.put((byte)10);
+  
+        // try to set the position at index 3
+        // using position() method
+        buff.position(3);
+  
+        // putting the value of ByteBuffer
+        // using put() method
+      //  bb.put((byte)30);
+  
+        // display position
+        //System.out.println("ByteBuffer: "
+                           //+ Arrays.toString(bb.array()));
+		
 	}
 	
 	// à revoir
