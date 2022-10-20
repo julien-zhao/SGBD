@@ -1,7 +1,9 @@
 import java.nio.Buffer;
+import java.nio.BufferOverflowException;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.nio.ByteBuffer;
+import java.nio.ReadOnlyBufferException;
 
 public class Record {
 
@@ -18,13 +20,51 @@ public class Record {
 	}
 	
 	
-	public String getValues() {
-		return values.toString();
+	public ArrayList<String> getValues() {
+		ArrayList<String> res= new ArrayList<>();
+		for(ColInfo uneCol: relInfo.getTabInfo()){
+			res.add(uneCol.getColonne());
+		}
+		return res;
 	}
 	
-	public void writeToBuffer(Buffer buff, int pos) {
-		buff.position(pos);
+	public void writeToBuffer(ByteBuffer buff, int pos){
+		buff.position(pos); 
+		for (int i=0; i< relInfo.getTabInfo().size();i++) {
+			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
+				int tmpInt = Integer.parseInt(relInfo.getTabInfo().get(i).getColonne());
+				buff.put((byte)tmpInt);
+
+			}
+
+			if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
+				
+				float tmpFloat = Float.parseFloat(relInfo.getTabInfo().get(i).getColonne());
+				buff.put((byte)tmpFloat);	
+			}
+
+			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){		
+				String tmpString = relInfo.getTabInfo().get(i).getColonne();
+				byte[] tmpByte = tmpString.getBytes();
+				buff.put(tmpByte);
+			}
+		}
 	}
+	
+	
+	public void readFromBuffer2(ByteBuffer buff, int pos) {
+		buff.position(pos);
+		while(buff.hasRemaining()) {
+			System.out.print(buff.get()+",");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	// à revoir
 	public void readFromBuffer(ByteBuffer buff, int pos) {
