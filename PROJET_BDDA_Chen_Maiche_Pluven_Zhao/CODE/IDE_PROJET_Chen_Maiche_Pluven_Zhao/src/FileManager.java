@@ -56,6 +56,21 @@ public class FileManager {
 		}
 		return null;
 	}
+	
+	public RecordId writeRecordToDataPage(Record record, PageId pageId) throws IOException {
+		BufferManager bm = BufferManager.getSingleton();
+		ByteBuffer p = bm.getPage(pageId);
+		int offset = p.getInt(DBParams.pageSize-4);
+		record.writeToBuffer(p,offset);
+		p.putInt(DBParams.pageSize-4, offset+record.getWrittenSize());
+		int m = p.getInt(DBParams.pageSize-8);
+		p.putInt(DBParams.pageSize-8, m+1);
+		p.putInt(DBParams.pageSize-8-((m+1)*8), offset);
+		p.putInt(DBParams.pageSize-8-(((m+1)*8)+4), record.getWrittenSize());
+		
+		bm.freePage(pageId, true);
+		return new RecordId(pageId, m+1);
+	}
 }
 
 
