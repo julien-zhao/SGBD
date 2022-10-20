@@ -43,6 +43,19 @@ public class FileManager {
 		bm.freePage(p, true);
 		return p;
 	}
+	public PageId getFreeDataPageId (RelationInfo relInfo,int sizeRecord) throws IOException {
+		BufferManager bm = BufferManager.getSingleton();
+		PageId hpId = null;//relInfo.getHeaderPageId(); 
+		ByteBuffer header = bm.getPage(hpId);
+		int nb = header.get(0);
+		for(int i=12;i*12<nb*12;i+=12) {
+			if(header.get(i)>=sizeRecord) {
+				PageId pIdS = new PageId(header.get(i-8),header.get(i-12));
+				return pIdS;
+			}
+		}
+		return null;
+	}
 }
 
 
