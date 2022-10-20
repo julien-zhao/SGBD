@@ -5,6 +5,7 @@ public class Record {
 
 	RelationInfo relInfo;
 	ArrayList<String> values;
+
 	
 	public Record(RelationInfo relInfo) {
 		this.relInfo = relInfo;
@@ -16,7 +17,8 @@ public class Record {
 	}
 	
 	
-	public ArrayList<String> getValues() {
+	
+	public ArrayList<String> getNomColonne() {
 		ArrayList<String> res= new ArrayList<>();
 		for(ColInfo uneCol: relInfo.getTabInfo()){
 			res.add(uneCol.getColonne());
