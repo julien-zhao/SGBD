@@ -1,9 +1,11 @@
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.Vector;
 
 public class FileManager {
 	private static FileManager g_instance = new FileManager();
 	private PageId pIdHeader;
+	//Vector<PageId> ListeDePageIds;
 	private FileManager() {
 		try {
 		pIdHeader = createNewHeaderPage();
@@ -71,6 +73,31 @@ public class FileManager {
 		bm.freePage(pageId, true);
 		return new RecordId(pageId, m+1);
 	}
+	public Vector<Record> getRecordsInDataPage(RelationInfo relInfo,PageId pageId) throws IOException{
+		BufferManager bm = BufferManager.getSingleton();
+		Vector<Record> r = new Vector<Record>();
+		ByteBuffer p = bm.getPage(pageId);
+		int m = p.getInt(DBParams.pageSize-8);
+		for(int i = 1;i<=m;i++) {
+			int pos = p.getInt(DBParams.pageSize-(8-(4*i)));
+			if(pos!=-1) {
+				Record rec =new Record(relInfo);
+				rec.readFromBuffer2(p,pos);
+				r.add(rec);
+			}
+		}
+		return r;
+	}
+	/*public Vector<PageId> getAllDataPages(RelationInfo relInfo) throws IOException{
+		BufferManager bm = BufferManager.getSingleton();
+		PageId p = bm.getPage(relInfo.getTabInfo());
+		Vector<PageId> L = new Vector<PageId>();
+		/*ListeDeRecords getRecordsInDataPage(relInfo, pageId)
+		for() {
+			L.add(p);
+		}
+		return L;
+	}*/
 }
 
 
