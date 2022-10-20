@@ -1,9 +1,9 @@
 
-public class File {
+public class Queue {
 	Cellule debut;
 	Cellule fin;
 	
-	public File() {
+	public Queue() {
 		debut = new Cellule(-1);
 		fin = new Cellule(-2);
 		debut.suiv = fin;

@@ -6,10 +6,10 @@ public class BufferManager {
 	private static BufferManager g_instance = new BufferManager();
 
 	private Vector<Frame> pool;
-	private File file; // File doublement chainee des id de cases pour l'ordonnacement de type LRU
+	private Queue file; // File doublement chainee des id de cases pour l'ordonnacement de type LRU
 
 	private BufferManager() {
-		this.file = new File();
+		this.file = new Queue();
 		
 		pool = new Vector<Frame>(DBParams.frameCount);
 		

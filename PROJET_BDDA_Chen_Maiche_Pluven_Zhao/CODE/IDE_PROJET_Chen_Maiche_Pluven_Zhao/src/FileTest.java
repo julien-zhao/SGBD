@@ -2,7 +2,7 @@
 public class FileTest {
 
 	public static void main(String[] args) {
-		File f = new File();
+		Queue f = new Queue();
 		f.add(1);
 		Cellule a = f.add(2);
 		System.out.println(f.pop());

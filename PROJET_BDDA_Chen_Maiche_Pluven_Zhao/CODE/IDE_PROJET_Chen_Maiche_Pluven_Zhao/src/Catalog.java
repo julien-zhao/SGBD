@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,11 +19,12 @@ public class Catalog {
 	}
 	
 	public void Finish() throws IOException{
-		FileOutputStream fos = new FileOutputStream(DBParams.DBPath+"Catalog.sv");
+		String path = DBParams.DBPath+"Catalog.sv";
+		File f = new File(path);
+		FileOutputStream fos = new FileOutputStream(f);
 	    ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.flush();
 	    oos.writeObject(RelationInfos);
-		    
 	    fos.close();
 		oos.close();		
 	}
