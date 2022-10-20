@@ -22,10 +22,7 @@ public class FileManager {
 		PageId p=DiskManager.allocPage();
 		
 		BufferManager bm = BufferManager.getSingleton();
-		ByteBuffer bb = bm.getPage(p).putInt(0, 0);
-		
-
-		
+		bm.getPage(p).putInt(0,0);
 		bm.freePage(p, true);
 		return p;
 	}
@@ -33,14 +30,11 @@ public class FileManager {
 		PageId p=DiskManager.allocPage();
 		
 		BufferManager bm = BufferManager.getSingleton();
-		
-		byte[] zerobin = ByteBuffer.allocate(8).putInt(0).array();
-		byte[] bb = bm.getPage(p);
-		
-		for(int i = 0;i<64;i++) {
-			bb[DBParams.pageSize-64+i] = zerobin[i%32];
-		}
-		
+	
+		ByteBuffer bb = bm.getPage(p);
+		bb.putInt(DBParams.pageSize-64, 0);
+		bb.putInt(DBParams.pageSize-32, 0);
+		bm.getPage(pIdHeader);
 		bm.freePage(p, true);
 		return p;
 	}
