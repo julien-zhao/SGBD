@@ -119,5 +119,8 @@ public class TestTP04 {
         //unAutreRecord.readFromBuffer2(unBuffer, 2);
 		
 		System.out.println("\n***********************************************************");
+		
+		
+		
 	}
 }

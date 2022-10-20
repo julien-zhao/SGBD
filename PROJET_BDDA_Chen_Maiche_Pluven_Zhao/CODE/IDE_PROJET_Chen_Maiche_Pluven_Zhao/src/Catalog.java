@@ -18,15 +18,21 @@ public class Catalog {
 		return RelationInfos;
 	}
 	
-	public void Finish() throws IOException{
-		String path = DBParams.DBPath+"Catalog.sv";
-		File f = new File(path);
-		FileOutputStream fos = new FileOutputStream(f);
-	    ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.flush();
-	    oos.writeObject(RelationInfos);
-	    fos.close();
-		oos.close();		
+	public void Finish() /*throws IOException*/{
+		try {
+			String path = DBParams.DBPath+"Catalog.sv";
+			File f = new File(path);
+			FileOutputStream fos = new FileOutputStream(f);
+		    ObjectOutputStream oos = new ObjectOutputStream(fos);
+			//System.out.println("fichier : " + fos);
+		    //oos.flush();
+		    oos.writeObject(RelationInfos);
+		    //fos.close();
+			oos.close();
+		}
+		catch(IOException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -49,6 +55,22 @@ public class Catalog {
 		ois.close();
 	}
 	
+	// voir si le code Init2() marche 
+	public void Init2() {
+		try {
+			String path = DBParams.DBPath+"Catalog.sv";
+			File f = new File(path);
+			FileInputStream FIS = new FileInputStream(f);
+			ObjectInputStream OIS = new ObjectInputStream(FIS);
+			OIS.close();
+		}
+		catch(IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	
+	// à tester
 	
 	
 	public void addRelationInfo(RelationInfo uneRelation) {
