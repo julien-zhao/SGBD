@@ -1,4 +1,5 @@
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class TestTP04 {
@@ -21,23 +22,7 @@ public class TestTP04 {
 		Personne.addColonne("PRENOM", "VARCHAR(12)");
 		Personne.addColonne("AGE", "INTEGER");
 		Personne.addColonne("TAILLE", "REAL");
-		
-		/*
-		Record qui prend "Personne" dans le constructeur
-		Sur ce recodr, tu set les values des differentes colonnes avec ce quiu est en dessous :
-		Vector<String> v = new Vector<>();
-		v.add("Zhao");
-		v.add("Julien");
-		v.add("21");
-		v.add("1.6");
-		Personne.addTuple(v);
-		
-		
-		ByteBuffer - new Byfeter()
-		record.writeToBuffer(reco)
-		*/
-		// New record sur Personne vide
-		// Tu lui fais lire le buffer dans lequel tu vuiens d'ecrire
+	
 		
 
 		
@@ -71,8 +56,36 @@ public class TestTP04 {
 		
 		System.out.println("\n\n\nTest Record");
 		System.out.println("***********************************************************");
-		Record unRecord = new Record(Etudiant);
-		System.out.println("Le record de la relation Etudiant : "+unRecord.getNomColonne());
+		
+		
+		
+		//Record qui prend "Personne" dans le constructeur
+		//Sur ce record, tu set les values des differentes colonnes avec ce quiu est en dessous :
+		Record unRecord = new Record(Personne);
+		ArrayList<String> tuple1 = new ArrayList<>();
+		tuple1.add("Zhao");
+		tuple1.add("Julien");
+		tuple1.add("21");
+		tuple1.add("1.6");
+		//Personne.addTuple(v);
+		unRecord.addTuple(tuple1);
+		
+		ArrayList<String> tuple2 = new ArrayList<>();
+		tuple2.add("Maiche");
+		tuple2.add("Max");
+		tuple2.add("20");
+		tuple2.add("1.75");
+		unRecord.addTuple(tuple2);		
+		
+		//ByteBuffer - new Byfeter()
+		//record.writeToBuffer(reco)
+		
+		// New record sur Personne vide
+		// Tu lui fais lire le buffer dans lequel tu viens d'ecrire
+		
+		System.out.println("Voici le nom du record : " + unRecord.getRelInfo().getNomRelation());
+		System.out.println("Voici les differents colonnes de ce record  : "+unRecord.getNomColonne());
+		System.out.println("Voici les valeurs de chaque colonne : "+ unRecord.getValues());
 		System.out.println("***********************************************************");
 		
 		

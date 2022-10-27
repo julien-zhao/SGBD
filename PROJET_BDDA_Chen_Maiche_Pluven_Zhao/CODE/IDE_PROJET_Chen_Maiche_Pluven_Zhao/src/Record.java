@@ -17,6 +17,18 @@ public class Record {
 	}
 	
 	
+	public void addTuple(ArrayList<String> unTuple) {
+
+		if(unTuple.size() == relInfo.getTabInfo().size()) {
+			for(int i =0; i<unTuple.size();i++) {
+				values.add(unTuple.get(i));
+			}
+		}
+	}
+	
+	public String getValues() {
+		return values.toString();
+	}
 	
 	public ArrayList<String> getNomColonne() {
 		ArrayList<String> res= new ArrayList<>();
