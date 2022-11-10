@@ -57,13 +57,20 @@ public class TestTP04 {
 		
 		System.out.println("\n\n\nTest Record");
 		System.out.println("***********************************************************");
+<<<<<<< Updated upstream
 		
+=======
+>>>>>>> Stashed changes
 		Record unRecord = new Record(Personne);
 		ArrayList<String> tuple1 = new ArrayList<>();
 		tuple1.add("Zhao");
 		tuple1.add("Julien");
 		tuple1.add("21");
+<<<<<<< Updated upstream
 		tuple1.add("1.6");
+=======
+		tuple1.add("1.65");
+>>>>>>> Stashed changes
 
 		unRecord.addTuple(tuple1);
 		
@@ -72,6 +79,7 @@ public class TestTP04 {
 		tuple2.add("Max");
 		tuple2.add("20");
 		tuple2.add("1.75");
+
 		unRecord.addTuple(tuple2);		
 		
 		System.out.println("Voici le nom du record : " + unRecord.getRelInfo().getNomRelation());
@@ -80,13 +88,27 @@ public class TestTP04 {
 		System.out.println("***********************************************************");
 		
 		
-		
 		//ByteBuffer - new Byfeter()
 		//record.writeToBuffer(reco)
 		
 		// New record sur Personne vide
 		// Tu lui fais lire le buffer dans lequel tu viens d'ecrire
 		
+		
+<<<<<<< Updated upstream
+		//ByteBuffer - new Byfeter()
+		//record.writeToBuffer(reco)
+		
+		// New record sur Personne vide
+		// Tu lui fais lire le buffer dans lequel tu viens d'ecrire
+=======
+		System.out.println("Ce qu'on attend dans writeToBuffer(buff,pos) : ");
+		// 0100091801100
+		//int 4 octet de val 1
+>>>>>>> Stashed changes
+		
+		//8 pour zhao
+		//81244|709709709
 		
 		System.out.println("Ce qu'on attend dans writeToBuffer(buff,pos) : ");
 		// 0100091801100

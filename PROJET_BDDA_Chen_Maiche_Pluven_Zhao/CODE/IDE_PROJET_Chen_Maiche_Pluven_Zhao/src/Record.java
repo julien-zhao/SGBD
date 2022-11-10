@@ -18,16 +18,27 @@ public class Record {
 	
 	
 	public void addTuple(ArrayList<String> unTuple) {
+<<<<<<< Updated upstream
 		
 		if(values.size() == 0) {
 			for(int i =0; i<unTuple.size();i++) {
 				//tester si le type d'entrer est le meme que le type des colonnes
+=======
+
+		if(values.size() == 0) {
+			for(int i =0; i<unTuple.size();i++) {
+				//tester les types d'entrer par rapport aux type colonne
+>>>>>>> Stashed changes
 				values.add(unTuple.get(i));
 			}
 		}
 		if(unTuple.size() == relInfo.getTabInfo().size()) {
 			for(int i =0; i<unTuple.size();i++) {
+<<<<<<< Updated upstream
 				values.set(i,unTuple.get(i));
+=======
+				values.set(i, unTuple.get(i));
+>>>>>>> Stashed changes
 			}
 		}
 	}
