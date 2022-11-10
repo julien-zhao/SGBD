@@ -56,21 +56,26 @@ public class Catalog {
 	}
 	
 	// voir si le code Init2() marche 
+	@SuppressWarnings("unchecked")
 	public void Init2() {
 		try {
 			String path = DBParams.DBPath+"Catalog.sv";
 			File f = new File(path);
 			FileInputStream FIS = new FileInputStream(f);
 			ObjectInputStream OIS = new ObjectInputStream(FIS);
+			
+			RelationInfos = (ArrayList<RelationInfo>) OIS.readObject();
+			
 			OIS.close();
 		}
 		catch(IOException e) {
 			System.out.println(e.getMessage());
 		}
-	}
-	
-	
-	// à tester
+		catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}// à tester
 	
 	
 	public void addRelationInfo(RelationInfo uneRelation) {
