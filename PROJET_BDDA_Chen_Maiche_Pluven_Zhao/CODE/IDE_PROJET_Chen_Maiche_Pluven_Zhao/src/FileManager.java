@@ -88,6 +88,15 @@ public class FileManager {
 		}
 		return r;
 	}
+
+	/*public void deleteRecordInDataPage(PageId pageId,RecordId recordId) throws IOException {
+		BufferManager bm = BufferManager.getSingleton();
+		ByteBuffer p = bm.getPage(pageId);
+		int m = p.getInt(DBParams.pageSize-8);
+		p.putInt(DBParams.pageSize-(8-(4*recordId.slotIdx)), -1);
+		bm.freePage(pageId, true);
+	}*/
+	
 	/*public Vector<PageId> getAllDataPages(RelationInfo relInfo) throws IOException{
 		BufferManager bm = BufferManager.getSingleton();
 		PageId p = bm.getPage(relInfo.getTabInfo());
@@ -98,6 +107,44 @@ public class FileManager {
 		}
 		return L;
 	}*/
+
+	public Vector<PageId> getAllDataPages(RelationInfo relInfo) throws IOException{
+		BufferManager bm = BufferManager.getSingleton();
+		ByteBuffer p = bm.getPage(pIdHeader);
+		int nb = p.getInt(0);
+		Vector<PageId> L = new Vector<PageId>();
+		for(int i=0;i<nb;i++) {
+			PageId pId = new PageId(p.getInt(4+i*12),p.getInt(4+i*12+4));
+			L.add(pId);
+		}
+		return L;
+	}
+
+	public RecordId InsertRecordIntoRelation (Record record) throws IOException {
+		PageId pId = getFreeDataPageId(record.getRelInfo(),record.getWrittenSize());
+		if(pId==null) {
+			pId = addDataPage(record.getRelInfo());
+		}
+		return writeRecordToDataPage(record,pId);
+	}
+
+	public Vector<Record> getRecordsInRelation(RelationInfo relInfo) throws IOException{
+		Vector<PageId> L = getAllDataPages(relInfo);
+		Vector<Record> R = new Vector<Record>();
+		for(PageId p : L) {
+			R.addAll(getRecordsInDataPage(relInfo,p));
+		}
+		return R;
+	}
+
+	/*public void deleteRecordInRelation(RelationInfo relInfo,RecordId recordId) throws IOException {
+		BufferManager bm = BufferManager.getSingleton();
+		ByteBuffer p = bm.getPage(recordId.pageId);
+		int m = p.getInt(DBParams.pageSize-8);
+		p.putInt(DBParams.pageSize-(8-(4*recordId.slotIdx)), -1);
+		bm.freePage(recordId.pageId, true);
+	}*/
+
 }
 
 
