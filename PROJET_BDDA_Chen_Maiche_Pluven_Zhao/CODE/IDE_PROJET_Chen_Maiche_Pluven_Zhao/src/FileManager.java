@@ -5,6 +5,7 @@ import java.util.Vector;
 public class FileManager {
 	private static FileManager g_instance = new FileManager();
 	private PageId pIdHeader;
+
 	//Vector<PageId> ListeDePageIds;
 	private FileManager() {
 		try {
@@ -15,7 +16,7 @@ public class FileManager {
 		}
 	}
 	
-	public FileManager getSingleton() {
+	public static FileManager getSingleton() {
 		return g_instance;
 	}
 	
@@ -28,6 +29,7 @@ public class FileManager {
 		bm.freePage(p, true);
 		return p;
 	}
+
 	public PageId addDataPage (RelationInfo relInfo) throws IOException {
 		PageId p=DiskManager.allocPage();
 		
@@ -45,6 +47,7 @@ public class FileManager {
 		bm.freePage(p, true);
 		return p;
 	}
+	
 	public PageId getFreeDataPageId (RelationInfo relInfo,int sizeRecord) throws IOException {
 		BufferManager bm = BufferManager.getSingleton();
 		PageId hpId = null;//relInfo.getHeaderPageId(); 
