@@ -21,6 +21,7 @@ public class Record {
 		
 		if(values.size() == 0) {
 			for(int i =0; i<unTuple.size();i++) {
+				//tester si le type d'entrer est le meme que le type des colonnes
 				values.add(unTuple.get(i));
 			}
 		}
@@ -31,8 +32,13 @@ public class Record {
 		}
 	}
 	
-	public String getValues() {
+	
+	public String afficheValues() {
 		return values.toString();
+	}
+	
+	public ArrayList<String> getValues(){
+		return values;
 	}
 	
 	public ArrayList<String> getNomColonne() {
@@ -43,36 +49,109 @@ public class Record {
 		return res;
 	}
 	
-	public void writeToBuffer(ByteBuffer buff, int pos){
-		buff.position(pos); 
-		for (int i=0; i< relInfo.getTabInfo().size();i++) {
-			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
-				int tmpInt = Integer.parseInt(relInfo.getTabInfo().get(i).getColonne());
-				buff.put((byte)tmpInt);
+	public int getSizePos() {
+		int size = getValues().size();
 
-			}
-
-			if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
-				
-				float tmpFloat = Float.parseFloat(relInfo.getTabInfo().get(i).getColonne());
-				buff.put((byte)tmpFloat);	
-			}
-
-			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){		
-				String tmpString = relInfo.getTabInfo().get(i).getColonne();
-				byte[] tmpByte = tmpString.getBytes();
-				buff.put(tmpByte);
+		for(int i =0; i< getValues().size();i++) {
+			//si c'est un real ou integer
+			if(relInfo.getTabInfo().get(i).getType().equals("REAL") || relInfo.getTabInfo().get(i).getType().equals("INTEGER")) {
+				size+=1;
+			}else {
+				size+= getValues().get(i).length();
 			}
 		}
+		return size;
+	}
+	
+	public void writeToBuffer(ByteBuffer buff, int pos){
+		// 0100091801100
+		//int 4 octet de val 1
+		
+		//8 pour zhao, 12 pour julien, 4 pour 21, 4 pour 1.6
+		//81244|709709709
+
+		buff.position(pos); 
+
+		//boucle qui met les tailles des valeurs dans le buff
+		for (int i=0; i< relInfo.getTabInfo().size();i++) {
+			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
+				buff.putInt(4); 
+			}
+			if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
+				buff.putInt(4);	
+			}
+			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
+				int sizeString = getValues().get(i).length()*2;
+				buff.putInt(sizeString);
+			}
+		}
+		//boucle qui transforme les valeurs en byte
+		for (int i=0; i< relInfo.getTabInfo().size();i++) {
+			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
+				int tmpInt = Integer.parseInt(getValues().get(i));
+				buff.putInt(tmpInt);
+			}
+			if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
+				float tmpFloat = Float.parseFloat(getValues().get(i));
+				buff.putFloat(tmpFloat);	
+			}
+			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
+				String tmpString = getValues().get(i);
+				
+				
+				for(int j =0; j< tmpString.length();j++) {
+					buff.putChar(tmpString.charAt(j));
+				}
+			}
+		}
+
 	}
 	
 	
 	public void readFromBuffer2(ByteBuffer buff, int pos) {
 		buff.position(pos);
+		/*
 		while(buff.hasRemaining()) {
-			System.out.print(buff.get()+",");
+			System.out.print(buff.getInt() + " ");
 		}
+		
+		*/
+
+		ArrayList<Integer>tabTaille = new ArrayList<>();
+		for(int i =0;i <relInfo.getTabInfo().size(); i++) {
+			tabTaille.add(buff.getInt());
+		}
+		
+		for(int j = relInfo.getTabInfo().size(); j < buff.capacity(); j++) {
+			
+			System.out.println( buff.getInt(j) + " ");
+		}
+
+		//System.out.println("test : "+ buff.getChar(6));
+		
+		
+		/*
+		for (int i=0; i< relInfo.getTabInfo().size();i++) {
+			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
+				int tmpInt = buff.getInt();
+				buff.put((byte)tmpInt);
+			}
+			if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
+				float tmpFloat = Float.parseFloat(getValues().get(i));
+				buff.put((byte)tmpFloat);	
+			}
+			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
+				String tmpString = getValues().get(i);
+				byte[] tmpByte = tmpString.getBytes();
+				buff.put(tmpByte);
+			}
+		}
+		*/
 	}
+	
+	
+	
+	
 	
 	
 	
