@@ -54,8 +54,8 @@ public class FileManager {
 		ByteBuffer header = bm.getPage(hpId);
 		int nb = header.get(0);
 		for(int i=12;i*12<nb*12;i+=12) {
-			if(header.get(i)>=sizeRecord) {
-				PageId pIdS = new PageId(header.get(i-8),header.get(i-12));
+			if(header.getInt(i)>=sizeRecord) {
+				PageId pIdS = new PageId(header.getInt(i-8),header.getInt(i-4));
 				return pIdS;
 			}
 		}
@@ -76,6 +76,8 @@ public class FileManager {
 		bm.freePage(pageId, true);
 		return new RecordId(pageId, m+1);
 	}
+
+
 	public Vector<Record> getRecordsInDataPage(RelationInfo relInfo,PageId pageId) throws IOException{
 		BufferManager bm = BufferManager.getSingleton();
 		Vector<Record> r = new Vector<Record>();
@@ -89,6 +91,7 @@ public class FileManager {
 				r.add(rec);
 			}
 		}
+		bm.freePage(pageId, false);
 		return r;
 	}
 
@@ -100,26 +103,17 @@ public class FileManager {
 		bm.freePage(pageId, true);
 	}*/
 	
-	/*public Vector<PageId> getAllDataPages(RelationInfo relInfo) throws IOException{
-		BufferManager bm = BufferManager.getSingleton();
-		PageId p = bm.getPage(relInfo.getTabInfo());
-		Vector<PageId> L = new Vector<PageId>();
-		/*ListeDeRecords getRecordsInDataPage(relInfo, pageId)
-		for() {
-			L.add(p);
-		}
-		return L;
-	}*/
 
 	public Vector<PageId> getAllDataPages(RelationInfo relInfo) throws IOException{
 		BufferManager bm = BufferManager.getSingleton();
-		ByteBuffer p = bm.getPage(pIdHeader);
+		ByteBuffer p = bm.getPage(relInfo.getHeaderPageId());
 		int nb = p.getInt(0);
 		Vector<PageId> L = new Vector<PageId>();
 		for(int i=0;i<nb;i++) {
 			PageId pId = new PageId(p.getInt(4+i*12),p.getInt(4+i*12+4));
 			L.add(pId);
 		}
+		bm.freePage(relInfo.getHeaderPageId(), false);
 		return L;
 	}
 

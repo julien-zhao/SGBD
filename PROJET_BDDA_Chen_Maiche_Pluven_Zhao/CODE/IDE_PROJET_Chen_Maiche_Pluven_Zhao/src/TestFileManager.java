@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -10,6 +9,7 @@ public class TestFileManager {
         DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
+		DBParams.frameCount = 2;
 		
         FileManager fm = FileManager.getSingleton();
         
@@ -21,7 +21,7 @@ public class TestFileManager {
 		Personne.addColonne("TAILLE", "REAL");
 
 
-        Catalog uneCatalog = new Catalog();
+        Catalog uneCatalog = Catalog.getSingleton();
         uneCatalog.addRelationInfo(Personne);
         Record unRecord = new Record(Personne);
 

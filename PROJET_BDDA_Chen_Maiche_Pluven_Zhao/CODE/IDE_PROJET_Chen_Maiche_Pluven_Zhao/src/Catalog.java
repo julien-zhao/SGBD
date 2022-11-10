@@ -9,11 +9,17 @@ import java.util.ArrayList;
 public class Catalog {
 	private ArrayList<RelationInfo> RelationInfos;
 	private int nbRelation; // le compteur
-	
-	public Catalog(){
+	private static Catalog g_instance = new Catalog();
+
+	private Catalog(){
+		nbRelation = 0;
 		RelationInfos = new ArrayList<RelationInfo>();
 	}
 	
+	public static Catalog getSingleton() {
+		return g_instance;
+	}
+
 	public ArrayList<RelationInfo> getCatalog(){
 		return RelationInfos;
 	}
