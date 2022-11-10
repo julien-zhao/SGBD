@@ -18,10 +18,15 @@ public class Record {
 	
 	
 	public void addTuple(ArrayList<String> unTuple) {
-
-		if(unTuple.size() == relInfo.getTabInfo().size()) {
+		
+		if(values.size() == 0) {
 			for(int i =0; i<unTuple.size();i++) {
 				values.add(unTuple.get(i));
+			}
+		}
+		if(unTuple.size() == relInfo.getTabInfo().size()) {
+			for(int i =0; i<unTuple.size();i++) {
+				values.set(i,unTuple.get(i));
 			}
 		}
 	}
