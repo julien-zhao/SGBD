@@ -93,10 +93,10 @@ public class Catalog {
 		return nbRelation;
 	}
 	
-	public String getRelationInfo(String nomRelation) {
+	public RelationInfo getRelationInfo(String nomRelation) {
 		for(RelationInfo uneRelation : RelationInfos) {
 			if(uneRelation.getNomRelation().equals(nomRelation)) {
-				return uneRelation.afficheRelationInfo(); 
+				return uneRelation; 
 			}
 		}
 		System.out.println("La relation n'existe pas");

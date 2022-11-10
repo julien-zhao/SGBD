@@ -17,5 +17,9 @@ public class InsertIntoCommand extends XCommand{
             values.add(vals[i]);
         }
     }
+
+    public void execute() {
+        //TODO
+    }
 }
     

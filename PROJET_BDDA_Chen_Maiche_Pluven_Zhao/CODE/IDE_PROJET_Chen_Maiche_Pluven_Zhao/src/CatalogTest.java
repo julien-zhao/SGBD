@@ -7,7 +7,7 @@ public class CatalogTest {
 		DBParams.maxPagesPerFiles = 4;
 		
 		RelationInfo relaInfo = new RelationInfo("testPerso");
-		Catalog catalog = new Catalog();
+		Catalog catalog = Catalog.getSingleton();
 		
 		relaInfo.addColonne("Froid","VARCHAR(10)");
 		relaInfo.addColonne("Paul", "VARCHAR(12");

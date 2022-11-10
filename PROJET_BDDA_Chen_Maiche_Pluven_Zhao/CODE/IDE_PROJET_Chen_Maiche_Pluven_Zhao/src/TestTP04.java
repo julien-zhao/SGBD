@@ -36,7 +36,7 @@ public class TestTP04 {
 		
 		System.out.println("\n\n\nTest Catalog");
 		System.out.println("***********************************************************");
-		Catalog uneCatalog = new Catalog();
+		Catalog uneCatalog = Catalog.getSingleton();
 		RelationInfo Etudiant = new RelationInfo("Etudiant");
 		Etudiant.addColonne("Nom", "VARCHAR(10)");
 		Etudiant.addColonne("Prenom", "VARCHAR(12)");

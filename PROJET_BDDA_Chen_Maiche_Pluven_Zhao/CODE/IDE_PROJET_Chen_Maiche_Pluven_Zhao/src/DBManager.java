@@ -1,5 +1,5 @@
 import java.io.IOException;
-import Commande.*;
+
 
 public class DBManager {
     private static DBManager g_instance = new DBManager();
