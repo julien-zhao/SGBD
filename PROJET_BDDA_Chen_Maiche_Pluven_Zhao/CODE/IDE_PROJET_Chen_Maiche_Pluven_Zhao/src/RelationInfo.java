@@ -91,7 +91,7 @@ public class RelationInfo {
 	
 	public String toString() {
 		return "Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+tabInfo.size()
-		+"Nom Colonne"+ afficheNomColonne() +"\n" + "Type colonne"+ afficheTypesColonne();
+		+"\nNom Colonne"+ afficheNomColonne() +"\n" + "Type colonne"+ afficheTypesColonne();
 	}
 
 
