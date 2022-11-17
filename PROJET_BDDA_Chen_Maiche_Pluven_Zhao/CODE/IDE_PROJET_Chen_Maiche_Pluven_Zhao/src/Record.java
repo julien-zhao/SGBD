@@ -163,7 +163,7 @@ public class Record {
 	
 	
 	public int getWrittenSize() {
-		return bufferSize;
+		return this.bufferSize;
 	}
 
 }
