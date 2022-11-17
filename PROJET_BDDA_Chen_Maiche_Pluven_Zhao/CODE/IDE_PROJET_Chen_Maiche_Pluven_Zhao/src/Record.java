@@ -74,11 +74,6 @@ public class Record {
 	}
 
 	public void writeToBuffer(ByteBuffer buff, int pos){
-		// 0100091801100
-		//int 4 octet de val 1
-		
-		//8 pour zhao, 12 pour julien, 4 pour 21, 4 pour 1.6
-		//81244|709709709
 
 		buff.position(pos); 
 
@@ -121,7 +116,7 @@ public class Record {
 	}
 
 	public void getBufferToByte(ByteBuffer buff, int pos) {
-		buff.position(pos);
+		buff.position(0);
 		while(buff.hasRemaining()) {
 			bufferSize++;
 			System.out.print(buff.get() + " ");
@@ -144,24 +139,31 @@ public class Record {
 				for(int j =0; j< posList.get(i)/2; j++) {
 					sb.append(buff.getChar());
 				}
-				System.out.println(sb.toString());
+				values.add(sb.toString());
 				sb = new StringBuilder("");
 			}
 			if(posList.get(i) == 4) {
 				if(list.get(i).equals("INTEGER")) {
 					sb.append(buff.getInt());
-					System.out.println(sb.toString());
+					values.add(sb.toString());
 					sb = new StringBuilder("");
 				}else {
 					sb.append(buff.getFloat());
-					System.out.println(sb.toString());
+					values.add(sb.toString());
 					sb = new StringBuilder("");
 				}
 			}
 		}
 	}
 	
-	
+	public String toString() {
+		String res = "";
+		for (String s: values) {
+			res += s + " ";
+		}
+		return res; 
+		
+	}
 	public int getWrittenSize() {
 		return bufferSize;
 	}
