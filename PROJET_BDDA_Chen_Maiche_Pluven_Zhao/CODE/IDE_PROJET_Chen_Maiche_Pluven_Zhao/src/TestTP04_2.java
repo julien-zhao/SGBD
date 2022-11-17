@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class TestFileManager {
+public class TestTP04_2 {
     
     public static void main(String[] args) throws IOException {
 

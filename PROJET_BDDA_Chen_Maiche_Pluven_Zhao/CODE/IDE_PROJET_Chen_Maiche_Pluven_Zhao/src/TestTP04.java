@@ -1,7 +1,6 @@
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Vector;
+
 
 public class TestTP04 {
 	public static void main(String []args ) throws Exception {
