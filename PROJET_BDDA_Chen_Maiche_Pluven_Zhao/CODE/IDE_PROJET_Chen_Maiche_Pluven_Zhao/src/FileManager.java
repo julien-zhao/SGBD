@@ -135,12 +135,12 @@ public class FileManager {
 	}
 
 	public Vector<Record> getAllRecords(RelationInfo relInfo) throws IOException{
-		Vector<PageId> L = getAllDataPages(relInfo);
-		Vector<Record> R = new Vector<Record>();
-		for(PageId p : L) {
-			R.addAll(getRecordsInDataPage(relInfo,p));
+		Vector<PageId> l = getAllDataPages(relInfo);
+		Vector<Record> r = new Vector<Record>();
+		for(PageId p : l) {
+			r.addAll(getRecordsInDataPage(relInfo,p));
 		}
-		return R;
+		return r;
 	}
 
 	/*public void deleteRecordInRelation(RelationInfo relInfo,RecordId recordId) throws IOException {
