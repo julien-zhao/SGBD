@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Vector;
 
 public class SelectFromCommand extends XCommand{
-    private String nomRelation;
+    private RelationInfo relation;
     private Vector<String> colonne;
     private Vector<String> criteres;
 
@@ -11,12 +11,11 @@ public class SelectFromCommand extends XCommand{
         criteres = new Vector<String>();
 
         String[] tokens = command.split(" ");
-        nomRelation = tokens[3];
+        relation = Catalog.getSingleton().getRelationInfo(tokens[3]);
         String[] c = tokens[1].split(",");
 
         if(tokens[1].equals("*")){
-            RelationInfo ri = Catalog.getSingleton().getRelationInfo(nomRelation);
-            for(ColInfo ci: ri.getTabInfo()){
+            for(ColInfo ci: relation.getTabInfo()){
                 colonne.add(ci.getColonne());
             }
 
@@ -35,7 +34,7 @@ public class SelectFromCommand extends XCommand{
     }
 
     public void execute() {
-        //TODO
+        
     }
 }
     

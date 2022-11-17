@@ -134,6 +134,15 @@ public class FileManager {
 		return R;
 	}
 
+	public Vector<Record> getAllRecords(RelationInfo relInfo) throws IOException{
+		Vector<PageId> L = getAllDataPages(relInfo);
+		Vector<Record> R = new Vector<Record>();
+		for(PageId p : L) {
+			R.addAll(getRecordsInDataPage(relInfo,p));
+		}
+		return R;
+	}
+
 	/*public void deleteRecordInRelation(RelationInfo relInfo,RecordId recordId) throws IOException {
 		BufferManager bm = BufferManager.getSingleton();
 		ByteBuffer p = bm.getPage(recordId.pageId);

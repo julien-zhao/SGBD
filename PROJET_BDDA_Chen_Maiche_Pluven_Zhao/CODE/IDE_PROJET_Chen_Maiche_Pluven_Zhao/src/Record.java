@@ -18,7 +18,13 @@ public class Record {
 		return relInfo;
 	}
 	
-	
+	public voids etValues(String... s){
+		for(String str : s){
+			values.add(str);
+		}
+	}
+
+
 	public void addTuple(ArrayList<String> unTuple) {
 		
 		if(values.size() == 0) {
