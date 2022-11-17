@@ -99,7 +99,7 @@ public class Catalog {
 				return uneRelation; 
 			}
 		}
-		System.out.println("La relation n'existe pas");
+		System.out.println("La relation '"+nomRelation+"' n'existe pas");
 		return null; 
 	}
 	

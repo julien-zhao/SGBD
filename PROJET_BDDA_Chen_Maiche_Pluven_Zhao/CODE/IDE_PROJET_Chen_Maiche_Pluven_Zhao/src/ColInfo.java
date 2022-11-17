@@ -13,4 +13,8 @@ public class ColInfo {
 	public String getType() {
 		return type;
 	}
+	
+	public String toString() {
+		return "( "+this.getColonne()+","+this.type+")";
+	}
 }
