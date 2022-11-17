@@ -18,7 +18,7 @@ public class Record {
 		return relInfo;
 	}
 	
-	public voids etValues(String... s){
+	public void etValues(String... s){
 		for(String str : s){
 			values.add(str);
 		}

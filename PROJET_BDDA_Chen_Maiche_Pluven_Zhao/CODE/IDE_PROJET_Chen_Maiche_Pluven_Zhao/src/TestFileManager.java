@@ -36,7 +36,7 @@ public class TestFileManager {
 		System.out.println(rid.pageID+"\t"+rid.slotIdx+"\t"+rid.getPageID()+"\t"+rid.getSlotIdx());
 		System.out.println("******************************************************");
 		
-		//fm.get
+		System.out.println(fm.getAllDataPages(ri));
 		/*PageId pidTestAdd = fm.addDataPage(ri);
 		System.out.println(pidTestAdd.fileIdx+"\t"+pidTestAdd.pageIdx);
 		System.out.println("Obtenir nom de la relation: "+ ri.getNomRelation());
