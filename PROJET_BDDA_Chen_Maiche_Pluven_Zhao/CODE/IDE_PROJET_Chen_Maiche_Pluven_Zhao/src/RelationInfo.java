@@ -1,7 +1,7 @@
-import java.nio.ByteBuffer;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
+
 
 public class RelationInfo {
 	private String nomRelation; // le nom de la relation
@@ -35,12 +35,12 @@ public class RelationInfo {
 	
 	
 	public PageId getHeaderPageId() {
-		return headerPageId;
+		return this.headerPageId;
 	}
 	
 	
 	public List<ColInfo> getTabInfo() {
-		return tabInfo;
+		return this.tabInfo;
 	}
 	
 
