@@ -85,20 +85,25 @@ public class Record {
 
 		//boucle qui met les tailles des valeurs dans le buff
 		for (int i=0; i< relInfo.getTabInfo().size();i++) {
+			bufferSize += 4;
 			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
 				//posList.add(4);
+				bufferSize += 4;
 				buff.putInt(4); 
 			}
 			if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
 				//posList.add(4);
+				bufferSize += 4;
 				buff.putInt(4);	
 			}
 			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
 				int sizeString = getValues().get(i).length()*2;
 				//posList.add(sizeString);
+				bufferSize += sizeString;
 				buff.putInt(sizeString);
 			}
 		}
+		
 		//boucle qui transforme les valeurs en byte
 		for (int i=0; i< relInfo.getTabInfo().size();i++) {
 			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
@@ -120,7 +125,8 @@ public class Record {
 		}
 
 	}
-
+	
+	//Il sert a obtenir le record en format byte
 	public void getBufferToByte(ByteBuffer buff, int pos) {
 		buff.position(0);
 		while(buff.hasRemaining()) {
@@ -131,9 +137,10 @@ public class Record {
 	
 	public void readFromBuffer2(ByteBuffer buff, int pos) {
 		buff.position(pos);
-		System.out.println();
 		ArrayList<Integer>posList = new ArrayList<>();
+
 		for(int i =0;i <relInfo.getTabInfo().size(); i++) {
+			bufferSize += 4;
 			posList.add(buff.getInt());
 		}
 		
@@ -143,12 +150,14 @@ public class Record {
 		for(int i =0; i<posList.size();i++) {
 			if(posList.get(i) > 4) {
 				for(int j =0; j< posList.get(i)/2; j++) {
+					bufferSize += 2;
 					sb.append(buff.getChar());
 				}
 				values.add(sb.toString());
 				sb = new StringBuilder("");
 			}
 			if(posList.get(i) == 4) {
+				bufferSize += 4;
 				if(list.get(i).equals("INTEGER")) {
 					sb.append(buff.getInt());
 					values.add(sb.toString());
