@@ -53,9 +53,6 @@ public class TestTP04 {
 		System.out.println("***********************************************************");
 		
 		
-		
-		
-		
 		System.out.println("\n\n\nTest Record");
 		System.out.println("***********************************************************");
 
@@ -79,18 +76,10 @@ public class TestTP04 {
 		deuxRecord.addTuple(tuple2);		
 		
 		
-		//ByteBuffer - new Byfeter()
-		//record.writeToBuffer(reco)
-		
-		// New record sur Personne vide
-		// Tu lui fais lire le buffer dans lequel tu viens d'ecrire
-		
-		
-		
+
 		//capacite d'un buff
 		ByteBuffer unBuffer = ByteBuffer.allocate(10000);
-        
-        //unBuffer.limit(capacite*5);
+       
         
         
         unRecord.writeToBuffer(unBuffer, 20);
