@@ -28,7 +28,6 @@ public class Queue {
 			 c = null;
 			return cId;
 		}
-		System.out.println("ok");
 		return -1;
 	}
 	

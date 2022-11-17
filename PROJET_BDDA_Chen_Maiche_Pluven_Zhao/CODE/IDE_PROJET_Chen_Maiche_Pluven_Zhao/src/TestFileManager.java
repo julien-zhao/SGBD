@@ -7,7 +7,7 @@ public class TestFileManager {
 		DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
-		DBParams.frameCount = 2;
+		DBParams.frameCount = 512;
 		System.out.println("******************************************************");
 		System.out.println("Début Test File Manager:");
 		System.out.println("******************************************************");
@@ -35,8 +35,12 @@ public class TestFileManager {
 		RecordId rid= fm.InsertRecordIntoRelation(unRecord);
 		System.out.println(rid.pageID+"\t"+rid.slotIdx+"\t"+rid.getPageID()+"\t"+rid.getSlotIdx());
 		System.out.println("******************************************************");
-		
 		System.out.println(fm.getAllDataPages(ri));
+		System.out.println("******************************************************");
+		System.out.println(fm.getAllRecords(ri));
+		System.out.println("******************************************************");
+		System.out.println(fm.getRecordsInRelation(ri));
+		System.out.println("******************************************************");
 		/*PageId pidTestAdd = fm.addDataPage(ri);
 		System.out.println(pidTestAdd.fileIdx+"\t"+pidTestAdd.pageIdx);
 		System.out.println("Obtenir nom de la relation: "+ ri.getNomRelation());
