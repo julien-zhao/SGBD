@@ -37,7 +37,7 @@ public class TestTP04 {
 		
 		System.out.println("\n\n\nTest Catalog");
 		System.out.println("***********************************************************");
-		Catalog uneCatalog = new Catalog();
+		Catalog uneCatalog = Catalog.getSingleton();
 		RelationInfo Etudiant = new RelationInfo("Etudiant");
 		Etudiant.addColonne("Nom", "VARCHAR(10)");
 		Etudiant.addColonne("Prenom", "VARCHAR(12)");
@@ -57,20 +57,14 @@ public class TestTP04 {
 		
 		System.out.println("\n\n\nTest Record");
 		System.out.println("***********************************************************");
-<<<<<<< Updated upstream
-		
-=======
->>>>>>> Stashed changes
+
 		Record unRecord = new Record(Personne);
 		ArrayList<String> tuple1 = new ArrayList<>();
 		tuple1.add("Zhao");
 		tuple1.add("Julien");
 		tuple1.add("21");
-<<<<<<< Updated upstream
 		tuple1.add("1.6");
-=======
-		tuple1.add("1.65");
->>>>>>> Stashed changes
+
 
 		unRecord.addTuple(tuple1);
 		
@@ -84,6 +78,7 @@ public class TestTP04 {
 		
 		System.out.println("Voici le nom du record : " + unRecord.getRelInfo().getNomRelation());
 		System.out.println("Voici les differents colonnes de ce record  : "+unRecord.getNomColonne());
+		System.out.println("Voici les differents colonnes de ce record  : "+unRecord.getTypeColonne());
 		System.out.println("Voici les valeurs de chaque colonne : "+ unRecord.afficheValues());
 		System.out.println("***********************************************************");
 		
@@ -95,22 +90,11 @@ public class TestTP04 {
 		// Tu lui fais lire le buffer dans lequel tu viens d'ecrire
 		
 		
-<<<<<<< Updated upstream
-		//ByteBuffer - new Byfeter()
-		//record.writeToBuffer(reco)
-		
-		// New record sur Personne vide
-		// Tu lui fais lire le buffer dans lequel tu viens d'ecrire
-=======
-		System.out.println("Ce qu'on attend dans writeToBuffer(buff,pos) : ");
-		// 0100091801100
-		//int 4 octet de val 1
->>>>>>> Stashed changes
+
 		
 		//8 pour zhao
 		//81244|709709709
 		
-		System.out.println("Ce qu'on attend dans writeToBuffer(buff,pos) : ");
 		// 0100091801100
 		//int 4 octet de val 1
 		
@@ -126,44 +110,25 @@ public class TestTP04 {
 		int capacite = unRecord.getSizePos();
         ByteBuffer unBuffer = ByteBuffer.allocate(capacite*10);
         
-        unBuffer.limit(capacite*10);
+        unBuffer.limit(capacite*5);
         
         System.out.println("La capacité du record Etudiant : " + unBuffer.capacity());
 
         
-        //capicté 
-
-        
         System.out.println("Voici une lecture de buff à partir de la position 0 : ");
         unRecord.writeToBuffer(unBuffer, 0);
+        System.out.println("Voici le record en byte : ");
+        unRecord.getBufferToByte(unBuffer, 0);
+        System.out.println("\nVoici le record avec readFromBuffer : ");
         unRecord.readFromBuffer2(unBuffer, 0);
         
         System.out.println("\n\nVoici une lecture de buff à partir de la position 2: ");
-        unRecord.readFromBuffer2(unBuffer, 0);
+        //unRecord.readFromBuffer2(unBuffer, 2);
         
         
         
-        
-        /*
-        System.out.println("\n\n\nMaintenant nous allons ecrire un nouveau record pour voir si le dernier record est ecrasé : ");
- 
-        
-        
-        
-        Record unAutreRecord = new Record(Personne);
-        System.out.println("\n\n\nVoici le record dont nous allons convertir en byte et effectuer une lecture");
-        System.out.println(unAutreRecord.getNomColonne().toString() +"\n");
-        
-        System.out.println("Voici une lecture de buff à partir de la position 0 : ");
-        //unAutreRecord.writeToBuffer(unBuffer, 0);
-        //unAutreRecord.readFromBuffer2(unBuffer, 0);
-        
-        System.out.println("\n\nVoici une lecture de buff à partir de la position 2: ");
-        //unAutreRecord.readFromBuffer2(unBuffer, 2);
-		
-		System.out.println("\n***********************************************************");
-		
-		
-		*/
+        System.out.println("\nTest de getWrittenSize : " + unRecord.getWrittenSize());
+
+
 	}
 }

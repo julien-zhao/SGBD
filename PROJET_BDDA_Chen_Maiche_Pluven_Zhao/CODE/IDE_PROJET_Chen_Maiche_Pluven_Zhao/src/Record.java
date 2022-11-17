@@ -3,8 +3,10 @@ import java.nio.ByteBuffer;
 
 public class Record {
 
-	RelationInfo relInfo;
-	ArrayList<String> values;
+	private RelationInfo relInfo;
+	private ArrayList<String> values;
+	private int bufferSize =0;
+
 
 	
 	public Record(RelationInfo relInfo) {
@@ -18,27 +20,16 @@ public class Record {
 	
 	
 	public void addTuple(ArrayList<String> unTuple) {
-<<<<<<< Updated upstream
 		
 		if(values.size() == 0) {
 			for(int i =0; i<unTuple.size();i++) {
 				//tester si le type d'entrer est le meme que le type des colonnes
-=======
-
-		if(values.size() == 0) {
-			for(int i =0; i<unTuple.size();i++) {
-				//tester les types d'entrer par rapport aux type colonne
->>>>>>> Stashed changes
 				values.add(unTuple.get(i));
 			}
 		}
 		if(unTuple.size() == relInfo.getTabInfo().size()) {
 			for(int i =0; i<unTuple.size();i++) {
-<<<<<<< Updated upstream
 				values.set(i,unTuple.get(i));
-=======
-				values.set(i, unTuple.get(i));
->>>>>>> Stashed changes
 			}
 		}
 	}
@@ -59,6 +50,14 @@ public class Record {
 		}
 		return res;
 	}
+	public ArrayList<String> getTypeColonne() {
+		ArrayList<String> res= new ArrayList<>();
+		for(ColInfo uneCol: relInfo.getTabInfo()){
+			res.add(uneCol.getType());
+		}
+		return res;
+	}
+	
 	
 	public int getSizePos() {
 		int size = getValues().size();
@@ -73,7 +72,7 @@ public class Record {
 		}
 		return size;
 	}
-	
+
 	public void writeToBuffer(ByteBuffer buff, int pos){
 		// 0100091801100
 		//int 4 octet de val 1
@@ -86,13 +85,16 @@ public class Record {
 		//boucle qui met les tailles des valeurs dans le buff
 		for (int i=0; i< relInfo.getTabInfo().size();i++) {
 			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
+				//posList.add(4);
 				buff.putInt(4); 
 			}
 			if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
+				//posList.add(4);
 				buff.putInt(4);	
 			}
 			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
 				int sizeString = getValues().get(i).length()*2;
+				//posList.add(sizeString);
 				buff.putInt(sizeString);
 			}
 		}
@@ -117,97 +119,51 @@ public class Record {
 		}
 
 	}
-	
+
+	public void getBufferToByte(ByteBuffer buff, int pos) {
+		buff.position(pos);
+		while(buff.hasRemaining()) {
+			bufferSize++;
+			System.out.print(buff.get() + " ");
+		}		
+	}
 	
 	public void readFromBuffer2(ByteBuffer buff, int pos) {
 		buff.position(pos);
-		/*
-		while(buff.hasRemaining()) {
-			System.out.print(buff.getInt() + " ");
-		}
-		
-		*/
-
-		ArrayList<Integer>tabTaille = new ArrayList<>();
+		System.out.println();
+		ArrayList<Integer>posList = new ArrayList<>();
 		for(int i =0;i <relInfo.getTabInfo().size(); i++) {
-			tabTaille.add(buff.getInt());
+			posList.add(buff.getInt());
 		}
 		
-		for(int j = relInfo.getTabInfo().size(); j < buff.capacity(); j++) {
-			
-			System.out.println( buff.getInt(j) + " ");
-		}
-
-		//System.out.println("test : "+ buff.getChar(6));
 		
-		
-		/*
-		for (int i=0; i< relInfo.getTabInfo().size();i++) {
-			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
-				int tmpInt = buff.getInt();
-				buff.put((byte)tmpInt);
-			}
-			if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
-				float tmpFloat = Float.parseFloat(getValues().get(i));
-				buff.put((byte)tmpFloat);	
-			}
-			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
-				String tmpString = getValues().get(i);
-				byte[] tmpByte = tmpString.getBytes();
-				buff.put(tmpByte);
-			}
-		}
-		*/
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// à revoir
-	public void readFromBuffer(ByteBuffer buff, int pos) {
-		buff.position(pos);
-		int i;
-		int longueurChaine;
-		
-		for (i=0; i< relInfo.getTabInfo().size();i++) {
-			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
-				values.add(Integer.toString(buff.getInt()));
-			}
-			else if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
-				values.add(Float.toString(buff.getFloat()));
-				
-			}
-			else if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
-				longueurChaine = Integer.parseInt(relInfo.getTabInfo().get(i).getType().substring(7)); 
-				String s = "";
-				for (int j=0; j<longueurChaine; j++ ) {
-					s = s + buff.getChar();
+		ArrayList<String> list = getTypeColonne();
+		StringBuilder sb = new StringBuilder("");;
+		for(int i =0; i<posList.size();i++) {
+			if(posList.get(i) > 4) {
+				for(int j =0; j< posList.get(i)/2; j++) {
+					sb.append(buff.getChar());
 				}
-				values.add(s);
+				System.out.println(sb.toString());
+				sb = new StringBuilder("");
+			}
+			if(posList.get(i) == 4) {
+				if(list.get(i).equals("INTEGER")) {
+					sb.append(buff.getInt());
+					System.out.println(sb.toString());
+					sb = new StringBuilder("");
+				}else {
+					sb.append(buff.getFloat());
+					System.out.println(sb.toString());
+					sb = new StringBuilder("");
+				}
 			}
 		}
 	}
-	// Tester si c'est correct le code 
 	
 	
 	public int getWrittenSize() {
-		byte[] tabByte;
-		byte sommeByte = 0;
-		for(int i =0; i<values.size();i++) {
-			tabByte = values.get(i).getBytes();
-			for(Byte b : tabByte) {
-				sommeByte += b;
-			}
-		}
-		return ((int)sommeByte);
+		return bufferSize;
 	}
 
 }

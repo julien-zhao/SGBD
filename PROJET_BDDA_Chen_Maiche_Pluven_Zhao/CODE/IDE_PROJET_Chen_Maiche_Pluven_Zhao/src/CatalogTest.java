@@ -7,7 +7,6 @@ public class CatalogTest {
 		DBParams.maxPagesPerFiles = 4;
 		
 		RelationInfo relaInfo = new RelationInfo("testPerso");
-		Catalog catalog = new Catalog();
 		
 		relaInfo.addColonne("Froid","VARCHAR(10)");
 		relaInfo.addColonne("Paul", "VARCHAR(12");
@@ -15,12 +14,22 @@ public class CatalogTest {
 		relaInfo.addColonne("10.0", "REAL");
 		
 		System.out.println("Initialisation de la catalog");
-		catalog.Init2();
+		Catalog.getSingleton().Init2();
 		// ajout de la relation relaInfo dans catalog
-		catalog.addRelationInfo(relaInfo);
+		Catalog.getSingleton().addRelationInfo(relaInfo);
 		// fin Init()
 		System.out.println("sauvegarde catalog dans le fichier catalog.sv");
-		catalog.Finish();
+		Catalog.getSingleton().Finish();
+		
+		System.out.println("\n\n** Test si la relInfo se trouve bien dans catalog **");
+		System.out.println("\nLe nombre de nombre de relation dans catalog : "+Catalog.getSingleton().getNbRelation());
+		System.out.println("retourne la relation nommée 'testPerso' si il existe dans catalog");
+		if(Catalog.getSingleton().getRelationInfo("testPerso") == null)
+			System.out.println("'testPerso' n'existe pas dans le catalog");
+		else {
+			System.out.println("'testPerso' existe bien dans le catalog");
+			System.out.println("Résultat de la recherche : \n"+ Catalog.getSingleton().getRelationInfo("testPerso"));
+		}
 	}
 
 }

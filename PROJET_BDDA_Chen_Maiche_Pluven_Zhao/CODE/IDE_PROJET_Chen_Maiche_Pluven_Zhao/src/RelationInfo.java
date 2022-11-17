@@ -14,6 +14,12 @@ public class RelationInfo {
 		this.nomRelation = nomRelation;
 		tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
 	}
+
+	public RelationInfo(String nomRelation, PageId headerPageId) {
+		this.nomRelation = nomRelation;
+		this.headerPageId = headerPageId;
+		tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
+	}
 	
 	public RelationInfo() {
 		this("");
@@ -85,7 +91,7 @@ public class RelationInfo {
 	
 	public String toString() {
 		return "Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+tabInfo.size()
-		+"Nom Colonne"+ afficheNomColonne() +"\n" + "Type colonne"+ afficheTypesColonne();
+		+"\nNom Colonne"+ afficheNomColonne() +"\n" + "Type colonne"+ afficheTypesColonne();
 	}
 
 

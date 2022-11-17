@@ -9,11 +9,17 @@ import java.util.ArrayList;
 public class Catalog {
 	private ArrayList<RelationInfo> RelationInfos;
 	private int nbRelation; // le compteur
-	
-	public Catalog(){
+	private static Catalog g_instance = new Catalog();
+
+	private Catalog(){
+		nbRelation = 0;
 		RelationInfos = new ArrayList<RelationInfo>();
 	}
 	
+	public static Catalog getSingleton() {
+		return g_instance;
+	}
+
 	public ArrayList<RelationInfo> getCatalog(){
 		return RelationInfos;
 	}
@@ -56,21 +62,26 @@ public class Catalog {
 	}
 	
 	// voir si le code Init2() marche 
+	@SuppressWarnings("unchecked")
 	public void Init2() {
 		try {
 			String path = DBParams.DBPath+"Catalog.sv";
 			File f = new File(path);
 			FileInputStream FIS = new FileInputStream(f);
 			ObjectInputStream OIS = new ObjectInputStream(FIS);
+			
+			RelationInfos = (ArrayList<RelationInfo>) OIS.readObject();
+			
 			OIS.close();
 		}
 		catch(IOException e) {
 			System.out.println(e.getMessage());
 		}
-	}
-	
-	
-	// à tester
+		catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}// à tester
 	
 	
 	public void addRelationInfo(RelationInfo uneRelation) {
@@ -82,10 +93,10 @@ public class Catalog {
 		return nbRelation;
 	}
 	
-	public String getRelationInfo(String nomRelation) {
+	public RelationInfo getRelationInfo(String nomRelation) {
 		for(RelationInfo uneRelation : RelationInfos) {
 			if(uneRelation.getNomRelation().equals(nomRelation)) {
-				return uneRelation.afficheRelationInfo(); 
+				return uneRelation; 
 			}
 		}
 		System.out.println("La relation n'existe pas");

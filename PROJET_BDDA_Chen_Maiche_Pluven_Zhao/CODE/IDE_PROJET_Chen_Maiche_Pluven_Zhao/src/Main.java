@@ -4,20 +4,26 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		DBParams.DBPath = args[0];
+		DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
 		
-		//Test
-		/*
-		PageId pageId= DiskManager.AllocPage();
-		
-		int capacity = 10;
-		ByteBuffer bytebuffer = ByteBuffer.allocate(capacity);
-		DiskManager.ReadPage(pageId, bytebuffer);
-		*/
-		//#TODO
+		DBManager db = DBManager.getSingleton();
+		db.init();
+		boolean done = true;
+		while(done){
+			System.out.println("Enter a command:");
+			String cmd = System.console().readLine();
+			
+			if(cmd.equals("exit")){
+				done = false;
+			}
+			else{
+				db.processCommand(cmd);
+			}
+		}
+		db.finish();
 	}
 
 }
