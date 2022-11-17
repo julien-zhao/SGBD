@@ -9,7 +9,7 @@ public class CatalogTest {
 		RelationInfo relaInfo = new RelationInfo("testPerso");
 		
 		relaInfo.addColonne("Froid","VARCHAR(10)");
-		relaInfo.addColonne("Paul", "VARCHAR(12");
+		relaInfo.addColonne("Paul", "VARCHAR(12)");
 		relaInfo.addColonne("123456", "INTEGER");
 		relaInfo.addColonne("10.0", "REAL");
 		
