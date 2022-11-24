@@ -28,7 +28,7 @@ public class Queue {
 			 c = null;
 			return cId;
 		}
-		return -1;
+		throw new RuntimeException("Queue vide");
 	}
 	
 	public void del(Cellule c) {

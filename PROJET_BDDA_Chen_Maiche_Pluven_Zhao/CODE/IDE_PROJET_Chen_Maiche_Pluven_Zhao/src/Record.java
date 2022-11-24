@@ -18,12 +18,8 @@ public class Record {
 		return relInfo;
 	}
 	
-<<<<<<< Updated upstream
-	public void etValues(String... s){
-=======
 	public void setValues(String... s){
 		values.clear();
->>>>>>> Stashed changes
 		for(String str : s){
 			values.add(str);
 		}
