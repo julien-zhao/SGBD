@@ -49,8 +49,12 @@ public class BufferManager {
 			return f.getBb();
 			
 		} else {// Aucune Frame Libre
-			Frame caseAR= pool.elementAt(file.pop()); //case A Remplacer
-
+			Frame caseAR = null;
+			try {
+				caseAR= pool.elementAt(file.pop()); //case A Remplacer
+			}catch(ArrayIndexOutOfBoundsException e) {
+				System.out.println(e.getMessage());
+			}
 			if(!(caseAR.getPinCount()>0)) {
 
 				freePage(caseAR.getpId(),caseAR.isDirty());
@@ -86,9 +90,9 @@ public class BufferManager {
 		if(dirty) {
 			caseAFree.setDirty(true);
 		}
-		
-		caseAFree.decPinCount();
-		
+		if(caseAFree.getPinCount()>0) {
+			caseAFree.decPinCount();
+		}
 		if(caseAFree.getPinCount()==0) {
 			caseAFree.setPosFile(file.add(caseAFree.getCaseId())); //J'ajoute dans la file la case et je met la cellule correspondatne dans la var PosFile
 		}
@@ -107,5 +111,12 @@ public class BufferManager {
 			c.setPosFile(null);	
 		}
 		
+	}
+	
+	public Queue getQueue() {
+		return file;
+	}
+	public Vector<Frame> getPool(){
+		return this.pool;
 	}
 }

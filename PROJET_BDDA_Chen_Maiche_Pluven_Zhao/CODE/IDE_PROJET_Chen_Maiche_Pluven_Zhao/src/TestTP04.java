@@ -7,7 +7,7 @@ public class TestTP04 {
 		DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
-		DiskManager dm = DiskManager.getSingleton();
+		//DiskManager dm = DiskManager.getSingleton();
 		
 		//mettre une limite pour un record
 		System.out.println(DBParams.DBPath);
@@ -98,7 +98,7 @@ public class TestTP04 {
         System.out.println("\nTest de getWrittenSize 2: " + deuxRecord.getWrittenSize());
         System.out.println("\nTest de getWrittenSize 3: " + readUnRecord.getWrittenSize());
         System.out.println("\nTest de getWrittenSize 4: " + readDeuxRecord.getWrittenSize());
-
+        
 
 	}
 }

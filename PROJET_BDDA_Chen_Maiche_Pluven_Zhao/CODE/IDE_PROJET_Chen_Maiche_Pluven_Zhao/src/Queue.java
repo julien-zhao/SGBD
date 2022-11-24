@@ -48,7 +48,7 @@ public class Queue {
 	public void afficheFile() {
 		Cellule c = debut;
 		while(c.caseId!=-2) {
-			System.out.println(c.caseId);
+			System.out.println("case:"+c.caseId);
 			c=c.suiv;
 		}
 	}
