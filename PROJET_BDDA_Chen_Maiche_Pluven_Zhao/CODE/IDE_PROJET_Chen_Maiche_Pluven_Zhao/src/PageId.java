@@ -8,7 +8,7 @@ public class PageId {
 	/**
 	 * Numero de la page
 	 */
-	public int pageIdx;
+	public int pageIdx=-1;
 	
 	public PageId(int FileIdx, int PageIdx) {
 		this.fileIdx = FileIdx;

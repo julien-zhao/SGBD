@@ -40,7 +40,7 @@ public class BufferManager {
 		if (libre) { //Frame Libre ou Frame deja chargee dans la case i
 			Frame f = pool.elementAt(iFrameLibre);
 			
-			if(f.getPinCount()==0 && !file.isVoid()) { //Si la case est dans la liste
+			if(f.getPinCount()==0 && !(f.getPosFile()==null)) { //Si la case est dans la liste
 				file.del(f.getPosFile());
 			}
 			
@@ -99,6 +99,7 @@ public class BufferManager {
 	}
 
 	public void flushAll() throws IOException {
+		file = new Queue();
 		for (int i = 0; i < DBParams.frameCount; i++) { 
 			Frame c = pool.elementAt(i);
 			if(c.isDirty()) {

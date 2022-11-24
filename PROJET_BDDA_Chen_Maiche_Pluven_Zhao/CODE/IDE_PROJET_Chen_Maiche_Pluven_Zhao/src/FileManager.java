@@ -4,16 +4,10 @@ import java.util.Vector;
 
 public class FileManager {
 	private static FileManager g_instance = new FileManager();
-	private PageId pIdHeader;
 
 	//Vector<PageId> ListeDePageIds;
 	private FileManager() {
-		try {
-		pIdHeader = createNewHeaderPage();
-	
-		}catch(IOException e) {
-			System.out.println(e.getMessage());
-		}
+		
 	}
 	
 	public static FileManager getSingleton() {
@@ -38,14 +32,14 @@ public class FileManager {
 		ByteBuffer bb = bm.getPage(p);
 		bb.putInt(DBParams.pageSize-64, 0);
 		bb.putInt(DBParams.pageSize-32, 0);
-		ByteBuffer header = bm.getPage(pIdHeader);
+		ByteBuffer header = bm.getPage(relInfo.getHeaderPageId());
 		int nbDataPage=header.getInt(0);
 		header.putInt(4+nbDataPage*12, p.fileIdx);
 		header.putInt(4+nbDataPage*12+4, p.pageIdx);
 		header.putInt(4+nbDataPage*12+8, DBParams.pageSize);
 		header.putInt(nbDataPage+1, 0);
 		bm.freePage(p, true);
-		bm.freePage(pIdHeader, true);
+		bm.freePage(relInfo.getHeaderPageId(), true);
 		return p;
 	}
 	public PageId getFreeDataPageId (RelationInfo relInfo,int sizeRecord) throws IOException {

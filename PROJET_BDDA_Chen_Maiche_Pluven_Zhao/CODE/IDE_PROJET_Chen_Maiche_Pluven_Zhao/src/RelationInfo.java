@@ -1,5 +1,9 @@
 
+<<<<<<< Updated upstream
 import java.io.Serializable;
+=======
+import java.io.IOException;
+>>>>>>> Stashed changes
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +16,10 @@ public class RelationInfo implements Serializable{
 	private List<ColInfo> tabInfo; //Une liste qui contient le nom et le type
 	
 	
-	public RelationInfo(String nomRelation) {
+	public RelationInfo(String nomRelation) throws IOException {
 		this.nomRelation = nomRelation;
-		tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
+		this.tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
+		this.headerPageId = FileManager.getSingleton().createNewHeaderPage();
 	}
 
 	public RelationInfo(String nomRelation, PageId headerPageId) {
@@ -23,9 +28,7 @@ public class RelationInfo implements Serializable{
 		tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
 	}
 	
-	public RelationInfo() {
-		this("");
-	}
+
 
 	
 	public void addColonne(String nomColonne, String type) {

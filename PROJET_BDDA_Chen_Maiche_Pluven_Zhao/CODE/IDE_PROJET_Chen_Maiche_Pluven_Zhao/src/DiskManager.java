@@ -19,13 +19,13 @@ public class DiskManager {
 	
 	private DiskManager() {
 		log = new HashMap<Integer,Vector<Integer>>();
-		try {
+		/*try {
 			//saveLog(); //RESET FICHIER SAVELOG
-			getSaveLog();
+			//getSaveLog();
 				
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	
