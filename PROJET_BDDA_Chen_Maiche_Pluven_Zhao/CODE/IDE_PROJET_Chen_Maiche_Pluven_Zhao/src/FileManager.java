@@ -89,7 +89,7 @@ public class FileManager {
 			int pos = p.getInt(DBParams.pageSize-(8-(4*i)));
 			if(pos!=-1) {
 				Record rec =new Record(relInfo);
-				rec.readFromBuffer2(p,pos);
+				rec.readFromBuffer(p,pos);
 				r.add(rec);
 			}
 		}

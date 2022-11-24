@@ -136,7 +136,7 @@ public class Record {
 		}		
 	}
 	
-	public void readFromBuffer2(ByteBuffer buff, int pos) {
+	public void readFromBuffer(ByteBuffer buff, int pos) {
 		buff.position(pos);
 		ArrayList<Integer>posList = new ArrayList<>();
 

@@ -88,8 +88,8 @@ public class TestTP04 {
 		Record readUnRecord = new Record(Personne);
 		Record readDeuxRecord = new Record(Personne);
 		
-		readUnRecord.readFromBuffer2(unBuffer, 20);
-        readDeuxRecord.readFromBuffer2(unBuffer, 500);
+		readUnRecord.readFromBuffer(unBuffer, 20);
+        readDeuxRecord.readFromBuffer(unBuffer, 500);
         
 		System.out.println("INIT 3 : " + readUnRecord);
 		System.out.println("INIT 4 : " + readDeuxRecord);

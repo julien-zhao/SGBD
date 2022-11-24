@@ -26,18 +26,18 @@ public class Catalog implements Serializable{
 		return RelationInfos;
 	}
 	
-	public void Finish() /*throws IOException*/{
+	/*
+	 * Cette méthode Finish() enregistre une relation
+	 */
+	public void Finish(){
 		try {
 			String path = DBParams.DBPath+"Catalog.sv";
 			
 			File f = new File(path);
 			FileOutputStream fos = new FileOutputStream(f);
 		    ObjectOutputStream oos = new ObjectOutputStream(fos);
-			//System.out.println("fichier : " + fos);
-		    //oos.flush();
 
-		    oos.writeObject(this.RelationInfos);// On doit ajouter aussi le nombre de relation info
-		    //fos.close();
+		    oos.writeObject(this.RelationInfos);
 			oos.close();
 		}
 		catch(IOException e){
@@ -50,7 +50,7 @@ public class Catalog implements Serializable{
 	}
 	
 	
-	 
+	// cette méthode init() est exécuté quand la méthode finish() est exécuté au moins une fois 
 	@SuppressWarnings("unchecked")
 	public void Init() {
 		try {
@@ -82,6 +82,11 @@ public class Catalog implements Serializable{
 		return RelationInfos.size();
 	}
 	
+	/**
+	 * 
+	 * @param nomRelation
+	 * @return le nom de la relation, le nom de la colonne et le type de la colonne
+	 */
 	public RelationInfo getRelationInfo(String nomRelation) {
 		for(RelationInfo uneRelation : RelationInfos) {
 			if(uneRelation.getNomRelation().equals(nomRelation)) {
