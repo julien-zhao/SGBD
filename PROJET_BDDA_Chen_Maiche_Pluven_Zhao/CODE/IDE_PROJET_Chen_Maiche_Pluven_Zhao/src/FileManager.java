@@ -45,6 +45,7 @@ public class FileManager {
 		header.putInt(4+nbDataPage*12+8, DBParams.pageSize);
 		header.putInt(nbDataPage+1, 0);
 		bm.freePage(p, true);
+		bm.freePage(pIdHeader, true);
 		return p;
 	}
 	public PageId getFreeDataPageId (RelationInfo relInfo,int sizeRecord) throws IOException {
@@ -55,9 +56,11 @@ public class FileManager {
 		for(int i=12;i*12<nb*12;i+=12) {
 			if(header.getInt(i)>=sizeRecord) {
 				PageId pIdS = new PageId(header.getInt(i-8),header.getInt(i-4));
+				bm.freePage(hpId, false);
 				return pIdS;
 			}
 		}
+		bm.freePage(hpId, false);
 		return null;
 	}
 	
