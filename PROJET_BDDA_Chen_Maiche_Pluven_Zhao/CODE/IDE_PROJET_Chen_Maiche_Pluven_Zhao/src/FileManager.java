@@ -135,7 +135,7 @@ public class FileManager {
 	}
 
 	public Vector<Record> getAllRecords(RelationInfo relInfo) throws IOException{
-		Vector<PageId> l = getAllDataPages(relInfo);
+		Vector<PageId> l = getAllDataPages(relInfo);	
 		Vector<Record> r = new Vector<Record>();
 		for(PageId p : l) {
 			r.addAll(getRecordsInDataPage(relInfo,p));
