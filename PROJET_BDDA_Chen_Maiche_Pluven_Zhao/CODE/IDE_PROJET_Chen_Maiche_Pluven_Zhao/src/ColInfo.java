@@ -1,9 +1,11 @@
+import java.io.Serializable;
 
-public class ColInfo {
+public class ColInfo implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String colonne;
 	private String type;
 	
-	public ColInfo(String colonne,String type) {
+	public ColInfo(String colonne,String type)  {
 		this.colonne = colonne;
 		this.type = type;
 	}

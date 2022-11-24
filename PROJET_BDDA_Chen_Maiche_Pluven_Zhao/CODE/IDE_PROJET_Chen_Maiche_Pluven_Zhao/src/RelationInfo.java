@@ -1,9 +1,11 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RelationInfo {
+public class RelationInfo implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String nomRelation; // le nom de la relation
 	private PageId headerPageId;
 	//private int nbColonnes;		// le nombre de colonnes
@@ -80,7 +82,7 @@ public class RelationInfo {
 	}
 	
 	public String afficheRelationInfo() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(this.getNomRelation());
 		for(int i =0; i<tabInfo.size(); i++) {
 			sb.append("\n");
 			sb.append(tabInfo.get(i).getType()+" : ");
@@ -90,8 +92,8 @@ public class RelationInfo {
 	}
 	
 	public String toString() {
-		return "Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+tabInfo.size()
-		+"\nNom Colonne"+ afficheNomColonne() +"\n" + "Type colonne"+ afficheTypesColonne();
+		return /*"Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+tabInfo.size()
+		+"\nNom Colonne"+ afficheNomColonne() +"\n" + "\nType colonne"+ afficheTypesColonne();*/ this.afficheRelationInfo();
 	}
 
 
