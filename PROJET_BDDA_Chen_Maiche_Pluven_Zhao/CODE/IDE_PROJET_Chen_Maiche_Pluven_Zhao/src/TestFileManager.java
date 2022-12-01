@@ -44,6 +44,7 @@ public class TestFileManager {
 		ri.addColonne("TAILLE", "REAL");
 		
 		System.out.println("******************************************************");
+		//Ajout du tuple numéro 1
 		Record unRecord = new Record(ri);
 		ArrayList<String> tuple1 = new ArrayList<>();
 		tuple1.add("Zhao");
@@ -52,7 +53,8 @@ public class TestFileManager {
 		tuple1.add("1.6");
 		unRecord.addTuple(tuple1);
 		RecordId rid= fm.InsertRecordIntoRelation(unRecord);
-
+		
+		//Ajout du tuple numéro 2
 		Record deuxRecord = new Record(ri);
 		ArrayList<String> tuple2 = new ArrayList<>();
 		tuple2.add("Maiche");
@@ -62,27 +64,25 @@ public class TestFileManager {
 		deuxRecord.addTuple(tuple2);
 		RecordId rid2= fm.InsertRecordIntoRelation(deuxRecord);
 		
+		//Ajout du tuple numéro 3
+		Record troisRecord = new Record(ri);
+		ArrayList<String> tuple3 = new ArrayList<>();
+		tuple3.add("dfgdfh");
+		tuple3.add("fgjy");
+		tuple3.add("945");
+		tuple3.add("5.2");
+		troisRecord.addTuple(tuple3);
+		RecordId rid3= fm.InsertRecordIntoRelation(troisRecord);
 		
+		//affichage du test FileManager
 		System.out.println(rid.pageID+"\t"+rid.slotIdx+"\t"+rid.getPageID()+"\t"+rid.getSlotIdx());
 		System.out.println("******************************************************");
 		System.out.println("fm.getAllDataPages(ri) " + fm.getAllDataPages(ri));
 		System.out.println("******************************************************");
-		System.out.println("pool "+bm.getPool());
 		System.out.println("fm.getAllRecords(ri) " + fm.getAllRecords(ri));
 		System.out.println("******************************************************");
-		System.out.println("pool "+bm.getPool());
 		System.out.println("fm.getRecordsInRelation(ri) " + fm.getRecordsInRelation(ri));
 		System.out.println("******************************************************");
-		/*PageId pidTestAdd = fm.addDataPage(ri);
-		System.out.println(pidTestAdd.fileIdx+"\t"+pidTestAdd.pageIdx);
-		System.out.println("Obtenir nom de la relation: "+ ri.getNomRelation());
-		
-		//System.out.println(fm.getAllDataPages(ri));
-		System.out.println();
-		System.out.println("Nombre de relation dans la catalogue : "+ ri.afficheTypesColonne());
-		System.out.println("Header : "+ ri.getHeaderPageId());
-		System.out.println("***********************************************************");*/
-
 	}
 
 }
