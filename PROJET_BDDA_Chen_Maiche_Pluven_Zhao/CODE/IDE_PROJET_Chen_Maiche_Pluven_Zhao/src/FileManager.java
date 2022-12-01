@@ -28,7 +28,6 @@ public class FileManager {
 		PageId p=DiskManager.allocPage();
 		
 		BufferManager bm = BufferManager.getSingleton();
-	
 		ByteBuffer bb = bm.getPage(p);
 		bb.putInt(DBParams.pageSize-64, 0);
 		bb.putInt(DBParams.pageSize-32, 0);
@@ -37,7 +36,7 @@ public class FileManager {
 		header.putInt(4+nbDataPage*12, p.fileIdx);
 		header.putInt(4+nbDataPage*12+4, p.pageIdx);
 		header.putInt(4+nbDataPage*12+8, DBParams.pageSize);
-		header.putInt(nbDataPage+1, 0);
+		header.putInt(0, nbDataPage+1);
 		bm.freePage(p, true);
 		bm.freePage(relInfo.getHeaderPageId(), true);
 		return p;
@@ -80,7 +79,7 @@ public class FileManager {
 		ByteBuffer p = bm.getPage(pageId);
 		int m = p.getInt(DBParams.pageSize-8);
 		for(int i = 1;i<=m;i++) {
-			int pos = p.getInt(DBParams.pageSize-(8-(4*i)));
+			int pos = p.getInt(DBParams.pageSize-(8+(8*i)));
 			if(pos!=-1) {
 				Record rec =new Record(relInfo);
 				rec.readFromBuffer(p,pos);
@@ -102,9 +101,11 @@ public class FileManager {
 
 	public Vector<PageId> getAllDataPages(RelationInfo relInfo) throws IOException{
 		BufferManager bm = BufferManager.getSingleton();
-		ByteBuffer p = bm.getPage(relInfo.getHeaderPageId());
-		System.out.println(p);
+		PageId hp = relInfo.getHeaderPageId();
+		ByteBuffer p = bm.getPage(hp);
+		
 		int nb = p.getInt(0);
+		System.out.println(hp+" "+nb);
 		Vector<PageId> L = new Vector<PageId>();
 		for(int i=0;i<nb;i++) {
 			PageId pId = new PageId(p.getInt(4+i*12),p.getInt(4+i*12+4));
@@ -115,11 +116,20 @@ public class FileManager {
 	}
 
 	public RecordId InsertRecordIntoRelation (Record record) throws IOException {
-		PageId pId = getFreeDataPageId(record.getRelInfo(),record.getWrittenSize());
+		int nbS = record.getWrittenSize();
+		System.out.println("WRITTEN SIZE "+nbS);
+		PageId pId = getFreeDataPageId(record.getRelInfo(),nbS);
 		if(pId==null) {
 			pId = addDataPage(record.getRelInfo());
 		}
-		return writeRecordToDataPage(record,pId);
+		RecordId ret = writeRecordToDataPage(record,pId);
+		PageId hp = record.getRelInfo().getHeaderPageId();
+		ByteBuffer pp =BufferManager.getSingleton().getPage(hp);
+		int nbx = pp.getInt(0);
+		System.out.println(hp+" "+nbx+" ********************* ATTENDU (0,0)  >0");
+		BufferManager.getSingleton().freePage(hp, false);
+		System.out.println("WRITTEN SIZE "+nbS);
+		return ret;
 	}
 
 	public Vector<Record> getRecordsInRelation(RelationInfo relInfo) throws IOException{
@@ -135,7 +145,9 @@ public class FileManager {
 		Vector<PageId> l = getAllDataPages(relInfo);	
 		Vector<Record> r = new Vector<Record>();
 		for(PageId p : l) {
-			r.addAll(getRecordsInDataPage(relInfo,p));
+			Vector<Record> vr = getRecordsInDataPage(relInfo,p);
+			System.out.println(vr+"&&&&&&&&&&");
+			r.addAll(vr);
 		}
 		return r;
 	}

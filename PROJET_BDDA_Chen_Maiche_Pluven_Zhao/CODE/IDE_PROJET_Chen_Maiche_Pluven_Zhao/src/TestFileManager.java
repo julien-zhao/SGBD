@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class TestFileManager {
@@ -29,6 +30,10 @@ public class TestFileManager {
 		BufferManager bm = BufferManager.getSingleton();
 		
 		PageId pidH = fm.createNewHeaderPage();
+		
+		
+		
+		
 		System.out.println(pidH.fileIdx+"\t"+pidH.pageIdx);
 		deleteFolder(f1);
 		bm.flushAll();
@@ -47,11 +52,19 @@ public class TestFileManager {
 		tuple1.add("1.6");
 		unRecord.addTuple(tuple1);
 		RecordId rid= fm.InsertRecordIntoRelation(unRecord);
+
+		Record deuxRecord = new Record(ri);
+		ArrayList<String> tuple2 = new ArrayList<>();
+		tuple2.add("Maiche");
+		tuple2.add("Max");
+		tuple2.add("20");
+		tuple2.add("1.7");
+		deuxRecord.addTuple(tuple2);
+		RecordId rid2= fm.InsertRecordIntoRelation(deuxRecord);
 		
-		System.out.println("pool "+bm.getPool());
+		
 		System.out.println(rid.pageID+"\t"+rid.slotIdx+"\t"+rid.getPageID()+"\t"+rid.getSlotIdx());
 		System.out.println("******************************************************");
-		System.out.println("pool "+bm.getPool());
 		System.out.println("fm.getAllDataPages(ri) " + fm.getAllDataPages(ri));
 		System.out.println("******************************************************");
 		System.out.println("pool "+bm.getPool());

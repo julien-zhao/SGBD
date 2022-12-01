@@ -34,9 +34,11 @@ public class DiskManager {
 	}
 	
 	public static PageId allocPage() throws IOException {
+		
 		if(!(new File(DBParams.DBPath+"F0.bdda").exists())) {
 			Fichier.newFile(0);
 			log.put(0,new Vector<Integer>(DBParams.maxPagesPerFiles));
+			log.get(0).add(0);
 			return new PageId(0,0);
 			
 		}else {

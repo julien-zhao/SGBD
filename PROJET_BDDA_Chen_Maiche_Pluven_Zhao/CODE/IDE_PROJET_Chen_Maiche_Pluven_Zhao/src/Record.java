@@ -5,7 +5,7 @@ public class Record {
 
 	private RelationInfo relInfo;
 	private ArrayList<String> values;
-	private int bufferSize =0;
+	private int bufferSize=0;
 
 
 	
@@ -181,7 +181,7 @@ public class Record {
 		
 	}
 	public int getWrittenSize() {
-		return bufferSize;
+		return this.bufferSize;
 	}
 
 }

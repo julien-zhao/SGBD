@@ -1,9 +1,6 @@
 
-<<<<<<< Updated upstream
 import java.io.Serializable;
-=======
 import java.io.IOException;
->>>>>>> Stashed changes
 import java.util.ArrayList;
 import java.util.List;
 
