@@ -1,5 +1,7 @@
 
-import java.io.Serializable;
+
+import java.io.Serializable; 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,7 @@ public class RelationInfo implements Serializable{
 	private List<ColInfo> tabInfo; //Une liste qui contient le nom et le type
 	
 	
-	public RelationInfo(String nomRelation) throws IOException {
+	public RelationInfo(String nomRelation) throws IOException{
 
 		this.nomRelation = nomRelation;
 		this.tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
@@ -22,6 +24,7 @@ public class RelationInfo implements Serializable{
 		System.out.println("pool "+ bm.getPool());
 		
 		this.headerPageId = FileManager.getSingleton().createNewHeaderPage();
+		
 		
 	}
 

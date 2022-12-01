@@ -13,16 +13,16 @@ public class DBManager {
         return g_instance;
     }
 
-    public void init()   {  // throws IOException
+    public void init() throws ClassNotFoundException, IOException   {  // throws IOException
         DiskManager.getSingleton();
         BufferManager.getSingleton();
-        //Catalog.getSingleton().init();
+        Catalog.getSingleton().Init();
     }
 
     public void finish() throws IOException{
         BufferManager.getSingleton().flushAll();
         DiskManager.getSingleton().saveLog();
-        //Catalog.getSingleton().finish();
+        Catalog.getSingleton().Finish();
     }
 
     public void processCommand(String cmd) throws IOException {

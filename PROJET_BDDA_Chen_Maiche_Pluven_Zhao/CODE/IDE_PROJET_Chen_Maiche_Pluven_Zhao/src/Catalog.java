@@ -1,5 +1,6 @@
 import java.io.File; 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -29,8 +30,8 @@ public class Catalog implements Serializable{
 	/*
 	 * Cette méthode Finish() enregistre une relation
 	 */
-	public void Finish(){
-		try {
+	public void Finish() throws FileNotFoundException, IOException{
+		//try {
 			String path = DBParams.DBPath+"Catalog.sv";
 			
 			File f = new File(path);
@@ -39,21 +40,21 @@ public class Catalog implements Serializable{
 
 		    oos.writeObject(this.RelationInfos);
 			oos.close();
-		}
-		catch(IOException e){
-			System.out.println("finish non valide :"+e.getMessage());
+		/*}
+		catch(IOException e1){
+			System.out.print("ERROR:"+e1.getMessage()+" NON ");
 		}
 		finally {
-			System.out.println("La relation est sauvegardé");
-		}
+			System.out.println("sauvegardé");
+		}*/
 		
 	}
 	
 	
 	// cette méthode init() est exécuté quand la méthode finish() est exécuté au moins une fois 
 	@SuppressWarnings("unchecked")
-	public void Init() {
-		try {
+	public void Init() throws IOException, ClassNotFoundException{
+		//try {
 			String path = DBParams.DBPath+"Catalog.sv";
 			File f = new File(path);
 			FileInputStream fis = new FileInputStream(f);
@@ -62,7 +63,8 @@ public class Catalog implements Serializable{
 			RelationInfos = (ArrayList<RelationInfo>) ois.readObject();
 			
 			ois.close();
-		}
+		/*}
+	
 		catch(IOException e) {
 			System.out.println(e.getMessage());
 		}
@@ -70,6 +72,7 @@ public class Catalog implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
 	
 	

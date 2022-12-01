@@ -21,5 +21,15 @@ public class InsertIntoCommand extends XCommand{
     public void execute() {
         //TODO
     }
+
+
+    
+    public String getNomRelation() {
+    	return nomRelation;
+    }
+    
+    public void setNomRelation(String nomRelation) {
+    	this.nomRelation = nomRelation;
+    }
 }
     

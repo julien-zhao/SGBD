@@ -2,9 +2,21 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class CreateTableCommand extends XCommand{
-    private String nomRelation;
+    /**
+     * le nom de la relation (chaine de caractères)
+     */
+	private String nomRelation;
+	/**
+	 * le nombre de colonnes (entiers)
+	 */
     private int nbColonnes;
+    /**
+     * les noms des colonnes (liste ou tableau de chaînes de caractères)
+     */
     private Vector<String> nomColonnes;
+    /**
+     * les types des colonnes (liste ou tableau de chaînes de caractères 
+     */
     private Vector<String> typeColonnes;
 
     public CreateTableCommand(String command) {

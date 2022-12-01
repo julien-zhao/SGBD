@@ -1,7 +1,8 @@
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Vector;
-/*
+
 public class BufferManager3 {
 	private static BufferManager g_instance = new BufferManager();
  map page id a buffer
@@ -27,5 +28,7 @@ public class BufferManager3 {
 	}
 	
 
+
 }
-*/
+
+

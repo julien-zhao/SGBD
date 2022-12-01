@@ -6,6 +6,7 @@ public class TestDiskManager {
 		DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
+		DBParams.frameCount = 2;
 		DiskManager dm = DiskManager.getSingleton();
 		System.out.println(DBParams.DBPath);
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
