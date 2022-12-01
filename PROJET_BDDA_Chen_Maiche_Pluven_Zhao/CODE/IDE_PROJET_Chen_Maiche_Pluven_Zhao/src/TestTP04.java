@@ -7,13 +7,14 @@ public class TestTP04 {
 		DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
+		DBParams.frameCount = 2;
 		//DiskManager dm = DiskManager.getSingleton();
 		
 		//mettre une limite pour un record
 		System.out.println(DBParams.DBPath);
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		
-		
+
 		
 		System.out.println("\nTest Relation Info et ColInfo");
 		System.out.println("***********************************************************");
@@ -53,9 +54,9 @@ public class TestTP04 {
 		System.out.println("***********************************************************");
 		
 		
-		System.out.println("\n\n\nTest Record");
+		System.out.println("\n\n\nTest Record et de bufferSize");
 		System.out.println("***********************************************************");
-
+		
 		Record unRecord = new Record(Personne);
 		ArrayList<String> tuple1 = new ArrayList<>();
 		tuple1.add("Zhao");
@@ -64,7 +65,7 @@ public class TestTP04 {
 		tuple1.add("1.6");
 		unRecord.addTuple(tuple1);
 		System.out.println("INIT 1 : " + unRecord);
-		
+		System.out.println("Le bufferSize de ce record est : " + unRecord.getWrittenSize() );
 		ArrayList<String> tuple2 = new ArrayList<>();
 		tuple2.add("Maiche");
 		tuple2.add("Max");
@@ -73,10 +74,11 @@ public class TestTP04 {
 		Record deuxRecord = new Record(Personne);
 		deuxRecord.addTuple(tuple2);
 		System.out.println("INIT 2 : " + deuxRecord);
-		deuxRecord.addTuple(tuple2);		
+		System.out.println("Le bufferSize de ce record est : " + deuxRecord.getWrittenSize() );
 		
 		
-
+		System.out.println("\n\n\nTest de writeToBuffer et readFromBuffer : ");
+		System.out.println("***********************************************************");
 		//capacite d'un buff
 		ByteBuffer unBuffer = ByteBuffer.allocate(10000);
        

@@ -26,12 +26,26 @@ public class Record {
 	}
 
 
+
 	public void addTuple(ArrayList<String> unTuple) {
-		
+		//pour chaque colone, 
+		bufferSize = unTuple.size()*4;
+
 		if(values.size() == 0) {
 			for(int i =0; i<unTuple.size();i++) {
 				//tester si le type d'entrer est le meme que le type des colonnes
+				if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
+					bufferSize+=4;	
+				}
+				if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
+					bufferSize+=4;
+				}
 				values.add(unTuple.get(i));
+			}
+			for (int i=0; i< relInfo.getTabInfo().size();i++) {
+				if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
+					bufferSize+= getValues().get(i).length()*2 ;
+				}
 			}
 		}
 		if(unTuple.size() == relInfo.getTabInfo().size()) {
@@ -86,21 +100,18 @@ public class Record {
 
 		//boucle qui met les tailles des valeurs dans le buff
 		for (int i=0; i< relInfo.getTabInfo().size();i++) {
-			bufferSize += 4;
+
 			if ( relInfo.getTabInfo().get(i).getType().equals("INTEGER") ){
 				//posList.add(4);
-				bufferSize += 4;
 				buff.putInt(4); 
 			}
 			if ( relInfo.getTabInfo().get(i).getType().equals("REAL") ){
 				//posList.add(4);
-				bufferSize += 4;
 				buff.putInt(4);	
 			}
 			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
 				int sizeString = getValues().get(i).length()*2;
 				//posList.add(sizeString);
-				bufferSize += sizeString;
 				buff.putInt(sizeString);
 			}
 		}
@@ -117,7 +128,6 @@ public class Record {
 			}
 			if ( relInfo.getTabInfo().get(i).getType().contains("VARCHAR(") ){
 				String tmpString = getValues().get(i);
-				
 				
 				for(int j =0; j< tmpString.length();j++) {
 					buff.putChar(tmpString.charAt(j));
@@ -143,9 +153,7 @@ public class Record {
 		for(int i =0;i <relInfo.getTabInfo().size(); i++) {
 			bufferSize += 4;
 			posList.add(buff.getInt());
-		}
-		
-		
+		}	
 		ArrayList<String> list = getTypeColonne();
 		StringBuilder sb = new StringBuilder("");;
 		for(int i =0; i<posList.size();i++) {

@@ -14,9 +14,15 @@ public class RelationInfo implements Serializable{
 	
 	
 	public RelationInfo(String nomRelation) throws IOException {
+
 		this.nomRelation = nomRelation;
 		this.tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
+		
+		BufferManager bm = BufferManager.getSingleton();
+		System.out.println("pool "+ bm.getPool());
+		
 		this.headerPageId = FileManager.getSingleton().createNewHeaderPage();
+		
 	}
 
 	public RelationInfo(String nomRelation, PageId headerPageId) {
