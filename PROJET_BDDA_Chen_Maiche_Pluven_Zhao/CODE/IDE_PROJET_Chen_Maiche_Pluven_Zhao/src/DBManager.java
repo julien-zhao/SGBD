@@ -51,4 +51,12 @@ public class DBManager {
             System.out.println("Commande non reconnue");
         }
     }
+
+    public void processCommandFile(String fileContent) throws IOException {
+        String[] commands = fileContent.split("\n");
+        for (String cmd : commands) {
+            processCommand(cmd);
+        }
+
+    }
 }
