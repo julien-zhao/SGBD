@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class TestDBManager {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		DBParams.DBPath = ".//..//..//DB//";
+		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
@@ -22,10 +22,14 @@ public class TestDBManager {
 		while(ok) {
 			System.out.println("Sortir (Q): ");
 			System.out.println("Rentrer la ligne de commande:");
-			String a = sc.next();
+			String a = sc.nextLine();
+			System.out.println("******************************************************");
+			System.out.println("Commande: "+a);
+			System.out.println("******************************************************");
 			if(!a.equals("Q")) {
 				dbm.processCommand(a);
 			}
 		}
+		sc.close();
 	}
 }
