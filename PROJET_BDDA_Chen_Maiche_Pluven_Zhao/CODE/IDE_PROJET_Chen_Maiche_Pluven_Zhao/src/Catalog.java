@@ -54,7 +54,7 @@ public class Catalog implements Serializable{
 	// cette méthode init() est exécuté quand la méthode finish() est exécuté au moins une fois 
 	@SuppressWarnings("unchecked")
 	public void Init() throws IOException, ClassNotFoundException{
-		//try {
+		try {
 			String path = DBParams.DBPath+"Catalog.sv";
 			File f = new File(path);
 			FileInputStream fis = new FileInputStream(f);
@@ -63,7 +63,7 @@ public class Catalog implements Serializable{
 			RelationInfos = (ArrayList<RelationInfo>) ois.readObject();
 			
 			ois.close();
-		/*}
+		}
 	
 		catch(IOException e) {
 			System.out.println(e.getMessage());
@@ -72,7 +72,7 @@ public class Catalog implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 	}
 	
 	
