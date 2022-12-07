@@ -19,4 +19,12 @@ public class ColInfo implements Serializable{
 	public String toString() {
 		return "( "+this.getColonne()+","+this.type+")";
 	}
+
+	public boolean equals(Object o) {
+		if (o instanceof ColInfo) {
+			ColInfo c = (ColInfo) o;
+			return this.colonne.equals(c.colonne);
+		}
+		return false;
+	}
 }

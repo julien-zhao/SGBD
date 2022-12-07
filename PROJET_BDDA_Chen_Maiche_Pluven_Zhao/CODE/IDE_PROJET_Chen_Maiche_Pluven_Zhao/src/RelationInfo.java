@@ -109,6 +109,15 @@ public class RelationInfo implements Serializable{
 	public int getSize() {
 		return tabInfo.size();
 	}
+
+	public int getColonneIndex(String nomColonne) {
+		for(int i =0; i<tabInfo.size(); i++) {
+			if(tabInfo.get(i).getColonne().equals(nomColonne)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 	
 	/*
 	public String getType_col(int i) {

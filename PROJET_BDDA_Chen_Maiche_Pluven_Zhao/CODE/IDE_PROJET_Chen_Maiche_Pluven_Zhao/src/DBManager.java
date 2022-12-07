@@ -28,23 +28,23 @@ public class DBManager {
     public void processCommand(String cmd) throws IOException {
         XCommand c;
         if(cmd.startsWith("CREATE TABLE")){
-            c= new CreateTableCommand(cmd);
+            c = new CreateTableCommand(cmd);
             c.execute();
         }
         else if(cmd.startsWith("INSERT INTO")){
-            c= new InsertIntoCommand(cmd);
+            c = new InsertIntoCommand(cmd);
             c.execute();
         }
         else if(cmd.startsWith("SELECT")){
-            c= new SelectFromCommand(cmd);
+            c = new SelectFromCommand(cmd);
             c.execute();
         }
         else if(cmd.startsWith("DROPDB")){
-            c= new DropDBCommand(cmd);
+            c = new DropDBCommand(cmd);
             c.execute();
         }
         /*else if(cmd.startsWith("DELETE")){
-            c= new DeleteCommand(cmd);
+            c = new DeleteCommand(cmd);
             c.execute();
         }*/
         else{

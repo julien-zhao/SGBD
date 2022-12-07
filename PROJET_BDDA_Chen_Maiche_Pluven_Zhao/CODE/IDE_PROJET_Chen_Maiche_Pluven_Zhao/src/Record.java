@@ -193,4 +193,9 @@ public class Record {
 		return this.bufferSize;
 	}
 
+	public String getColValue(String s) {
+		int index = getNomColonne().indexOf(s);
+		return values.get(index);
+	}
+
 }

@@ -62,6 +62,8 @@ public class InsertIntoCommand extends XCommand{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
+        System.out.println("Insertion reussie");
 
     }
 
