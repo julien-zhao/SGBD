@@ -140,5 +140,9 @@ public class DiskManager {
 	public HashMap<Integer,Vector<Integer>> getLog(){
 		return  (HashMap<Integer, Vector<Integer>>) log;
 	}
+
+	public void reset() {
+		log = new HashMap<Integer,Vector<Integer>>();
+	}
 	
 }

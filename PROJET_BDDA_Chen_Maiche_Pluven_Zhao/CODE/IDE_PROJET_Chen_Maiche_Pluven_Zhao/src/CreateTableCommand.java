@@ -39,9 +39,7 @@ public class CreateTableCommand extends XCommand{
     }
 
     public void execute() throws IOException{
-        FileManager fm = FileManager.getSingleton();
-        PageId pId = fm.createNewHeaderPage();
-        RelationInfo ri = new RelationInfo(nomRelation, pId);
+        RelationInfo ri = new RelationInfo(nomRelation);
 
         for (int i = 0; i < nbColonnes; i++) {
             ri.addColonne(nomColonnes.get(i), typeColonnes.get(i));

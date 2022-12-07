@@ -114,7 +114,7 @@ public class FileManager {
 		return L;
 	}
 
-	public RecordId InsertRecordIntoRelation (Record record) throws IOException {
+	public RecordId insertRecordIntoRelation (Record record) throws IOException {
 		BufferManager bm = BufferManager.getSingleton();
 		
 		int nbS = record.getWrittenSize();

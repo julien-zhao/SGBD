@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.nio.ByteBuffer;
 
 public class Record {
@@ -27,7 +28,7 @@ public class Record {
 
 
 
-	public void addTuple(ArrayList<String> unTuple) {
+	public void addTuple(List<String> unTuple) {
 		//pour chaque colone, 
 		bufferSize = unTuple.size()*4;
 

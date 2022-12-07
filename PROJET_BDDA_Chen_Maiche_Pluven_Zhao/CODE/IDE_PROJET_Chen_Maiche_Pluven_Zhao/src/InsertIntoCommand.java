@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Vector;
 
 public class InsertIntoCommand extends XCommand{
@@ -19,7 +20,49 @@ public class InsertIntoCommand extends XCommand{
     }
 
     public void execute() {
-        //TODO
+       
+        RelationInfo rel = Catalog.getSingleton().getRelationInfo(nomRelation);
+        if (rel == null) {
+            System.out.println("Relation " + nomRelation + " does not exist");
+            return;
+        }
+        if (values.size() != rel.getSize()) {
+            System.out.println("Wrong number of values");
+            return;
+        }
+        for(int i = 0; i < values.size(); i++) {
+            String type = rel.getTabInfo().get(i).getType();
+            if (type.equals("INTEGER")) {
+                try {
+                    Integer.parseInt(values.get(i));
+                } catch (NumberFormatException e) {
+                    System.out.println("Wrong type for value " + values.get(i));
+                    return;
+                }
+            } else if (type.equals("REAL")) {
+                try {
+                    Float.parseFloat(values.get(i));
+                } catch (NumberFormatException e) {
+                    System.out.println("Wrong type for value " + values.get(i));
+                    return;
+                }
+            } else if (type.startsWith("VARCHAR")) {
+                if (values.get(i).length() > Integer.parseInt(type.substring(8, type.length() - 1))) {
+                    System.out.println("Wrong type for value " + values.get(i));
+                    return;
+                }
+            }
+        }
+
+        Record rec = new Record(rel);
+        rec.addTuple(values);
+        try {
+            FileManager.getSingleton().insertRecordIntoRelation(rec);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
 

@@ -44,8 +44,7 @@ public class TestCatalog {
 		
 		
 		// Pour tester la méthode init(), il faut exécuter au moins une fois avec finish() et ensuite cacher la méthode finish()
-		
-		/* 
+		/*
 		Catalog.getSingleton().Init();
 		
 		System.out.println("*********************************************************************");
@@ -75,5 +74,6 @@ public class TestCatalog {
 			System.out.println("Résultat de la recherche : \n\n"+ Catalog.getSingleton().getRelationInfo("RelationQuiExistePas"));
 		}
 		*/
+		
 	}
 }

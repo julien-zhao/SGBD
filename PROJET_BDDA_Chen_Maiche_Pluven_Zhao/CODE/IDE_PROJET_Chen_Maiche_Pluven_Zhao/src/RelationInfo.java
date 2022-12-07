@@ -106,7 +106,9 @@ public class RelationInfo implements Serializable{
 	}
 
 
-	
+	public int getSize() {
+		return tabInfo.size();
+	}
 	
 	/*
 	public String getType_col(int i) {

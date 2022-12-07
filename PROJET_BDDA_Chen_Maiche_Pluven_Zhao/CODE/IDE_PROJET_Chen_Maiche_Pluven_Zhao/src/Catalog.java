@@ -100,5 +100,7 @@ public class Catalog implements Serializable{
 		return null; 
 	}
 	
-	
+	public void reset() {
+		RelationInfos.clear();
+	}
 }

@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class TestFileManager {
@@ -52,7 +51,7 @@ public class TestFileManager {
 		tuple1.add("21");
 		tuple1.add("1.6");
 		unRecord.addTuple(tuple1);
-		RecordId rid= fm.InsertRecordIntoRelation(unRecord);
+		RecordId rid= fm.insertRecordIntoRelation(unRecord);
 		
 		//Ajout du tuple numéro 2
 		Record deuxRecord = new Record(ri);
@@ -62,7 +61,7 @@ public class TestFileManager {
 		tuple2.add("20");
 		tuple2.add("1.7");
 		deuxRecord.addTuple(tuple2);
-		RecordId rid2= fm.InsertRecordIntoRelation(deuxRecord);
+		RecordId rid2= fm.insertRecordIntoRelation(deuxRecord);
 		
 		//Ajout du tuple numéro 3
 		Record troisRecord = new Record(ri);
@@ -72,7 +71,7 @@ public class TestFileManager {
 		tuple3.add("945");
 		tuple3.add("5.2");
 		troisRecord.addTuple(tuple3);
-		RecordId rid3= fm.InsertRecordIntoRelation(troisRecord);
+		RecordId rid3= fm.insertRecordIntoRelation(troisRecord);
 		
 		//affichage du test FileManager
 		System.out.println(rid.pageID+"\t"+rid.slotIdx+"\t"+rid.getPageID()+"\t"+rid.getSlotIdx());
