@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -9,13 +10,22 @@ public class InsertIntoCommand extends XCommand{
         values = new Vector<String>();
         String[] tokens = command.split(" ");
         nomRelation = tokens[2];
-        String[] vals = tokens[4].split(",");
-
-        vals[0] = vals[0].substring(1, vals[0].length());
-        vals[vals.length - 1] = vals[vals.length - 1].substring(0, vals[vals.length - 1].length()-1 );
-
-        for (int i = 0; i < vals.length; i++) {
-            values.add(vals[i]);
+        String choice = tokens[3];
+        
+        if(choice.startsWith("VALUES")) {
+            String[] vals = tokens[4].split(",");
+	        vals[0] = vals[0].substring(1, vals[0].length());
+	        vals[vals.length - 1] = vals[vals.length - 1].substring(0, vals[vals.length - 1].length()-1);
+	
+	        for (int i = 0; i < vals.length; i++) {
+	            values.add(vals[i]);
+	        }
+        }else if(choice.startsWith("FILECONTENTS")) {
+        	String[] file = tokens[3].split("[(]");
+        	file[1] = file[1].substring(0,file[1].length()-1);
+        	System.out.println(file[1]);
+        	File f = new File(file[1]);
+        	
         }
     }
 
@@ -26,10 +36,6 @@ public class InsertIntoCommand extends XCommand{
             System.out.println("Relation " + nomRelation + " does not exist");
             return;
         }
-        for(String v:values) {
-        	System.out.println(v);
-        }
-        System.out.println(values.size()+" "+rel.getSize());
         if (values.size() != rel.getSize()) {
             System.out.println("Wrong number of values");
             return;
@@ -57,11 +63,13 @@ public class InsertIntoCommand extends XCommand{
                 }
             }
         }
-
+        RelationInfo rl =  Catalog.getSingleton().getRelationInfo(nomRelation);
         Record rec = new Record(rel);
         rec.addTuple(values);
+        System.out.println(rec);
         try {
             FileManager.getSingleton().insertRecordIntoRelation(rec);
+            System.out.println(FileManager.getSingleton().getAllRecords(rl));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
