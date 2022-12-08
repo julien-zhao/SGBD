@@ -193,7 +193,7 @@ public class Record {
 	}
 
 	public int getWrittenSize() {
-		return this.bufferSize;
+		return bufferSize;
 	}
 
 	public String getColValue(String s) {
