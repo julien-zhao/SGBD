@@ -146,13 +146,16 @@ public class FileManager {
 		return r;
 	}
 
-	/*public void deleteRecordInRelation(RelationInfo relInfo,RecordId recordId) throws IOException {
+	public void deleteRecordInRelation(RelationInfo relInfo,RecordId recordId) throws IOException {
 		BufferManager bm = BufferManager.getSingleton();
 		ByteBuffer p = bm.getPage(recordId.pageId);
-		int m = p.getInt(DBParams.pageSize-8);
+		int m = p.getInt(DBParams.pageSize-8);	
+
 		p.putInt(DBParams.pageSize-(8-(4*recordId.slotIdx)), -1);
+		p.putInt(DBParams.pageSize-8-((recordId.slotIdx)*8), -1);
+		p.putInt(DBParams.pageSize-8, m-1);
 		bm.freePage(recordId.pageId, true);
-	}*/
+	}
 
 }
 

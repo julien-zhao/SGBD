@@ -74,7 +74,7 @@ public class TestFileManager {
 		RecordId rid3= fm.insertRecordIntoRelation(troisRecord);
 		
 		//affichage du test FileManager
-		System.out.println(rid.pageID+"\t"+rid.slotIdx+"\t"+rid.getPageID()+"\t"+rid.getSlotIdx());
+		System.out.println(rid.pageId+"\t"+rid.slotIdx+"\t"+rid.getPageId()+"\t"+rid.getSlotIdx());
 		System.out.println("******************************************************");
 		System.out.println("fm.getAllDataPages(ri) " + fm.getAllDataPages(ri));
 		System.out.println("******************************************************");

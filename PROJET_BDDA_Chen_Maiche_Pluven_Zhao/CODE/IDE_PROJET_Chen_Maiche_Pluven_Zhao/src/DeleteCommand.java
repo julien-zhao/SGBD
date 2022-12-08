@@ -160,11 +160,6 @@ public class DeleteCommand extends XCommand{
         }
     }
     
-    public static void main(String[] args) {
-    	String test = "DELETE FROM etudiant WHERE C1=10 AND C2=20";
-    	
-    	
-    }
 }
 
     

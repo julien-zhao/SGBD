@@ -5,14 +5,14 @@ public class TestRecordId {
 		System.out.println("Début Test Record :");
 		System.out.println("******************************************************");
 		RecordId r = new RecordId(null, 23);
-		System.out.println(r.pageID+"\t"+r.slotIdx+"\t"+r.getPageID()+"\t"+r.getSlotIdx());
+		System.out.println(r.pageId+"\t"+r.slotIdx+"\t"+r.getPageId()+"\t"+r.getSlotIdx());
 		System.out.println("******************************************************");
 		PageId pid = new PageId(15, 20);
-		r.setPageID(pid);
-		System.out.println(r.pageID+"\t"+r.slotIdx+"\t"+r.getPageID()+"\t"+r.getSlotIdx());
+		r.setPageId(pid);
+		System.out.println(r.pageId+"\t"+r.slotIdx+"\t"+r.getPageId()+"\t"+r.getSlotIdx());
 		System.out.println("******************************************************");
 		r.setSlotIdx(12);
-		System.out.println(r.pageID+"\t"+r.slotIdx+"\t"+r.getPageID()+"\t"+r.getSlotIdx());
+		System.out.println(r.pageId+"\t"+r.slotIdx+"\t"+r.getPageId()+"\t"+r.getSlotIdx());
 		System.out.println("******************************************************");
 	}
 }
