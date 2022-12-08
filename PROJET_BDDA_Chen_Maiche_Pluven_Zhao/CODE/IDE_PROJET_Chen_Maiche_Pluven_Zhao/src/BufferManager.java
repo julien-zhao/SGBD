@@ -27,14 +27,19 @@ public class BufferManager {
 
 	public ByteBuffer getPage(PageId pageId) throws IOException {
 		boolean libre = false;
+		boolean dejaPresente = false;
 		int iFrameLibre = -1;
-
 		for (int i = 0; i < DBParams.frameCount && !libre; i++) { // Parcours
-			if (pool.elementAt(i).getpId() == null || pool.elementAt(i).getpId().equals(pageId)) {
+			if (pool.elementAt(i).getpId() == null) {
 				libre = true;
 				iFrameLibre = i;
+			}else{
+				if(pool.elementAt(i).getpId().equals(pageId)){
+					dejaPresente =true;
+					libre = true;
+					iFrameLibre = i;
+				}
 			}
-
 		}
 		
 		if (libre) { //Frame Libre ou Frame deja chargee dans la case i
@@ -46,6 +51,9 @@ public class BufferManager {
 			
 			f.incPinCount();
 			f.setpId(pageId);
+			if(!dejaPresente) {
+				f.resetBb();
+			}
 			return f.getBb();
 			
 		} else {// Aucune Frame Libre
@@ -57,10 +65,8 @@ public class BufferManager {
 			}
 			if(!(caseAR.getPinCount()>0)) {
 
-				freePage(caseAR.getpId(),caseAR.isDirty());
-				caseAR.incPinCount();
+				flush(caseAR);
 				caseAR.setpId(pageId);
-				
 				return caseAR.getBb();
 			}else {
 				try {
@@ -96,6 +102,18 @@ public class BufferManager {
 		if(caseAFree.getPinCount()==0) {
 			caseAFree.setPosFile(file.add(caseAFree.getCaseId())); //J'ajoute dans la file la case et je met la cellule correspondatne dans la var PosFile
 		}
+	}
+
+	public void flush(Frame frame) throws IOException {
+		if(frame.isDirty()) {
+			DiskManager.writePage(frame.getpId(), frame.getBb());
+			frame.setDirty(false);
+		}
+		frame.resetBb();
+		frame.setpId(null);
+		frame.setPinCount(0);
+		frame.setDirty(false);
+		frame.setPosFile(null);
 	}
 
 	public void flushAll() throws IOException {

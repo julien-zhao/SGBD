@@ -61,7 +61,7 @@ public class TestFileManager {
 		tuple2.add("20");
 		tuple2.add("1.7");
 		deuxRecord.addTuple(tuple2);
-		RecordId rid2= fm.insertRecordIntoRelation(deuxRecord);
+		fm.insertRecordIntoRelation(deuxRecord);
 		
 		//Ajout du tuple numéro 3
 		Record troisRecord = new Record(ri);
@@ -71,7 +71,7 @@ public class TestFileManager {
 		tuple3.add("945");
 		tuple3.add("5.2");
 		troisRecord.addTuple(tuple3);
-		RecordId rid3= fm.insertRecordIntoRelation(troisRecord);
+		fm.insertRecordIntoRelation(troisRecord);
 		
 		//affichage du test FileManager
 		System.out.println(rid.pageId+"\t"+rid.slotIdx+"\t"+rid.getPageId()+"\t"+rid.getSlotIdx());

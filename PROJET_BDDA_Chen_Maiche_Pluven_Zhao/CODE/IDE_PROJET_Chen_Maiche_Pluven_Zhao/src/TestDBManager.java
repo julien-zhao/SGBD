@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class TestDBManager {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		DBParams.DBPath = ".//..//..//DB//";
+		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/"; //"PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/"
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
@@ -15,9 +15,10 @@ public class TestDBManager {
 		System.out.println("******************************************************\n");
 		System.out.println("Début du DBManager:\n");
 		System.out.println("******************************************************");
+		
+		/*
 		boolean ok = true;
 		Scanner sc = new Scanner(System.in);
-		/*
 		while(ok) {
 			System.out.println("Sortir (Q): ");
 			System.out.println("Rentrer la ligne de commande:");
@@ -28,7 +29,9 @@ public class TestDBManager {
 			if(!a.equals("Q")) {
 				dbm.processCommand(a);
 			}
-		}*/
+		}
+		sc.close();*/
+
 		System.out.println("DROPDB:");
 		dbm.processCommand("DROPDB");
 		
@@ -81,16 +84,28 @@ public class TestDBManager {
 		
 		System.out.println("****************************************");
 		System.out.println("INSERT INTO S FILECONTENTS(S1.csv):");
-		dbm.processCommand("INSERT INTO S FILECONTENTS(S1.csv)");
+		dbm.processCommand("INSERT INTO S FILECONTENTS(C:/Users/Max/Desktop/git/sgbd/PROJET_BDDA_Chen_Maiche_Pluven_Zhao/RESSOURCES/S.csv)");
+		
+		FileManager fm = FileManager.getSingleton();
+		RelationInfo rl = Catalog.getSingleton().getRelationInfo("S");
+		System.out.println("fm.getAllDataPages(ri) " + fm.getAllDataPages(rl));
+		System.out.println(fm.getRecordsInDataPage(rl, new PageId(0, 2)) );
+		System.out.println("******************************************************");
+		System.out.println("fm.getAllRecords(ri) " + fm.getAllRecords(rl));
+
+		System.out.println("****************************************");
+		System.out.println("SELECT * FROM S:");
+		dbm.processCommand("SELECT * FROM S");
 		
 		System.out.println("****************************************");
 		System.out.println("SELECT * FROM S WHERE C3=12:");
 		dbm.processCommand("SELECT * FROM S WHERE C3=12)");
+
 		
 		System.out.println("****************************************");
 		System.out.println("DELETE * FROM S WHERE C3=12 AND C1=167:");
 		dbm.processCommand("DELETE * FROM S WHERE C3=12 AND C1=167");
 		
-		sc.close();
+		
 	}
 }

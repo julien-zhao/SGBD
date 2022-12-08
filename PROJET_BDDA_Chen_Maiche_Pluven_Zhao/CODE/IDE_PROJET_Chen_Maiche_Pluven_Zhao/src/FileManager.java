@@ -31,13 +31,14 @@ public class FileManager {
 		ByteBuffer bb = bm.getPage(p);
 		bb.putInt(DBParams.pageSize-64, 0);
 		bb.putInt(DBParams.pageSize-32, 0);
+		bm.freePage(p, true);
+
 		ByteBuffer header = bm.getPage(relInfo.getHeaderPageId());
 		int nbDataPage=header.getInt(0);
 		header.putInt(4+nbDataPage*12, p.fileIdx);
 		header.putInt(4+nbDataPage*12+4, p.pageIdx);
 		header.putInt(4+nbDataPage*12+8, DBParams.pageSize);
 		header.putInt(0, nbDataPage+1);
-		bm.freePage(p, true);
 		bm.freePage(relInfo.getHeaderPageId(), true);
 		return p;
 	}
@@ -67,8 +68,19 @@ public class FileManager {
 		p.putInt(DBParams.pageSize-8, m+1);
 		p.putInt(DBParams.pageSize-8-((m+1)*8), offset);
 		p.putInt(DBParams.pageSize-8-(((m+1)*8)+4), record.getWrittenSize());
-		
+
 		bm.freePage(pageId, true);
+
+		ByteBuffer header = bm.getPage(record.getRelInfo().getHeaderPageId());
+		header.getInt();
+
+		for(int i=12;i<=4+header.getInt(0)*12;i+=12) {
+			if(header.getInt(i-8)==pageId.fileIdx && header.getInt(i-4)==pageId.pageIdx) {
+				header.putInt(i, header.getInt(i)-(record.getWrittenSize()+8));
+				break;
+			}
+		}
+		bm.freePage(record.getRelInfo().getHeaderPageId(), true);
 		return new RecordId(pageId, m+1);
 	}
 
@@ -78,6 +90,7 @@ public class FileManager {
 		Vector<Record> r = new Vector<Record>();
 		ByteBuffer p = bm.getPage(pageId);
 		int m = p.getInt(DBParams.pageSize-8);
+		System.out.println("m = "+m);
 		for(int i = 1;i<=m;i++) {
 			int pos = p.getInt(DBParams.pageSize-(8+(8*i)));
 			if(pos!=-1) {
@@ -119,11 +132,10 @@ public class FileManager {
 		
 		int nbS = record.getWrittenSize();
 		PageId pId = getFreeDataPageId(record.getRelInfo(),nbS);
-		
-		
+
 		RecordId ret = writeRecordToDataPage(record,pId);
-		PageId hp = record.getRelInfo().getHeaderPageId();
-		bm.freePage(hp, false);
+		//PageId hp = record.getRelInfo().getHeaderPageId();
+		//bm.freePage(hp, false);
 		return ret;
 	}
 
@@ -141,7 +153,9 @@ public class FileManager {
 		Vector<Record> r = new Vector<Record>();
 		for(PageId p : l) {
 			Vector<Record> vr = getRecordsInDataPage(relInfo,p);
-			r.addAll(vr);
+			for(Record rec : vr) {
+				r.add(rec);
+			}
 		}
 		return r;
 	}
