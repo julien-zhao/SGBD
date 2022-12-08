@@ -7,17 +7,16 @@ public class DropDBCommand extends XCommand{
     }
 
     public void execute() {
-
-        deleteFolder(new File(DBParams.DBPath));
+    	File f =new File(DBParams.DBPath); 
         try {
             BufferManager.getSingleton().flushAll();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         DiskManager.getSingleton().reset();
         Catalog.getSingleton().reset();
+        deleteFolder(f);
         System.out.println("Database dropped");
     }
 
