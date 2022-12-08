@@ -1,12 +1,15 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.Vector;
 
 public class InsertIntoCommand extends XCommand{
     private String nomRelation;
     private Vector<String> values;
 
-    public InsertIntoCommand(String command) {
+    public InsertIntoCommand(String command) throws IOException {
         values = new Vector<String>();
         String[] tokens = command.split(" ");
         nomRelation = tokens[2];
@@ -25,7 +28,24 @@ public class InsertIntoCommand extends XCommand{
         	file[1] = file[1].substring(0,file[1].length()-1);
         	System.out.println(file[1]);
         	File f = new File(file[1]);
-        	
+        	BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(f));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String cmd = "INSERT INTO " + nomRelation + " VALUES (";
+                    cmd += line + ")";
+                    System.out.println(cmd);
+                    InsertIntoCommand insert = new InsertIntoCommand(cmd);
+                    insert.execute();
+                    cmd = "INSERT INTO " + nomRelation + " VALUES (";
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            finally{
+                br.close();
+            }
         }
     }
 
