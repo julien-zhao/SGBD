@@ -17,7 +17,6 @@ public class RelationInfo implements Serializable{
 	 * le header page id
 	 */
 	private PageId headerPageId;
-	//private int nbColonnes;		// le nombre de colonnes
 	/**
 	 * la liste contenant le nom et le type de la colonne
 	 */
@@ -67,15 +66,7 @@ public class RelationInfo implements Serializable{
 	public void setNomRelation(String nomRelation) {
 		this.nomRelation = nomRelation;
 	}
-	/*
-	public int getNbColonnes(){
-		return nbColonnes;
-	}
-	
-	public void setNbColonnes(int nbColonnes) {
-		this.nbColonnes = nbColonnes;
-	}
-	*/
+
 	public String afficheNomColonne() {
 		StringBuilder sb = new StringBuilder();
 		for(int i =0; i<tabInfo.size(); i++) {
@@ -106,8 +97,7 @@ public class RelationInfo implements Serializable{
 	}
 	
 	public String toString() {
-		return /*"Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+tabInfo.size()
-		+"\nNom Colonne"+ afficheNomColonne() +"\n" + "\nType colonne"+ afficheTypesColonne();*/ this.afficheRelationInfo();
+		return this.afficheRelationInfo();
 	}
 
 
@@ -123,11 +113,4 @@ public class RelationInfo implements Serializable{
 		}
 		return -1;
 	}
-	
-	/*
-	public String getType_col(int i) {
-		return typesColonnes.get(i).toString();
-	}*/
-	
-
 }

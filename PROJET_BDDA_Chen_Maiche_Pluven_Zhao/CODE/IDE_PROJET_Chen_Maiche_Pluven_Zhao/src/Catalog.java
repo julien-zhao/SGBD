@@ -14,11 +14,9 @@ public class Catalog implements Serializable{
 	 * la liste ou table de RelationInfo
 	 */
 	private ArrayList<RelationInfo> RelationInfos;
-	//private int nbRelation; // le compteur
 	private static Catalog g_instance = new Catalog();
 
 	private Catalog(){
-		//nbRelation = 0;
 		RelationInfos = new ArrayList<RelationInfo>();
 	}
 	
@@ -37,23 +35,15 @@ public class Catalog implements Serializable{
 	 * @throws IOException
 	 */
 	public void Finish() throws FileNotFoundException, IOException{
-		//try {
-			String path = DBParams.DBPath+"Catalog.sv";
+		String path = DBParams.DBPath+"Catalog.sv";
 			
-			File f = new File(path);
-			FileOutputStream fos = new FileOutputStream(f);
-		    ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-		    oos.writeObject(this.RelationInfos);
-			oos.close();
-		/*}
-		catch(IOException e1){
-			System.out.print("ERROR:"+e1.getMessage()+" NON ");
-		}
-		finally {
-			System.out.println("sauvegardé");
-		}*/
+		File f = new File(path);
+		FileOutputStream fos = new FileOutputStream(f);
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		
+		oos.writeObject(this.RelationInfos);
+		oos.close();
+
 	}
 	 
 	/**
@@ -79,7 +69,6 @@ public class Catalog implements Serializable{
 			System.out.println(e.getMessage());
 		}
 		catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -88,7 +77,6 @@ public class Catalog implements Serializable{
 	
 	public void addRelationInfo(RelationInfo uneRelation) {
 		RelationInfos.add(uneRelation);
-		//nbRelation++;
 	}
 	
 	public int getNbRelation() {
