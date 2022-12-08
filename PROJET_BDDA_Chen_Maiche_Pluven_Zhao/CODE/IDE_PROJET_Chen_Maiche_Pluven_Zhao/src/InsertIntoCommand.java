@@ -66,7 +66,6 @@ public class InsertIntoCommand extends XCommand{
         RelationInfo rl =  Catalog.getSingleton().getRelationInfo(nomRelation);
         Record rec = new Record(rel);
         rec.addTuple(values);
-        System.out.println(rec);
         try {
             FileManager.getSingleton().insertRecordIntoRelation(rec);
             System.out.println(FileManager.getSingleton().getAllRecords(rl));

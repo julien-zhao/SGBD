@@ -28,9 +28,6 @@ public class RelationInfo implements Serializable{
 		this.nomRelation = nomRelation;
 		this.tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
 		
-		BufferManager bm = BufferManager.getSingleton();
-		System.out.println("pool "+ bm.getPool());
-		
 		this.headerPageId = FileManager.getSingleton().createNewHeaderPage();
 		
 		
