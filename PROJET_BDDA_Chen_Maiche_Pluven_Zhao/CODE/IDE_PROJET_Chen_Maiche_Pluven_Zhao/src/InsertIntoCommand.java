@@ -9,7 +9,8 @@ public class InsertIntoCommand extends XCommand{
     private String nomRelation;
     private Vector<String> values;
 
-    public InsertIntoCommand(String command) throws IOException {
+    @SuppressWarnings("resource")
+	public InsertIntoCommand(String command) throws IOException {
         values = new Vector<String>();
         String[] tokens = command.split(" ");
         nomRelation = tokens[2];
@@ -28,7 +29,7 @@ public class InsertIntoCommand extends XCommand{
         	file[1] = file[1].substring(0,file[1].length()-1);
         	System.out.println(file[1]);
         	File f = new File(file[1]);
-        	BufferedReader br = null;
+        	BufferedReader br = new BufferedReader(new FileReader(f));
             try {
                 br = new BufferedReader(new FileReader(f));
                 String line;
