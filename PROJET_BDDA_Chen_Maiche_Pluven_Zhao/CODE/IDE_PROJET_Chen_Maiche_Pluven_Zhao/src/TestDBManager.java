@@ -5,15 +5,15 @@ import java.util.Scanner;
 public class TestDBManager {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB";
+		DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
 		DBManager dbm = DBManager.getSingleton();
 		dbm.init();
 		
-		System.out.println("******************************************************");
-		System.out.println("Début du DBManager:");
+		System.out.println("******************************************************\n");
+		System.out.println("Début du DBManager:\n");
 		System.out.println("******************************************************");
 		boolean ok = true;
 		Scanner sc = new Scanner(System.in);
@@ -68,9 +68,29 @@ public class TestDBManager {
 		System.out.println("SELECT * FROM R WHERE C1<2:");
 		dbm.processCommand("SELECT * FROM R WHERE C1<2");
 		
-		/*System.out.println("****************************************");
+		
+		System.out.println("\n******************************************************");
+		System.out.println("Début du DBManager (INSERT par lot et DELETE):");
+		System.out.println("******************************************************\n");
+		System.out.println("DROPDB:");
+		dbm.processCommand("DROPDB");
+		
+		System.out.println("****************************************");
+		System.out.println("CREATE TABLE S (C1:INTEGER,C2:REAL,C3:INTEGER,C4:INTEGER,C5:INTEGER):");
+		dbm.processCommand("CREATE TABLE S (C1:INTEGER,C2:REAL,C3:INTEGER,C4:INTEGER,C5:INTEGER)");
+		
+		System.out.println("****************************************");
 		System.out.println("INSERT INTO S FILECONTENTS(S1.csv):");
-		dbm.processCommand("INSERT INTO S FILECONTENTS(S1.csv)");*/
+		dbm.processCommand("INSERT INTO S FILECONTENTS(S1.csv)");
+		
+		System.out.println("****************************************");
+		System.out.println("SELECT * FROM S WHERE C3=12:");
+		dbm.processCommand("SELECT * FROM S WHERE C3=12)");
+		
+		System.out.println("****************************************");
+		System.out.println("DELETE * FROM S WHERE C3=12 AND C1=167:");
+		dbm.processCommand("DELETE * FROM S WHERE C3=12 AND C1=167");
+		
 		sc.close();
 	}
 }

@@ -21,11 +21,12 @@ public class InsertIntoCommand extends XCommand{
 	            values.add(vals[i]);
 	        }
         }else if(choice.startsWith("FILECONTENTS")) {
+        	String[] value;
         	String[] file = tokens[3].split("[(]");
         	file[1] = file[1].substring(0,file[1].length()-1);
         	System.out.println(file[1]);
         	File f = new File(file[1]);
-        	
+        	//ajouter les values dans le fichier dans un values.add(value[i])
         }
     }
 
