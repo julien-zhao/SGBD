@@ -9,11 +9,19 @@ import java.util.List;
 
 public class RelationInfo implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String nomRelation; // le nom de la relation
+	/**
+	 * le nom de la relation
+	 */
+	private String nomRelation; 
+	/**
+	 * le header page id
+	 */
 	private PageId headerPageId;
 	//private int nbColonnes;		// le nombre de colonnes
-	private List<ColInfo> tabInfo; //Une liste qui contient le nom et le type
-	
+	/**
+	 * la liste contenant le nom et le type de la colonne
+	 */
+	private List<ColInfo> tabInfo;
 	
 	public RelationInfo(String nomRelation) throws IOException{
 

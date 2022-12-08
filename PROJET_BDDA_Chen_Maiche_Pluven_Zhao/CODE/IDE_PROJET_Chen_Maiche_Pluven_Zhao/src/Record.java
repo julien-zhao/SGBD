@@ -3,8 +3,14 @@ import java.util.List;
 import java.nio.ByteBuffer;
 
 public class Record {
-
+	/**
+	 * Cette RelationInfo correspond à la relation à laquelle appartient le record
+	 */
 	private RelationInfo relInfo;
+	/**
+	 * la liste ou tableau de chaîne de caractères qui correspond aux
+	 * valeurs du record.
+	 */
 	private ArrayList<String> values;
 	private int bufferSize = 0;
 
@@ -119,7 +125,13 @@ public class Record {
 
 	}
 
-	// Il sert a obtenir le record en format byte
+	
+	/**
+	 * Il sert a obtenir le record en format byte
+	 * 
+	 * @param buff un buffer alloué par l'appelant
+	 * @param pos un entier correspondant à une position dans le buffer
+	 */
 	public void getBufferToByte(ByteBuffer buff, int pos) {
 		buff.position(0);
 		while (buff.hasRemaining()) {
@@ -128,11 +140,13 @@ public class Record {
 		}
 	}
 
+	
 	/**
-	 * la methode
+	 * cette méthode va lire les valeurs du Record depuis le buffer à partir
+	 * de pos
 	 * 
-	 * @param buff
-	 * @param pos
+	 * @param buff un buffer alloué par l'appelant
+	 * @param pos un entier correspondand à une position dans le buffer
 	 */
 	public void readFromBuffer(ByteBuffer buff, int pos) {
 		buff.position(pos);

@@ -32,8 +32,8 @@ public class DeleteCommand extends XCommand{
             }
         }*/
 
-        if(tokens.length > 4){
-            tokens = Arrays.copyOfRange(tokens, 5, tokens.length);
+        if(tokens.length > 3){
+            tokens = Arrays.copyOfRange(tokens, 4, tokens.length);
             for (int i = 0; i < tokens.length; i+=2) {
                 criteres.add(new Critere(tokens[i]));
             }

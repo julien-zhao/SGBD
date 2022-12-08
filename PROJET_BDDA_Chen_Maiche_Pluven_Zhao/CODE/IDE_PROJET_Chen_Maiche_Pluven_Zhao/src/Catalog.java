@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 public class Catalog implements Serializable{
 	private static final long serialVersionUID = 1L;
+	/**
+	 * la liste ou table de RelationInfo
+	 */
 	private ArrayList<RelationInfo> RelationInfos;
 	//private int nbRelation; // le compteur
 	private static Catalog g_instance = new Catalog();
@@ -22,13 +25,16 @@ public class Catalog implements Serializable{
 	public static Catalog getSingleton() {
 		return g_instance;
 	}
-
+	
 	public ArrayList<RelationInfo> getCatalog(){
 		return RelationInfos;
 	}
-	
-	/*
+
+	/**
 	 * Cette méthode Finish() enregistre une relation
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
 	 */
 	public void Finish() throws FileNotFoundException, IOException{
 		//try {
@@ -49,9 +55,13 @@ public class Catalog implements Serializable{
 		}*/
 		
 	}
-	
-	
-	// cette méthode init() est exécuté quand la méthode finish() est exécuté au moins une fois 
+	 
+	/**
+	 * cette méthode init() est exécuté quand la méthode finish() est exécuté au moins une fois
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@SuppressWarnings("unchecked")
 	public void Init() throws IOException, ClassNotFoundException{
 		try {
@@ -86,7 +96,9 @@ public class Catalog implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * cette méthode prend en argument le nom d'une relation et retourne la RelationInfo associée, 
+	 * sinon retourne que la relation n'existe pas.
+	 *
 	 * @param nomRelation
 	 * @return le nom de la relation, le nom de la colonne et le type de la colonne
 	 */
