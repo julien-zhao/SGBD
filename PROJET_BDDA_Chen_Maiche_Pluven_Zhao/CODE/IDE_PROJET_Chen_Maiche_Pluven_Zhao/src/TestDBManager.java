@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class TestDBManager {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		DBParams.DBPath = ".//..//..//DB//";
+		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
