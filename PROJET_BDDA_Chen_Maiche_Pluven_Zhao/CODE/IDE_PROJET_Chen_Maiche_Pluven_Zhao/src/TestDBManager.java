@@ -30,11 +30,34 @@ public class TestDBManager {
 			}
 		}*/
 		dbm.processCommand("DROPDB");
-		dbm.processCommand("CREATE TABLE R (C1:INTEGER,C2:VARHCAR(3),C3:INTEGER)");
+		dbm.processCommand("CREATE TABLE R (C1:INTEGER,C2:VARCHAR(3),C3:INTEGER)");
 		dbm.processCommand("INSERT INTO R VALUES (1,aab,2)");
 		dbm.processCommand("INSERT INTO R VALUES (2,ab,2)");
 		dbm.processCommand("INSERT INTO R VALUES (1,agh,1)");
+		
+		System.out.println("****************************************");
+		System.out.println("Le SELECT * FROM R:");
 		dbm.processCommand("SELECT * FROM R");
+		
+		System.out.println("****************************************");
+		System.out.println("SELECT * FROM R WHERE C1=1:");
+		dbm.processCommand("SELECT * FROM R WHERE C1=1");
+		
+		System.out.println("****************************************");
+		System.out.println("SELECT * FROM R WHERE C3=1:");
+		dbm.processCommand("SELECT * FROM R WHERE C3=1");
+		
+		System.out.println("****************************************");
+		System.out.println("SELECT * FROM R WHERE C1=1 AND C3=2:");
+		dbm.processCommand("SELECT * FROM R WHERE C1=1 AND C3=2");
+		
+		System.out.println("****************************************");
+		System.out.println("SELECT * FROM R WHERE C1<2:");
+		dbm.processCommand("SELECT * FROM R WHERE C1<2");
+		
+		/*System.out.println("****************************************");
+		System.out.println("INSERT INTO S FILECONTENTS(S1.csv):");
+		dbm.processCommand("INSERT INTO S FILECONTENTS(S1.csv)");*/
 		sc.close();
 	}
 }
