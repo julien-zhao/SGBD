@@ -9,10 +9,10 @@ public class InsertIntoCommand extends XCommand{
         values = new Vector<String>();
         String[] tokens = command.split(" ");
         nomRelation = tokens[2];
-        String[] vals = tokens[3].split(",");
+        String[] vals = tokens[4].split(",");
 
         vals[0] = vals[0].substring(1, vals[0].length());
-        vals[vals.length - 1] = vals[vals.length - 1].substring(0, vals[vals.length - 1].length() - 1);
+        vals[vals.length - 1] = vals[vals.length - 1].substring(0, vals[vals.length - 1].length()-1 );
 
         for (int i = 0; i < vals.length; i++) {
             values.add(vals[i]);
@@ -26,6 +26,10 @@ public class InsertIntoCommand extends XCommand{
             System.out.println("Relation " + nomRelation + " does not exist");
             return;
         }
+        for(String v:values) {
+        	System.out.println(v);
+        }
+        System.out.println(values.size()+" "+rel.getSize());
         if (values.size() != rel.getSize()) {
             System.out.println("Wrong number of values");
             return;

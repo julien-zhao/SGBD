@@ -17,6 +17,7 @@ public class TestDBManager {
 		System.out.println("******************************************************");
 		boolean ok = true;
 		Scanner sc = new Scanner(System.in);
+		/*
 		while(ok) {
 			System.out.println("Sortir (Q): ");
 			System.out.println("Rentrer la ligne de commande:");
@@ -27,7 +28,13 @@ public class TestDBManager {
 			if(!a.equals("Q")) {
 				dbm.processCommand(a);
 			}
-		}
+		}*/
+		dbm.processCommand("DROPDB");
+		dbm.processCommand("CREATE TABLE R (C1:INTEGER,C2:VARHCAR(3),C3:INTEGER)");
+		dbm.processCommand("INSERT INTO R VALUES (1,aab,2)");
+		dbm.processCommand("INSERT INTO R VALUES (2,ab,2)");
+		dbm.processCommand("INSERT INTO R VALUES (1,agh,1)");
+		dbm.processCommand("SELECT * FROM R");
 		sc.close();
 	}
 }

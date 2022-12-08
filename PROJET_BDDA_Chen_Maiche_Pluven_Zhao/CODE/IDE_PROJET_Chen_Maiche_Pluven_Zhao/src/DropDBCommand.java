@@ -8,6 +8,7 @@ public class DropDBCommand extends XCommand{
 
     public void execute() {
     	File f =new File(DBParams.DBPath); 
+
         try {
             BufferManager.getSingleton().flushAll();
         } catch (IOException e) {
