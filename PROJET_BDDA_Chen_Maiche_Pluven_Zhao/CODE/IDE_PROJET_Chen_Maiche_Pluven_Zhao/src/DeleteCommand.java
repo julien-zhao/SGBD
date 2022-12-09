@@ -2,22 +2,23 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class SelectFromCommand extends XCommand{
+public class DeleteCommand extends XCommand{
     private RelationInfo relation;
     private Vector<String> colonne;
     private Vector<Critere> criteres;
 
-    public SelectFromCommand(String command) {
+    public DeleteCommand(String command) {
         colonne = new Vector<String>();
         criteres = new Vector<Critere>();
 
         String[] tokens = command.split(" ");
-        relation = Catalog.getSingleton().getRelationInfo(tokens[3]);
+        relation = Catalog.getSingleton().getRelationInfo(tokens[2]);
         if(relation == null){
-            System.out.println("Relation " + tokens[3] + " does not exist");
+            System.out.println("Relation " + tokens[2] + " does not exist");
             return;
         }
-
+        
+        /*
         String[] c = tokens[1].split(",");
 
         if(tokens[1].equals("*")){
@@ -29,10 +30,10 @@ public class SelectFromCommand extends XCommand{
             for (int i = 0; i < c.length; i++) {
                 colonne.add(c[i]);
             }
-        }
+        }*/
 
-        if(tokens.length > 4){
-            tokens = Arrays.copyOfRange(tokens, 5, tokens.length);
+        if(tokens.length > 3){
+            tokens = Arrays.copyOfRange(tokens, 4, tokens.length);
             for (int i = 0; i < tokens.length; i+=2) {
                 criteres.add(new Critere(tokens[i]));
             }
@@ -56,12 +57,11 @@ public class SelectFromCommand extends XCommand{
                 return;
             }
         }
-        FileManager fm = FileManager.getSingleton();
-        Vector<Record> records = fm.getRecordsInRelation(relation);
-
+        Vector<Record> records = FileManager.getSingleton().getRecordsInRelation(relation);
         for(Record r : records){
             boolean ok = true;
             for(Critere c : criteres){
+
                 if(!c.execute(r)){
                     ok = false;
                     break;
@@ -120,14 +120,11 @@ public class SelectFromCommand extends XCommand{
                 val = tokens[1];
             }
 
-            if(val.contains(")")){
-                val = val.substring(0, val.length()-1);
-            }
-
-            if(!relation.getTabInfo().contains(new ColInfo(col, ""))){
+            if(!colonne.contains(col)){
                 System.out.println("Column " + col + " does not exist");
                 return;
             }
+
             if(!val.matches("[0-9]+.[0-9]+") && !val.matches("[0-9]+")){
                 if(!op.equals("=")||!op.equals("<>")){
                     System.out.println("Operator " + op + " is not valid for string");
@@ -141,81 +138,28 @@ public class SelectFromCommand extends XCommand{
             
             String eCol = r.getValues().get(relation.getColonneIndex(col));
 
-            relation.getColonneType(col);
-            if(relation.getColonneType(col).startsWith("VARCHAR")){
-                return executeVARCHAR(eCol);
-            }
-            if(relation.getColonneType(col).equals("INTEGER")){
-                int eColInt = Integer.parseInt(eCol);
-                return executeINTEGER(eColInt);
-            }
-            if(relation.getColonneType(col).equals("REAL")){
-                double eColDouble = Double.parseDouble(eCol);
-                return executeREAL(eColDouble);
-            }
-            return false;
-        }
-
-        private boolean executeINTEGER(int eCol) {
-            double valInt = Double.parseDouble(val);
-            if(op.equals("=")){
-                return eCol == valInt;
-            }
-            if(op.equals("<>")){
-                return eCol != valInt;
-            }
-            if(op.equals(">")){
-                return eCol > valInt;
-            }
-            if(op.equals("<")){
-                return eCol < valInt;
-            }
-            if(op.equals(">=")){
-                return eCol >= valInt;
-            }
-            if(op.equals("<=")){
-                return eCol <= valInt;
-            }
-            return false;
-        }
-
-        private boolean executeREAL(double eCol) {
-            double valInt = Double.parseDouble(val);
-            if(op.equals("=")){
-                return eCol == valInt;
-            }
-            if(op.equals("<>")){
-                return eCol != valInt;
-            }
-            if(op.equals(">")){
-                return eCol > valInt;
-            }
-            if(op.equals("<")){
-                return eCol < valInt;
-            }
-            if(op.equals(">=")){
-                return eCol >= valInt;
-            }
-            if(op.equals("<=")){
-                return eCol <= valInt;
-            }
-            return false;
-        }
-
-        private boolean executeVARCHAR(String eCol) {
             if(op.equals("=")){
                 return eCol.equals(val);
+            }
+            if(op.equals(">")){
+                return eCol.compareTo(val) > 0;
+            }
+            if(op.equals("<")){
+                return eCol.compareTo(val) < 0;
+            }
+            if(op.equals(">=")){
+                return eCol.compareTo(val) >= 0;
+            }
+            if(op.equals("<=")){
+                return eCol.compareTo(val) <= 0;
             }
             if(op.equals("<>")){
                 return !eCol.equals(val);
             }
             return false;
         }
-
-        public String toString() {
-            return col + " " + op + " " + val;
-        }
     }
+    
 }
 
     
