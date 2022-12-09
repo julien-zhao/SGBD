@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class TestDBManager {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/"; //"PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/"
+		DBParams.DBPath = ".//..//..//DB//"; //"PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/"
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
@@ -85,7 +85,7 @@ public class TestDBManager {
 
 		System.out.println("****************************************");
 		System.out.println("INSERT INTO S FILECONTENTS(S1.csv):");
-		dbm.processCommand("INSERT INTO S FILECONTENTS(PROJET_BDDA_Chen_Maiche_Pluven_Zhao/RESSOURCES/S.csv)");
+		dbm.processCommand("INSERT INTO S FILECONTENTS(C:\\Users\\nicozoro56\\Desktop\\git\\sgbd\\PROJET_BDDA_Chen_Maiche_Pluven_Zhao\\RESSOURCES\\S.csv)");
 
 		System.out.println("****************************************");
 		System.out.println("AFFICHE LA PAGE 0:3 DE S A LA MAIN:");
