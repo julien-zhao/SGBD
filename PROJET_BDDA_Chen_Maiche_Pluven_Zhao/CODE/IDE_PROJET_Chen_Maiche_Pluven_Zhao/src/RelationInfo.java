@@ -1,18 +1,35 @@
-import java.nio.ByteBuffer;
+
+
+import java.io.Serializable; 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
-public class RelationInfo {
-	private String nomRelation; // le nom de la relation
+
+public class RelationInfo implements Serializable{
+	private static final long serialVersionUID = 1L;
+	/**
+	 * le nom de la relation
+	 */
+	private String nomRelation; 
+	/**
+	 * le header page id
+	 */
 	private PageId headerPageId;
-	//private int nbColonnes;		// le nombre de colonnes
-	private List<ColInfo> tabInfo; //Une liste qui contient le nom et le type
+	/**
+	 * la liste contenant le nom et le type de la colonne
+	 */
+	private List<ColInfo> tabInfo;
 	
-	
-	public RelationInfo(String nomRelation) {
+	public RelationInfo(String nomRelation) throws IOException{
+
 		this.nomRelation = nomRelation;
-		tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
+		this.tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
+		
+		this.headerPageId = FileManager.getSingleton().createNewHeaderPage();
+		
+		
 	}
 
 	public RelationInfo(String nomRelation, PageId headerPageId) {
@@ -21,9 +38,7 @@ public class RelationInfo {
 		tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
 	}
 	
-	public RelationInfo() {
-		this("");
-	}
+
 
 	
 	public void addColonne(String nomColonne, String type) {
@@ -35,12 +50,12 @@ public class RelationInfo {
 	
 	
 	public PageId getHeaderPageId() {
-		return headerPageId;
+		return this.headerPageId;
 	}
 	
 	
 	public List<ColInfo> getTabInfo() {
-		return tabInfo;
+		return this.tabInfo;
 	}
 	
 
@@ -51,15 +66,7 @@ public class RelationInfo {
 	public void setNomRelation(String nomRelation) {
 		this.nomRelation = nomRelation;
 	}
-	/*
-	public int getNbColonnes(){
-		return nbColonnes;
-	}
-	
-	public void setNbColonnes(int nbColonnes) {
-		this.nbColonnes = nbColonnes;
-	}
-	*/
+
 	public String afficheNomColonne() {
 		StringBuilder sb = new StringBuilder();
 		for(int i =0; i<tabInfo.size(); i++) {
@@ -80,7 +87,7 @@ public class RelationInfo {
 	}
 	
 	public String afficheRelationInfo() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(this.getNomRelation());
 		for(int i =0; i<tabInfo.size(); i++) {
 			sb.append("\n");
 			sb.append(tabInfo.get(i).getType()+" : ");
@@ -90,17 +97,20 @@ public class RelationInfo {
 	}
 	
 	public String toString() {
-		return "Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+tabInfo.size()
-		+"\nNom Colonne"+ afficheNomColonne() +"\n" + "Type colonne"+ afficheTypesColonne();
+		return this.afficheRelationInfo();
 	}
 
 
-	
-	
-	/*
-	public String getType_col(int i) {
-		return typesColonnes.get(i).toString();
-	}*/
-	
+	public int getSize() {
+		return tabInfo.size();
+	}
 
+	public int getColonneIndex(String nomColonne) {
+		for(int i =0; i<tabInfo.size(); i++) {
+			if(tabInfo.get(i).getColonne().equals(nomColonne)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 }

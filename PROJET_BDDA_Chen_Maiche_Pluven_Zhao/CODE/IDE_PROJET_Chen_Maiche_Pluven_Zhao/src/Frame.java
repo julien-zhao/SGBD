@@ -77,5 +77,9 @@ public class Frame {
 		this.caseId = caseId;
 	}
 	
+	@Override
+	public String toString() {
+		return "caseId:"+this.caseId+" \tPincount:"+this.pinCount+"\tPageId:"+this.pId;
+	}
 	
 }

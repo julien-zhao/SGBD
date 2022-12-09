@@ -2,9 +2,21 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class CreateTableCommand extends XCommand{
-    private String nomRelation;
+    /**
+     * le nom de la relation (chaine de caractères)
+     */
+	private String nomRelation;
+	/**
+	 * le nombre de colonnes (entiers)
+	 */
     private int nbColonnes;
+    /**
+     * les noms des colonnes (liste ou tableau de chaînes de caractères)
+     */
     private Vector<String> nomColonnes;
+    /**
+     * les types des colonnes (liste ou tableau de chaînes de caractères 
+     */
     private Vector<String> typeColonnes;
 
     public CreateTableCommand(String command) {
@@ -27,14 +39,14 @@ public class CreateTableCommand extends XCommand{
     }
 
     public void execute() throws IOException{
-        FileManager fm = FileManager.getSingleton();
-        PageId pId = fm.createNewHeaderPage();
-        RelationInfo ri = new RelationInfo(nomRelation, pId);
+        RelationInfo ri = new RelationInfo(nomRelation);
 
         for (int i = 0; i < nbColonnes; i++) {
             ri.addColonne(nomColonnes.get(i), typeColonnes.get(i));
         }
 
         Catalog.getSingleton().addRelationInfo(ri);
+
+        System.out.println("Table " + nomRelation + " created.");
     }
 }

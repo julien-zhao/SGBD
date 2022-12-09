@@ -2,22 +2,23 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class SelectFromCommand extends XCommand{
+public class DeleteCommand extends XCommand{
     private RelationInfo relation;
     private Vector<String> colonne;
     private Vector<Critere> criteres;
 
-    public SelectFromCommand(String command) {
+    public DeleteCommand(String command) {
         colonne = new Vector<String>();
         criteres = new Vector<Critere>();
 
         String[] tokens = command.split(" ");
-        relation = Catalog.getSingleton().getRelationInfo(tokens[3]);
+        relation = Catalog.getSingleton().getRelationInfo(tokens[2]);
         if(relation == null){
-            System.out.println("Relation " + tokens[3] + " does not exist");
+            System.out.println("Relation " + tokens[2] + " does not exist");
             return;
         }
-
+        
+        /*
         String[] c = tokens[1].split(",");
 
         if(tokens[1].equals("*")){
@@ -29,10 +30,10 @@ public class SelectFromCommand extends XCommand{
             for (int i = 0; i < c.length; i++) {
                 colonne.add(c[i]);
             }
-        }
+        }*/
 
-        if(tokens.length > 4){
-            tokens = Arrays.copyOfRange(tokens, 5, tokens.length);
+        if(tokens.length > 3){
+            tokens = Arrays.copyOfRange(tokens, 4, tokens.length);
             for (int i = 0; i < tokens.length; i+=2) {
                 criteres.add(new Critere(tokens[i]));
             }
@@ -56,9 +57,7 @@ public class SelectFromCommand extends XCommand{
                 return;
             }
         }
-        FileManager fm = FileManager.getSingleton();
-        Vector<Record> records = fm.getRecordsInRelation(relation);
-
+        Vector<Record> records = FileManager.getSingleton().getRecordsInRelation(relation);
         for(Record r : records){
             boolean ok = true;
             for(Critere c : criteres){
@@ -160,6 +159,7 @@ public class SelectFromCommand extends XCommand{
             return false;
         }
     }
+    
 }
 
     

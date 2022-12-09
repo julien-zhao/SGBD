@@ -1,5 +1,8 @@
+import java.io.Serializable;
 
-public class PageId {
+public class PageId implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Numerp du fichier
 	 */
@@ -8,13 +11,14 @@ public class PageId {
 	/**
 	 * Numero de la page
 	 */
-	public int pageIdx;
+	public int pageIdx=-1;
 	
 	public PageId(int FileIdx, int PageIdx) {
 		this.fileIdx = FileIdx;
 		this.pageIdx = PageIdx;
 	}
 	
+	@Override
 	public String toString() {
 		return "("+fileIdx+","+pageIdx+")";
 	}
@@ -29,5 +33,21 @@ public class PageId {
 	        }
 	    }
 	    return false;       
+	}
+	
+	public int getPageIdx() {
+		return pageIdx;
+	}
+	
+	public int getFileIdx() {
+		return fileIdx;
+	}
+	
+	public void setFileIdx(int fileIdx) {
+		this.fileIdx = fileIdx;
+	}
+	
+	public void setPageIdx(int pageIdx) {
+		this.pageIdx = pageIdx;
 	}
 }
