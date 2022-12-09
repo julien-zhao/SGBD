@@ -73,14 +73,14 @@ public class DiskManager {
 	public static void readPage(PageId unePageId, ByteBuffer buff) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "r");
+		r.seek(unePageId.pageIdx*DBParams.pageSize);
 		r.readFully(buff.array());
-		r.seek(0);
 		r.close();
 	}
 	public static void writePage(PageId unePageId, ByteBuffer byteBuffer) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "rw");
-		r.seek(0);
+		r.seek(unePageId.pageIdx*DBParams.pageSize);
 		r.write(byteBuffer.array());
 		r.close();
 	}
