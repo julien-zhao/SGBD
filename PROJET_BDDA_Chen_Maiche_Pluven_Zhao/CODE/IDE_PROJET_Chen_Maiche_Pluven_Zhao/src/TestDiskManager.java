@@ -21,7 +21,7 @@ public class TestDiskManager {
 		 */
 		System.out.println("\n===============================");
 		System.out.println("Test DeallocPage : "); 
-		PageId p1= DiskManager.allocPage();
+		PageId p1= dm.allocPage();
 		System.out.println("Le nombre de page allouee est :" + DiskManager.getCurrentCountAllocPages());
 		DiskManager.deallocPage(p1);
 		System.out.println("Le nombre de page allouee après dealloc est :" + DiskManager.getCurrentCountAllocPages());
@@ -40,7 +40,7 @@ public class TestDiskManager {
 		//source : https://fr.acervolima.com/classe-java-nio-bytebuffer-en-java/
 		System.out.println("\n===============================");
 		System.out.println("Test de WritePage");
-		PageId p2= DiskManager.allocPage(); //aloue une page
+		PageId p2= dm.allocPage(); //aloue une page
 		
 		try {			
 			

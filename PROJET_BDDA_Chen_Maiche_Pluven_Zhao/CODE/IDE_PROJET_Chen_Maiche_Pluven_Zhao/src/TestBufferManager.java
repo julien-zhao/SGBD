@@ -6,7 +6,7 @@ public class TestBufferManager {
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
-		//DiskManager dm = DiskManager.getSingleton();
+		DiskManager dm = DiskManager.getSingleton();
 		BufferManager bm = BufferManager.getSingleton();
 		System.out.println(DBParams.DBPath);
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
@@ -14,9 +14,9 @@ public class TestBufferManager {
 		
 		System.out.println("\n=============================");
 		System.out.println("Test DeallocPage : "); 
-		PageId p1= DiskManager.allocPage();
-		PageId p2= DiskManager.allocPage();
-		PageId p3= DiskManager.allocPage();
+		PageId p1= dm.allocPage();
+		PageId p2= dm.allocPage();
+		PageId p3= dm.allocPage();
 		System.out.println("=============================");
 		
 		

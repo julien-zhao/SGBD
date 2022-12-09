@@ -82,17 +82,18 @@ public class TestDBManager {
 		System.out.println("CREATE TABLE S (C1:INTEGER,C2:REAL,C3:INTEGER,C4:INTEGER,C5:INTEGER):");
 		dbm.processCommand("CREATE TABLE S (C1:INTEGER,C2:REAL,C3:INTEGER,C4:INTEGER,C5:INTEGER)");
 		
+
 		System.out.println("****************************************");
 		System.out.println("INSERT INTO S FILECONTENTS(S1.csv):");
 		dbm.processCommand("INSERT INTO S FILECONTENTS(PROJET_BDDA_Chen_Maiche_Pluven_Zhao/RESSOURCES/S.csv)");
-		
-		FileManager fm = FileManager.getSingleton();
-		RelationInfo rl = Catalog.getSingleton().getRelationInfo("S");
-		System.out.println("fm.getAllDataPages(ri) " + fm.getAllDataPages(rl));
-		System.out.println(fm.getRecordsInDataPage(rl, new PageId(0, 3)) );
-		System.out.println("******************************************************");
-		System.out.println("fm.getAllRecords(ri) " + fm.getAllRecords(rl));
 
+
+		System.out.println("****************************************");
+		FileManager fm = FileManager.getSingleton();
+		System.out.println("****************************************");
+		RelationInfo rl = Catalog.getSingleton().getRelationInfo("S");
+		System.out.println(fm.getRecordsInDataPage(rl, new PageId(0, 3)));
+		
 		System.out.println("****************************************");
 		System.out.println("SELECT * FROM S:");
 		dbm.processCommand("SELECT * FROM S");

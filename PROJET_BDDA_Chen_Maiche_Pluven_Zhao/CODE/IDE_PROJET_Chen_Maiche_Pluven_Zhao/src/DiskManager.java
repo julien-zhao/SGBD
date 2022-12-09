@@ -33,7 +33,7 @@ public class DiskManager {
 		return g_instance;
 	}
 	
-	public static PageId allocPage() throws IOException {
+	public PageId allocPage() throws IOException {
 		
 		if(!(new File(DBParams.DBPath+"F0.bdda").exists())) {
 			Fichier.newFile(0);

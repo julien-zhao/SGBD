@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Vector;
 
+
 public class FileManager {
 	private static FileManager g_instance = new FileManager();
 
@@ -16,7 +17,8 @@ public class FileManager {
 	
 
 	public PageId createNewHeaderPage() throws IOException {
-		PageId p=DiskManager.allocPage();
+		DiskManager dm = DiskManager.getSingleton();
+		PageId p=dm.allocPage();
 		
 		BufferManager bm = BufferManager.getSingleton();
 		bm.getPage(p).putInt(0,0);
@@ -25,7 +27,8 @@ public class FileManager {
 	}
 
 	public PageId addDataPage (RelationInfo relInfo) throws IOException {
-		PageId p=DiskManager.allocPage();
+		DiskManager dm = DiskManager.getSingleton();
+		PageId p=dm.allocPage();
 		
 		BufferManager bm = BufferManager.getSingleton();
 		ByteBuffer bb = bm.getPage(p);
@@ -37,7 +40,7 @@ public class FileManager {
 		int nbDataPage=header.getInt(0);
 		header.putInt(4+nbDataPage*12, p.fileIdx);
 		header.putInt(4+nbDataPage*12+4, p.pageIdx);
-		header.putInt(4+nbDataPage*12+8, DBParams.pageSize);
+		header.putInt(4+nbDataPage*12+8, DBParams.pageSize-8);
 		header.putInt(0, nbDataPage+1);
 		bm.freePage(relInfo.getHeaderPageId(), true);
 		return p;
@@ -62,17 +65,19 @@ public class FileManager {
 		BufferManager bm = BufferManager.getSingleton();
 		ByteBuffer p = bm.getPage(pageId);
 		int offset = p.getInt(DBParams.pageSize-4);
+		
 		record.writeToBuffer(p,offset);
 		p.putInt(DBParams.pageSize-4, offset+record.getWrittenSize());
 		int m = p.getInt(DBParams.pageSize-8);
+		
 		p.putInt(DBParams.pageSize-8, m+1);
-		p.putInt(DBParams.pageSize-8-((m+1)*8), offset);
-		p.putInt(DBParams.pageSize-8-(((m+1)*8)+4), record.getWrittenSize());
-
+		p.putInt(DBParams.pageSize-(8+(m+1)*8), offset);
+		p.putInt(DBParams.pageSize-(8+((m+1)*8))+4, record.getWrittenSize());
+		
 		bm.freePage(pageId, true);
 
+
 		ByteBuffer header = bm.getPage(record.getRelInfo().getHeaderPageId());
-		header.getInt();
 
 		for(int i=12;i<=4+header.getInt(0)*12;i+=12) {
 			if(header.getInt(i-8)==pageId.fileIdx && header.getInt(i-4)==pageId.pageIdx) {
@@ -81,7 +86,8 @@ public class FileManager {
 			}
 		}
 		bm.freePage(record.getRelInfo().getHeaderPageId(), true);
-		return new RecordId(pageId, m+1);
+		RecordId rId = new RecordId(pageId, m+1);
+		return rId;
 	}
 
 
@@ -90,7 +96,6 @@ public class FileManager {
 		Vector<Record> r = new Vector<Record>();
 		ByteBuffer p = bm.getPage(pageId);
 		int m = p.getInt(DBParams.pageSize-8);
-		System.out.println("m = "+m);
 		for(int i = 1;i<=m;i++) {
 			int pos = p.getInt(DBParams.pageSize-(8+(8*i)));
 			if(pos!=-1) {
@@ -128,14 +133,10 @@ public class FileManager {
 	}
 
 	public RecordId insertRecordIntoRelation (Record record) throws IOException {
-		BufferManager bm = BufferManager.getSingleton();
 		
 		int nbS = record.getWrittenSize();
 		PageId pId = getFreeDataPageId(record.getRelInfo(),nbS);
-
 		RecordId ret = writeRecordToDataPage(record,pId);
-		//PageId hp = record.getRelInfo().getHeaderPageId();
-		//bm.freePage(hp, false);
 		return ret;
 	}
 
@@ -143,7 +144,10 @@ public class FileManager {
 		Vector<PageId> L = getAllDataPages(relInfo);
 		Vector<Record> R = new Vector<Record>();
 		for(PageId p : L) {
-			R.addAll(getRecordsInDataPage(relInfo,p));
+			System.out.println("Page :" + p);
+			Vector<Record> vr = getRecordsInDataPage(relInfo,p);
+			System.out.println("Nombre de records : "+vr.size());
+			R.addAll(vr);
 		}
 		return R;
 	}

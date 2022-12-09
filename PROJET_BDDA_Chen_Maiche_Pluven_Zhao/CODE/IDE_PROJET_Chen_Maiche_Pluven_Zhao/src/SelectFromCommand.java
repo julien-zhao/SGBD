@@ -58,6 +58,7 @@ public class SelectFromCommand extends XCommand{
         }
         Vector<Record> records = FileManager.getSingleton().getRecordsInRelation(relation);
         for(Record r : records){
+            System.out.println(r.getValues());
             boolean ok = true;
             for(Critere c : criteres){
 
