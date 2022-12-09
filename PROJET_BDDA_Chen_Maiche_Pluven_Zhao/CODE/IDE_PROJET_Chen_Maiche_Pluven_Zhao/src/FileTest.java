@@ -1,5 +1,5 @@
 
-public class TestFile {
+public class FileTest {
 
 	public static void main(String[] args) {
 		Queue f = new Queue();

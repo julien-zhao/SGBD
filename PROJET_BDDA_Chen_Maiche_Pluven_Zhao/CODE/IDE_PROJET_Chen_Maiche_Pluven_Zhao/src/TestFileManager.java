@@ -1,86 +1,45 @@
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class TestFileManager {
+    
+    public static void main(String[] args) throws IOException {
 
-	public static void deleteFolder(File folder) {
-	    File[] files = folder.listFiles();
-	    if(files!=null) { //some JVMs return null for empty dirs
-	        for(File f: files) {
-	            f.delete();
-	        }
-	    }
-	}
-	
-	
-	public static void main(String[] args) throws IOException {
-		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/";//".//..//..//DB//"
-		File f1= new File(DBParams.DBPath);
-		deleteFolder(f1);
+        DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
-		System.out.println("******************************************************");
-		System.out.println("Début Test File Manager:");
-		System.out.println("******************************************************");
 		
-		FileManager fm = FileManager.getSingleton();
-		BufferManager bm = BufferManager.getSingleton();
-		
-		PageId pidH = fm.createNewHeaderPage();
-		
-		
-		
-		
-		System.out.println(pidH.fileIdx+"\t"+pidH.pageIdx);
-		deleteFolder(f1);
-		bm.flushAll();
-		RelationInfo ri = new RelationInfo("reougo",pidH);
-		ri.addColonne("NOM", "VARCHAR(10)");
-		ri.addColonne("PRENOM", "VARCHAR(12)");
-		ri.addColonne("AGE", "INTEGER");
-		ri.addColonne("TAILLE", "REAL");
-		
-		System.out.println("******************************************************");
-		//Ajout du tuple numéro 1
-		Record unRecord = new Record(ri);
-		ArrayList<String> tuple1 = new ArrayList<>();
-		tuple1.add("Zhao");
-		tuple1.add("Julien");
-		tuple1.add("21");
-		tuple1.add("1.6");
-		unRecord.addTuple(tuple1);
-		RecordId rid= fm.insertRecordIntoRelation(unRecord);
-		
-		//Ajout du tuple numéro 2
-		Record deuxRecord = new Record(ri);
-		ArrayList<String> tuple2 = new ArrayList<>();
+        FileManager fm = FileManager.getSingleton();
+        
+        //test every methode of FileManager
+        RelationInfo Personne = new RelationInfo("Personne");
+		Personne.addColonne("NOM", "VARCHAR(10)");
+		Personne.addColonne("PRENOM", "VARCHAR(12)");
+		Personne.addColonne("AGE", "INTEGER");
+		Personne.addColonne("TAILLE", "REAL");
+
+
+        Catalog uneCatalog = Catalog.getSingleton();
+        uneCatalog.addRelationInfo(Personne);
+        Record unRecord = new Record(Personne);
+
+        ArrayList<String> tuple2 = new ArrayList<>();
 		tuple2.add("Maiche");
 		tuple2.add("Max");
 		tuple2.add("20");
-		tuple2.add("1.7");
-		deuxRecord.addTuple(tuple2);
-		fm.insertRecordIntoRelation(deuxRecord);
-		
-		//Ajout du tuple numéro 3
-		Record troisRecord = new Record(ri);
-		ArrayList<String> tuple3 = new ArrayList<>();
-		tuple3.add("dfgdfh");
-		tuple3.add("fgjy");
-		tuple3.add("945");
-		tuple3.add("5.2");
-		troisRecord.addTuple(tuple3);
-		fm.insertRecordIntoRelation(troisRecord);
-		
-		//affichage du test FileManager
-		System.out.println(rid.pageId+"\t"+rid.slotIdx+"\t"+rid.getPageId()+"\t"+rid.getSlotIdx());
-		System.out.println("******************************************************");
-		System.out.println("fm.getAllDataPages(ri) " + fm.getAllDataPages(ri));
-		System.out.println("******************************************************");
-		System.out.println("fm.getRecordsInRelation(ri) " + fm.getRecordsInRelation(ri));
-		System.out.println("******************************************************");
-	}
+		tuple2.add("1.70");
+		unRecord.addTuple(tuple2);	
 
+        PageId pId = fm.addDataPage(Personne);
+        fm.writeRecordToDataPage(unRecord, pId);
+
+
+        Vector<Record> records = fm.getRecordsInRelation(Personne);
+
+        for (Record r : records) {
+            System.out.println(r);
+        }
+    }
 }
- 

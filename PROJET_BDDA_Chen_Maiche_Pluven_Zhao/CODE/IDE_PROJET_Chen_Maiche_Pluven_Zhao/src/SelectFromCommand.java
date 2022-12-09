@@ -1,27 +1,22 @@
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Vector;
 
 public class SelectFromCommand extends XCommand{
-    private RelationInfo relation;
+    private String nomRelation;
     private Vector<String> colonne;
-    private Vector<Critere> criteres;
+    private Vector<String> criteres;
 
     public SelectFromCommand(String command) {
         colonne = new Vector<String>();
-        criteres = new Vector<Critere>();
+        criteres = new Vector<String>();
 
         String[] tokens = command.split(" ");
-        relation = Catalog.getSingleton().getRelationInfo(tokens[3]);
-        if(relation == null){
-            System.out.println("Relation " + tokens[3] + " does not exist");
-            return;
-        }
-
+        nomRelation = tokens[3];
         String[] c = tokens[1].split(",");
 
         if(tokens[1].equals("*")){
-            for(ColInfo ci: relation.getTabInfo()){
+            RelationInfo ri = Catalog.getSingleton().getRelationInfo(nomRelation);
+            for(ColInfo ci: ri.getTabInfo()){
                 colonne.add(ci.getColonne());
             }
 
@@ -34,6 +29,7 @@ public class SelectFromCommand extends XCommand{
         if(tokens.length > 4){
             tokens = Arrays.copyOfRange(tokens, 5, tokens.length);
             for (int i = 0; i < tokens.length; i+=2) {
+<<<<<<< HEAD
                 criteres.add(new Critere(tokens[i]));
             }
         }
@@ -72,10 +68,14 @@ public class SelectFromCommand extends XCommand{
                     System.out.print(r.getColValue(s) + " ");
                 }
                 System.out.println();
+=======
+                criteres.add(tokens[i]);
+>>>>>>> 632482ff038ec9807d1b01225ff7eb14045a1d5d
             }
         }
     }
 
+<<<<<<< HEAD
     class Critere {
         private String col;
         private String op;
@@ -215,7 +215,10 @@ public class SelectFromCommand extends XCommand{
         public String toString() {
             return col + " " + op + " " + val;
         }
+=======
+    public void execute() {
+        //TODO
+>>>>>>> 632482ff038ec9807d1b01225ff7eb14045a1d5d
     }
 }
-
     

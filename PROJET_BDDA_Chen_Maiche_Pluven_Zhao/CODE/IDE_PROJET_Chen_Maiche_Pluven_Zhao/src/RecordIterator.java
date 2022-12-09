@@ -24,7 +24,7 @@ public class RecordIterator {
             int pos = p.getInt(DBParams.pageSize - (8 - (4 * slotIdx)));
             if (pos != -1) {
                 Record rec = new Record(relInfo);
-                rec.readFromBuffer(p, pos);
+                rec.readFromBuffer2(p, pos);
                 slotIdx++;
                 return rec;
             }

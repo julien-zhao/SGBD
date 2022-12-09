@@ -1,19 +1,19 @@
 
 public class RecordId {
-	PageId pageId;
+	PageId pageID;
 	int slotIdx;
 
 	public RecordId(PageId pageID, int slotIdx) {
-		this.pageId = pageID;
+		this.pageID = pageID;
 		this.slotIdx = slotIdx;
 	}
 
-	public PageId getPageId() {
-		return pageId;
+	public PageId getPageID() {
+		return pageID;
 	}
 
-	public void setPageId(PageId pageID) {
-		this.pageId = pageID;
+	public void setPageID(PageId pageID) {
+		this.pageID = pageID;
 	}
 
 	public int getSlotIdx() {
