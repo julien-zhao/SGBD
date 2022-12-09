@@ -28,7 +28,7 @@ public class Queue {
 			 c = null;
 			return cId;
 		}
-		throw new RuntimeException("Queue vide");
+		return -1;
 	}
 	
 	public void del(Cellule c) {
@@ -48,7 +48,7 @@ public class Queue {
 	public void afficheFile() {
 		Cellule c = debut;
 		while(c.caseId!=-2) {
-			System.out.println("case:"+c.caseId);
+			System.out.println(c.caseId);
 			c=c.suiv;
 		}
 	}
