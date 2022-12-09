@@ -1,7 +1,7 @@
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
 
+import java.io.IOException;
+//import java.util.Scanner;
+//import java.io.File;
 public class TestDBManager {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -100,7 +100,7 @@ public class TestDBManager {
 
 		System.out.println("SELECT C1 FROM S WHERE C1>100 AND C1<110:");
 		dbm.processCommand("SELECT C1 FROM S WHERE C1>100 AND C1<110");
-		
+
 		/* 
 		System.out.println("****************************************");
 		System.out.println("DELETE * FROM S WHERE C3=12 AND C1=167:");
