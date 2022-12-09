@@ -29,8 +29,8 @@ public class FileManager {
 		
 		BufferManager bm = BufferManager.getSingleton();
 		ByteBuffer bb = bm.getPage(p);
-		bb.putInt(DBParams.pageSize-64, 0);
-		bb.putInt(DBParams.pageSize-32, 0);
+		bb.putInt(DBParams.pageSize-8, 0);
+		bb.putInt(DBParams.pageSize-4, 0);
 		bm.freePage(p, true);
 
 		ByteBuffer header = bm.getPage(relInfo.getHeaderPageId());

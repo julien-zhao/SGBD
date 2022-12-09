@@ -84,12 +84,12 @@ public class TestDBManager {
 		
 		System.out.println("****************************************");
 		System.out.println("INSERT INTO S FILECONTENTS(S1.csv):");
-		dbm.processCommand("INSERT INTO S FILECONTENTS(C:/Users/Max/Desktop/git/sgbd/PROJET_BDDA_Chen_Maiche_Pluven_Zhao/RESSOURCES/S.csv)");
+		dbm.processCommand("INSERT INTO S FILECONTENTS(PROJET_BDDA_Chen_Maiche_Pluven_Zhao/RESSOURCES/S.csv)");
 		
 		FileManager fm = FileManager.getSingleton();
 		RelationInfo rl = Catalog.getSingleton().getRelationInfo("S");
 		System.out.println("fm.getAllDataPages(ri) " + fm.getAllDataPages(rl));
-		System.out.println(fm.getRecordsInDataPage(rl, new PageId(0, 2)) );
+		System.out.println(fm.getRecordsInDataPage(rl, new PageId(0, 3)) );
 		System.out.println("******************************************************");
 		System.out.println("fm.getAllRecords(ri) " + fm.getAllRecords(rl));
 
