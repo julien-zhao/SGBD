@@ -1,12 +1,10 @@
 
-/*
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-*/
-import java.io.IOException;
-import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.util.Map;
@@ -21,13 +19,13 @@ public class DiskManager {
 	
 	private DiskManager() {
 		log = new HashMap<Integer,Vector<Integer>>();
-		/*try {
+		try {
 			//saveLog(); //RESET FICHIER SAVELOG
-			//getSaveLog();
+			getSaveLog();
 				
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	
@@ -35,12 +33,10 @@ public class DiskManager {
 		return g_instance;
 	}
 	
-	public PageId allocPage() throws IOException {
+	public static PageId allocPage() throws IOException {
 		if(!(new File(DBParams.DBPath+"F0.bdda").exists())) {
 			Fichier.newFile(0);
 			log.put(0,new Vector<Integer>(DBParams.maxPagesPerFiles));
-			log.get(0).add(0);
-			//System.out.println("Fichier 0 créé");
 			return new PageId(0,0);
 			
 		}else {
@@ -58,7 +54,6 @@ public class DiskManager {
 				for(int i = 0;i<DBParams.maxPagesPerFiles;i++) {
 					if(!log.get(fichierLibre).contains(i)){
 						log.get(fichierLibre).add(i);
-						//System.out.println("Page "+i+" du fichier "+fichierLibre+" créé");
 						return new PageId(fichierLibre,i);
 					}
 				}
@@ -66,8 +61,6 @@ public class DiskManager {
 				int n = log.size();
 				Fichier.newFile(n);
 				log.put(n,new Vector<Integer>(DBParams.maxPagesPerFiles));
-				log.get(n).add(0);
-				//System.out.println("Page "+0+" du fichier "+n+" créé");
 				return new PageId(n,0);
 			}
 		}
@@ -75,26 +68,26 @@ public class DiskManager {
 		return null;
 	}
 	
-	public void readPage(PageId unePageId, ByteBuffer buff) throws IOException {
+	public static void readPage(PageId unePageId, ByteBuffer buff) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "r");
-		r.seek(unePageId.pageIdx*DBParams.pageSize);
 		r.readFully(buff.array());
+		r.seek(0);
 		r.close();
 	}
-	public void writePage(PageId unePageId, ByteBuffer byteBuffer) throws IOException {
+	public static void writePage(PageId unePageId, ByteBuffer byteBuffer) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "rw");
-		r.seek(unePageId.pageIdx*DBParams.pageSize);
+		r.seek(0);
 		r.write(byteBuffer.array());
 		r.close();
 	}
 
-	public void deallocPage(PageId unePageId) throws Exception{
+	public static void deallocPage(PageId unePageId) throws Exception{
 		log.get(unePageId.fileIdx).removeElement(unePageId.pageIdx);
 	}
 	
-	public int getCurrentCountAllocPages() {
+	public static int getCurrentCountAllocPages() {
 		int sum=0;
 		for(int i = 0; i < log.size();i++) {
 			sum+= log.get(i).size();
@@ -102,8 +95,8 @@ public class DiskManager {
 		return sum;
 	}
 	
-	/*
-		public void saveLog() throws IOException {
+	
+	public void saveLog() throws IOException {
 		//Source https://attacomsian.com/blog/java-write-object-to-file
 		FileOutputStream fos = new FileOutputStream(DBParams.DBPath+"saveLog.bdda");
 	    ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -140,26 +133,10 @@ public class DiskManager {
 		
 		fis.close();
 		ois.close();
-	} 
-	*/
+	}
 	
 	public HashMap<Integer,Vector<Integer>> getLog(){
 		return  (HashMap<Integer, Vector<Integer>>) log;
-	}
-
-	public void reset() {
-		log = new HashMap<Integer,Vector<Integer>>();
-		deleteFolder();
-	}
-
-	public static void deleteFolder() {
-		File folder =new File(DBParams.DBPath); 
-	    File[] files = folder.listFiles();
-	    if(files!=null) { //some JVMs return null for empty dirs
-	        for(File f: files) {
-	            f.delete();
-	        }
-	    }
 	}
 	
 }

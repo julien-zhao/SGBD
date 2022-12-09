@@ -1,35 +1,18 @@
-
-
-import java.io.Serializable; 
-
-import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
-
-public class RelationInfo implements Serializable{
-	private static final long serialVersionUID = 1L;
-	/**
-	 * le nom de la relation
-	 */
-	private String nomRelation; 
-	/**
-	 * le header page id
-	 */
+public class RelationInfo {
+	private String nomRelation; // le nom de la relation
 	private PageId headerPageId;
-	/**
-	 * la liste contenant le nom et le type de la colonne
-	 */
-	private List<ColInfo> tabInfo;
+	//private int nbColonnes;		// le nombre de colonnes
+	private List<ColInfo> tabInfo; //Une liste qui contient le nom et le type
 	
-	public RelationInfo(String nomRelation) throws IOException{
-
+	
+	public RelationInfo(String nomRelation) {
 		this.nomRelation = nomRelation;
-		this.tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
-		
-		this.headerPageId = FileManager.getSingleton().createNewHeaderPage();
-		
-		
+		tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
 	}
 
 	public RelationInfo(String nomRelation, PageId headerPageId) {
@@ -38,7 +21,9 @@ public class RelationInfo implements Serializable{
 		tabInfo = new ArrayList<ColInfo>(); //Initialise tabInfo en taille nbColonnes
 	}
 	
-
+	public RelationInfo() {
+		this("");
+	}
 
 	
 	public void addColonne(String nomColonne, String type) {
@@ -50,12 +35,12 @@ public class RelationInfo implements Serializable{
 	
 	
 	public PageId getHeaderPageId() {
-		return this.headerPageId;
+		return headerPageId;
 	}
 	
 	
 	public List<ColInfo> getTabInfo() {
-		return this.tabInfo;
+		return tabInfo;
 	}
 	
 
@@ -66,7 +51,15 @@ public class RelationInfo implements Serializable{
 	public void setNomRelation(String nomRelation) {
 		this.nomRelation = nomRelation;
 	}
-
+	/*
+	public int getNbColonnes(){
+		return nbColonnes;
+	}
+	
+	public void setNbColonnes(int nbColonnes) {
+		this.nbColonnes = nbColonnes;
+	}
+	*/
 	public String afficheNomColonne() {
 		StringBuilder sb = new StringBuilder();
 		for(int i =0; i<tabInfo.size(); i++) {
@@ -87,7 +80,7 @@ public class RelationInfo implements Serializable{
 	}
 	
 	public String afficheRelationInfo() {
-		StringBuilder sb = new StringBuilder(this.getNomRelation());
+		StringBuilder sb = new StringBuilder();
 		for(int i =0; i<tabInfo.size(); i++) {
 			sb.append("\n");
 			sb.append(tabInfo.get(i).getType()+" : ");
@@ -97,20 +90,17 @@ public class RelationInfo implements Serializable{
 	}
 	
 	public String toString() {
-		return this.afficheRelationInfo();
+		return "Le nomRelation: "+this.getNomRelation()+"\nNombre de Colonnes:"+tabInfo.size()
+		+"\nNom Colonne"+ afficheNomColonne() +"\n" + "Type colonne"+ afficheTypesColonne();
 	}
 
 
-	public int getSize() {
-		return tabInfo.size();
-	}
+	
+	
+	/*
+	public String getType_col(int i) {
+		return typesColonnes.get(i).toString();
+	}*/
+	
 
-	public int getColonneIndex(String nomColonne) {
-		for(int i =0; i<tabInfo.size(); i++) {
-			if(tabInfo.get(i).getColonne().equals(nomColonne)) {
-				return i;
-			}
-		}
-		return -1;
-	}
 }

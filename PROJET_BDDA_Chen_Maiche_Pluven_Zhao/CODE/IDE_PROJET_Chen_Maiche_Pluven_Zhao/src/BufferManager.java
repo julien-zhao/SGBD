@@ -27,48 +27,36 @@ public class BufferManager {
 
 	public ByteBuffer getPage(PageId pageId) throws IOException {
 		boolean libre = false;
-		boolean dejaPresente = false;
 		int iFrameLibre = -1;
+
 		for (int i = 0; i < DBParams.frameCount && !libre; i++) { // Parcours
-			if (pool.elementAt(i).getpId() == null) {
+			if (pool.elementAt(i).getpId() == null || pool.elementAt(i).getpId().equals(pageId)) {
 				libre = true;
 				iFrameLibre = i;
-			}else{
-				if(pool.elementAt(i).getpId().equals(pageId)){
-					dejaPresente =true;
-					libre = true;
-					iFrameLibre = i;
-				}
 			}
+
 		}
 		
 		if (libre) { //Frame Libre ou Frame deja chargee dans la case i
 			Frame f = pool.elementAt(iFrameLibre);
 			
-			if(f.getPinCount()==0 && !(f.getPosFile()==null)) { //Si la case est dans la liste
+			if(f.getPinCount()==0 && !file.isVoid()) { //Si la case est dans la liste
 				file.del(f.getPosFile());
 			}
 			
 			f.incPinCount();
 			f.setpId(pageId);
-
-			if(!dejaPresente) {
-				f.resetBb();
-			}
 			return f.getBb();
 			
 		} else {// Aucune Frame Libre
-			Frame caseAR = null;
-			try {
-				caseAR= pool.elementAt(file.pop()); //case A Remplacer
-			}catch(ArrayIndexOutOfBoundsException e) {
-				System.out.println(e.getMessage());
-			}
+			Frame caseAR= pool.elementAt(file.pop()); //case A Remplacer
+
 			if(!(caseAR.getPinCount()>0)) {
 
-				flush(caseAR);
+				freePage(caseAR.getpId(),caseAR.isDirty());
+				caseAR.incPinCount();
 				caseAR.setpId(pageId);
-				DiskManager.getSingleton().readPage(pageId,caseAR.getBb());
+				
 				return caseAR.getBb();
 			}else {
 				try {
@@ -98,32 +86,19 @@ public class BufferManager {
 		if(dirty) {
 			caseAFree.setDirty(true);
 		}
-		if(caseAFree.getPinCount()>0) {
-			caseAFree.decPinCount();
-		}
+		
+		caseAFree.decPinCount();
+		
 		if(caseAFree.getPinCount()==0) {
 			caseAFree.setPosFile(file.add(caseAFree.getCaseId())); //J'ajoute dans la file la case et je met la cellule correspondatne dans la var PosFile
 		}
 	}
 
-	public void flush(Frame frame) throws IOException {
-		if(frame.isDirty()) {
-			DiskManager.getSingleton().writePage(frame.getpId(), frame.getBb());
-			frame.setDirty(false);
-		}
-		frame.resetBb();
-		frame.setpId(null);
-		frame.setPinCount(0);
-		frame.setDirty(false);
-		frame.setPosFile(null);
-	}
-
 	public void flushAll() throws IOException {
-		file = new Queue();
 		for (int i = 0; i < DBParams.frameCount; i++) { 
 			Frame c = pool.elementAt(i);
 			if(c.isDirty()) {
-				DiskManager.getSingleton().writePage(c.getpId(), c.getBb());
+				DiskManager.writePage(c.getpId(), c.getBb());
 			}
 			c.resetBb();
 			c.setpId(null);
@@ -132,12 +107,5 @@ public class BufferManager {
 			c.setPosFile(null);	
 		}
 		
-	}
-	
-	public Queue getQueue() {
-		return file;
-	}
-	public Vector<Frame> getPool(){
-		return this.pool;
 	}
 }
