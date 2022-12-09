@@ -143,12 +143,9 @@ public class FileManager {
 
 	public Vector<Record> getRecordsInRelation(RelationInfo relInfo) throws IOException{
 		Vector<PageId> L = getAllDataPages(relInfo);
-		System.out.println("Nombre de pages : "+L.size());
 		Vector<Record> R = new Vector<Record>();
 		for(PageId p : L) {
-			System.out.println("Page :" + p);
 			Vector<Record> vr = getRecordsInDataPage(relInfo,p);
-			System.out.println("Nombre de records : "+vr.size());
 			R.addAll(vr);
 		}
 		return R;

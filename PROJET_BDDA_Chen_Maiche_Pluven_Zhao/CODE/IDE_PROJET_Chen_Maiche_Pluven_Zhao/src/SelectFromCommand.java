@@ -62,7 +62,6 @@ public class SelectFromCommand extends XCommand{
         for(Record r : records){
             boolean ok = true;
             for(Critere c : criteres){
-
                 if(!c.execute(r)){
                     ok = false;
                     break;
@@ -121,11 +120,14 @@ public class SelectFromCommand extends XCommand{
                 val = tokens[1];
             }
 
-            if(!colonne.contains(col)){
+            if(val.contains(")")){
+                val = val.substring(0, val.length()-1);
+            }
+
+            if(!relation.getTabInfo().contains(new ColInfo(col, ""))){
                 System.out.println("Column " + col + " does not exist");
                 return;
             }
-
             if(!val.matches("[0-9]+.[0-9]+") && !val.matches("[0-9]+")){
                 if(!op.equals("=")||!op.equals("<>")){
                     System.out.println("Operator " + op + " is not valid for string");
@@ -139,25 +141,79 @@ public class SelectFromCommand extends XCommand{
             
             String eCol = r.getValues().get(relation.getColonneIndex(col));
 
+            relation.getColonneType(col);
+            if(relation.getColonneType(col).startsWith("VARCHAR")){
+                return executeVARCHAR(eCol);
+            }
+            if(relation.getColonneType(col).equals("INTEGER")){
+                int eColInt = Integer.parseInt(eCol);
+                return executeINTEGER(eColInt);
+            }
+            if(relation.getColonneType(col).equals("REAL")){
+                double eColDouble = Double.parseDouble(eCol);
+                return executeREAL(eColDouble);
+            }
+            return false;
+        }
+
+        private boolean executeINTEGER(int eCol) {
+            double valInt = Double.parseDouble(val);
             if(op.equals("=")){
-                return eCol.equals(val);
+                return eCol == valInt;
+            }
+            if(op.equals("<>")){
+                return eCol != valInt;
             }
             if(op.equals(">")){
-                return eCol.compareTo(val) > 0;
+                return eCol > valInt;
             }
             if(op.equals("<")){
-                return eCol.compareTo(val) < 0;
+                return eCol < valInt;
             }
             if(op.equals(">=")){
-                return eCol.compareTo(val) >= 0;
+                return eCol >= valInt;
             }
             if(op.equals("<=")){
-                return eCol.compareTo(val) <= 0;
+                return eCol <= valInt;
+            }
+            return false;
+        }
+
+        private boolean executeREAL(double eCol) {
+            double valInt = Double.parseDouble(val);
+            if(op.equals("=")){
+                return eCol == valInt;
+            }
+            if(op.equals("<>")){
+                return eCol != valInt;
+            }
+            if(op.equals(">")){
+                return eCol > valInt;
+            }
+            if(op.equals("<")){
+                return eCol < valInt;
+            }
+            if(op.equals(">=")){
+                return eCol >= valInt;
+            }
+            if(op.equals("<=")){
+                return eCol <= valInt;
+            }
+            return false;
+        }
+
+        private boolean executeVARCHAR(String eCol) {
+            if(op.equals("=")){
+                return eCol.equals(val);
             }
             if(op.equals("<>")){
                 return !eCol.equals(val);
             }
             return false;
+        }
+
+        public String toString() {
+            return col + " " + op + " " + val;
         }
     }
 }

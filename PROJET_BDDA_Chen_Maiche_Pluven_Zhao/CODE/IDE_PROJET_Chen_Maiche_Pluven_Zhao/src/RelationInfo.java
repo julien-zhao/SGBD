@@ -113,4 +113,13 @@ public class RelationInfo implements Serializable{
 		}
 		return -1;
 	}
+
+	public String getColonneType(String nomColonne) {
+		for(ColInfo colInfo : tabInfo) {
+			if(colInfo.getColonne().equals(nomColonne)) {
+				return colInfo.getType();
+			}
+		}
+		return null;
+	}
 }
