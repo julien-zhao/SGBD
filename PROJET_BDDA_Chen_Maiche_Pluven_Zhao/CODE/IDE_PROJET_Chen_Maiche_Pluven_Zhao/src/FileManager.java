@@ -60,7 +60,8 @@ public class FileManager {
 		bm.freePage(hpId, false);
 		return addDataPage(relInfo);
 	}
-	
+
+
 	public RecordId writeRecordToDataPage(Record record, PageId pageId) throws IOException {
 		BufferManager bm = BufferManager.getSingleton();
 		ByteBuffer p = bm.getPage(pageId);
@@ -142,6 +143,7 @@ public class FileManager {
 
 	public Vector<Record> getRecordsInRelation(RelationInfo relInfo) throws IOException{
 		Vector<PageId> L = getAllDataPages(relInfo);
+		System.out.println("Nombre de pages : "+L.size());
 		Vector<Record> R = new Vector<Record>();
 		for(PageId p : L) {
 			System.out.println("Page :" + p);
@@ -152,17 +154,6 @@ public class FileManager {
 		return R;
 	}
 
-	public Vector<Record> getAllRecords(RelationInfo relInfo) throws IOException{
-		Vector<PageId> l = getAllDataPages(relInfo);	
-		Vector<Record> r = new Vector<Record>();
-		for(PageId p : l) {
-			Vector<Record> vr = getRecordsInDataPage(relInfo,p);
-			for(Record rec : vr) {
-				r.add(rec);
-			}
-		}
-		return r;
-	}
 
 	public void deleteRecordInRelation(RelationInfo relInfo,RecordId recordId) throws IOException {
 		BufferManager bm = BufferManager.getSingleton();

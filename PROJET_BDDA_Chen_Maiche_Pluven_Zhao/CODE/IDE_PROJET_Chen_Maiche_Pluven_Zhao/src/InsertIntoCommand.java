@@ -42,7 +42,7 @@ public class InsertIntoCommand extends XCommand{
                         valuesTemp.add(vals[i]);
                     }
                     insertCommands.add(new InsertIntoCommand(nomRelation, valuesTemp));
-                    System.out.println("Values " + valuesTemp + " have been inserted");
+                    //System.out.println("Values " + valuesTemp + " have been inserted");
                 }
                 System.out.println("File " + file[1] + " has been read");
             } catch (IOException e) {

@@ -15,7 +15,7 @@ public class TestFileManager {
 	
 	
 	public static void main(String[] args) throws IOException {
-		DBParams.DBPath = ".//..//..//DB//";
+		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/";//".//..//..//DB//"
 		File f1= new File(DBParams.DBPath);
 		deleteFolder(f1);
 		DBParams.pageSize = 4096;
@@ -77,8 +77,6 @@ public class TestFileManager {
 		System.out.println(rid.pageId+"\t"+rid.slotIdx+"\t"+rid.getPageId()+"\t"+rid.getSlotIdx());
 		System.out.println("******************************************************");
 		System.out.println("fm.getAllDataPages(ri) " + fm.getAllDataPages(ri));
-		System.out.println("******************************************************");
-		System.out.println("fm.getAllRecords(ri) " + fm.getAllRecords(ri));
 		System.out.println("******************************************************");
 		System.out.println("fm.getRecordsInRelation(ri) " + fm.getRecordsInRelation(ri));
 		System.out.println("******************************************************");

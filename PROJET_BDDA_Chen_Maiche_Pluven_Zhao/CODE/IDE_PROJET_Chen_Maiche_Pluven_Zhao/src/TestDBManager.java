@@ -87,10 +87,9 @@ public class TestDBManager {
 		System.out.println("INSERT INTO S FILECONTENTS(S1.csv):");
 		dbm.processCommand("INSERT INTO S FILECONTENTS(PROJET_BDDA_Chen_Maiche_Pluven_Zhao/RESSOURCES/S.csv)");
 
-
 		System.out.println("****************************************");
+		System.out.println("AFFICHE LA PAGE 0:3 DE S A LA MAIN:");
 		FileManager fm = FileManager.getSingleton();
-		System.out.println("****************************************");
 		RelationInfo rl = Catalog.getSingleton().getRelationInfo("S");
 		System.out.println(fm.getRecordsInDataPage(rl, new PageId(0, 3)));
 		
