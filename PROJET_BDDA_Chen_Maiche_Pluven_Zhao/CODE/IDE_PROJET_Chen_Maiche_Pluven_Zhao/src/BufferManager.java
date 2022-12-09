@@ -68,6 +68,7 @@ public class BufferManager {
 
 				flush(caseAR);
 				caseAR.setpId(pageId);
+				DiskManager.getSingleton().readPage(pageId,caseAR.getBb());
 				return caseAR.getBb();
 			}else {
 				try {
