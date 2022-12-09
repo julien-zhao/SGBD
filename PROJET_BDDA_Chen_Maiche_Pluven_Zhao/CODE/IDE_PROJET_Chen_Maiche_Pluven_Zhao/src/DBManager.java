@@ -21,7 +21,7 @@ public class DBManager {
 
     public void finish() throws IOException{
         BufferManager.getSingleton().flushAll();
-        DiskManager.getSingleton().saveLog();
+        DiskManager.getSingleton();
         Catalog.getSingleton().Finish();
     }
 

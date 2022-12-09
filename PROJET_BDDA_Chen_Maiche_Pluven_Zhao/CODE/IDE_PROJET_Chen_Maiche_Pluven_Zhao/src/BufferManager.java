@@ -51,6 +51,7 @@ public class BufferManager {
 			
 			f.incPinCount();
 			f.setpId(pageId);
+
 			if(!dejaPresente) {
 				f.resetBb();
 			}
@@ -106,7 +107,7 @@ public class BufferManager {
 
 	public void flush(Frame frame) throws IOException {
 		if(frame.isDirty()) {
-			DiskManager.writePage(frame.getpId(), frame.getBb());
+			DiskManager.getSingleton().writePage(frame.getpId(), frame.getBb());
 			frame.setDirty(false);
 		}
 		frame.resetBb();
@@ -121,7 +122,7 @@ public class BufferManager {
 		for (int i = 0; i < DBParams.frameCount; i++) { 
 			Frame c = pool.elementAt(i);
 			if(c.isDirty()) {
-				DiskManager.writePage(c.getpId(), c.getBb());
+				DiskManager.getSingleton().writePage(c.getpId(), c.getBb());
 			}
 			c.resetBb();
 			c.setpId(null);

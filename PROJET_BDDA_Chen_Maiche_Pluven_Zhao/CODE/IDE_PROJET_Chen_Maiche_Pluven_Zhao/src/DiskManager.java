@@ -34,11 +34,11 @@ public class DiskManager {
 	}
 	
 	public PageId allocPage() throws IOException {
-		
 		if(!(new File(DBParams.DBPath+"F0.bdda").exists())) {
 			Fichier.newFile(0);
 			log.put(0,new Vector<Integer>(DBParams.maxPagesPerFiles));
 			log.get(0).add(0);
+			//System.out.println("Fichier 0 créé");
 			return new PageId(0,0);
 			
 		}else {
@@ -56,6 +56,7 @@ public class DiskManager {
 				for(int i = 0;i<DBParams.maxPagesPerFiles;i++) {
 					if(!log.get(fichierLibre).contains(i)){
 						log.get(fichierLibre).add(i);
+						//System.out.println("Page "+i+" du fichier "+fichierLibre+" créé");
 						return new PageId(fichierLibre,i);
 					}
 				}
@@ -63,6 +64,8 @@ public class DiskManager {
 				int n = log.size();
 				Fichier.newFile(n);
 				log.put(n,new Vector<Integer>(DBParams.maxPagesPerFiles));
+				log.get(n).add(0);
+				//System.out.println("Page "+0+" du fichier "+n+" créé");
 				return new PageId(n,0);
 			}
 		}
@@ -70,14 +73,14 @@ public class DiskManager {
 		return null;
 	}
 	
-	public static void readPage(PageId unePageId, ByteBuffer buff) throws IOException {
+	public void readPage(PageId unePageId, ByteBuffer buff) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "r");
 		r.seek(unePageId.pageIdx*DBParams.pageSize);
 		r.readFully(buff.array());
 		r.close();
 	}
-	public static void writePage(PageId unePageId, ByteBuffer byteBuffer) throws IOException {
+	public void writePage(PageId unePageId, ByteBuffer byteBuffer) throws IOException {
 		String FileName="F"+unePageId.fileIdx+".bdda";
 		RandomAccessFile r = new RandomAccessFile(DBParams.DBPath+FileName, "rw");
 		r.seek(unePageId.pageIdx*DBParams.pageSize);
@@ -85,11 +88,11 @@ public class DiskManager {
 		r.close();
 	}
 
-	public static void deallocPage(PageId unePageId) throws Exception{
+	public void deallocPage(PageId unePageId) throws Exception{
 		log.get(unePageId.fileIdx).removeElement(unePageId.pageIdx);
 	}
 	
-	public static int getCurrentCountAllocPages() {
+	public int getCurrentCountAllocPages() {
 		int sum=0;
 		for(int i = 0; i < log.size();i++) {
 			sum+= log.get(i).size();
@@ -97,8 +100,8 @@ public class DiskManager {
 		return sum;
 	}
 	
-	
-	public void saveLog() throws IOException {
+	/*
+		public void saveLog() throws IOException {
 		//Source https://attacomsian.com/blog/java-write-object-to-file
 		FileOutputStream fos = new FileOutputStream(DBParams.DBPath+"saveLog.bdda");
 	    ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -135,7 +138,8 @@ public class DiskManager {
 		
 		fis.close();
 		ois.close();
-	}
+	} 
+	*/
 	
 	public HashMap<Integer,Vector<Integer>> getLog(){
 		return  (HashMap<Integer, Vector<Integer>>) log;
@@ -143,6 +147,17 @@ public class DiskManager {
 
 	public void reset() {
 		log = new HashMap<Integer,Vector<Integer>>();
+		deleteFolder();
+	}
+
+	public static void deleteFolder() {
+		File folder =new File(DBParams.DBPath); 
+	    File[] files = folder.listFiles();
+	    if(files!=null) { //some JVMs return null for empty dirs
+	        for(File f: files) {
+	            f.delete();
+	        }
+	    }
 	}
 	
 }
