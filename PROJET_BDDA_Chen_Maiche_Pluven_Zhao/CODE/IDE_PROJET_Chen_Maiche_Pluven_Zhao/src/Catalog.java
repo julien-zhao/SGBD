@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class Catalog implements Serializable{
@@ -71,7 +72,12 @@ public class Catalog implements Serializable{
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+
 		
+		ByteBuffer buffer = ByteBuffer.allocate(4);
+		DiskManager.getSingleton().readPage(new PageId(0, 0), buffer);
+		int m = buffer.getInt(0);
+		System.out.println("MMM= " + m);
 	}
 	
 	

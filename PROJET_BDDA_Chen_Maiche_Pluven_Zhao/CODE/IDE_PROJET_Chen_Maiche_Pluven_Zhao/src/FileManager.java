@@ -87,6 +87,7 @@ public class FileManager {
 			}
 		}
 		bm.freePage(record.getRelInfo().getHeaderPageId(), true);
+
 		RecordId rId = new RecordId(pageId, m+1);
 		return rId;
 	}
@@ -127,6 +128,7 @@ public class FileManager {
 		Vector<PageId> L = new Vector<PageId>();
 		for(int i=0;i<nb;i++) {
 			PageId pId = new PageId(p.getInt(4+i*12),p.getInt(4+i*12+4));
+			System.out.println("C'EST BON GET ALL DATA PAGE");
 			L.add(pId);
 		}
 		bm.freePage(relInfo.getHeaderPageId(), false);

@@ -146,6 +146,7 @@ public class DiskManager {
 		
 		fis.close();
 		ois.close();
+
 	} 
 
 	
@@ -168,4 +169,10 @@ public class DiskManager {
 	    }
 	}
 	
+	//printlog
+	public void printLog() {
+		for(int i = 0; i < log.size();i++) {
+			System.out.println("Fichier "+i+" Pages : "+log.get(i));
+		}
+	}
 }
