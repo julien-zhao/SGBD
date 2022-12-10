@@ -2,7 +2,7 @@ import java.io.IOException;
 
 public class TestCatalog {
 
-	public static void main(String[] args) throws IOException  {
+	public static void main(String[] args) throws IOException, ClassNotFoundException  {
 		DBParams.DBPath = ".//..//..//DB//";
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
@@ -10,7 +10,7 @@ public class TestCatalog {
 		
 		
 		// Pour tester la méthode finish(), il faut cacher la méthode init()
-		///*
+		/*
 		RelationInfo relaInfo;
 		RelationInfo relaInfo2;
 		
@@ -37,14 +37,14 @@ public class TestCatalog {
 			
 		System.out.println(Catalog.getSingleton().getCatalog());
 		Catalog.getSingleton().Finish();
-	
+		*/
 		
 		
 		
 		
 		
 		// Pour tester la méthode init(), il faut exécuter au moins une fois avec finish() et ensuite cacher la méthode finish()
-		/*
+		///*
 		Catalog.getSingleton().Init();
 		
 		System.out.println("*********************************************************************");
@@ -73,7 +73,7 @@ public class TestCatalog {
 			System.out.println("'RelationQuiExistePas' existe bien dans le catalog");
 			System.out.println("Résultat de la recherche : \n\n"+ Catalog.getSingleton().getRelationInfo("RelationQuiExistePas"));
 		}
-		*/
+		//*/
 		
 	}
 }
