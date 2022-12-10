@@ -12,6 +12,7 @@ public class Main {
 		DBManager db = DBManager.getSingleton();
 		db.init();
 		boolean done = true;
+		System.out.println("exit to quit");
 		while(done){
 			System.out.println("Enter a command:");
 			String cmd = System.console().readLine();
