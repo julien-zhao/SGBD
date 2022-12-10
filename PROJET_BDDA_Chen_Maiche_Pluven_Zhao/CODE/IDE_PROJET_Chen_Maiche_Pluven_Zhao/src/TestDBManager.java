@@ -5,7 +5,7 @@ import java.io.IOException;
 public class TestDBManager {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		DBParams.DBPath = ".//..//..//DB//"; //PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/
+		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/"; //.//..//..//DB//
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;

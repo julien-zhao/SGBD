@@ -14,14 +14,14 @@ public class DBManager {
     }
 
     public void init() throws ClassNotFoundException, IOException   {  // throws IOException
-        DiskManager.getSingleton();
+        DiskManager.getSingleton().getSaveLog();;
         BufferManager.getSingleton();
         Catalog.getSingleton().Init();
     }
 
     public void finish() throws IOException{
         BufferManager.getSingleton().flushAll();
-        DiskManager.getSingleton();
+        DiskManager.getSingleton().saveLog();
         Catalog.getSingleton().Finish();
     }
 

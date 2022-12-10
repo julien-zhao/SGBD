@@ -1,10 +1,11 @@
 
-/*
+
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-*/
+
 import java.io.IOException;
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -21,13 +22,13 @@ public class DiskManager {
 	
 	private DiskManager() {
 		log = new HashMap<Integer,Vector<Integer>>();
-		/*try {
+		try {
 			//saveLog(); //RESET FICHIER SAVELOG
-			//getSaveLog();
+			getSaveLog();
 				
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	
@@ -102,10 +103,12 @@ public class DiskManager {
 		return sum;
 	}
 	
-	/*
-		public void saveLog() throws IOException {
+	public void saveLog() throws IOException {
 		//Source https://attacomsian.com/blog/java-write-object-to-file
-		FileOutputStream fos = new FileOutputStream(DBParams.DBPath+"saveLog.bdda");
+		FileOutputStream fos = null;
+		fos = new FileOutputStream(DBParams.DBPath+"saveLog.bdda");
+
+		
 	    ObjectOutputStream oos = new ObjectOutputStream(fos);
 	    oos.flush();
 	    oos.writeObject(log);
@@ -121,9 +124,12 @@ public class DiskManager {
 		//source https://attacomsian.com/blog/java-read-object-from-file
 		
 		FileInputStream fis = null;
-
-		fis = new FileInputStream(DBParams.DBPath+"saveLog.bdda");
-				
+		try{
+			fis = new FileInputStream(DBParams.DBPath+"saveLog.bdda");
+		}catch(FileNotFoundException e){
+			System.out.println("Fichier saveLog.bdda non trouvé");
+			return;
+		}	
 		ObjectInputStream ois = null;
 
 		ois = new ObjectInputStream(fis);
@@ -141,7 +147,7 @@ public class DiskManager {
 		fis.close();
 		ois.close();
 	} 
-	*/
+
 	
 	public HashMap<Integer,Vector<Integer>> getLog(){
 		return  (HashMap<Integer, Vector<Integer>>) log;
