@@ -53,7 +53,7 @@ public class BufferManager {
 			f.setpId(pageId);
 
 			if(!dejaPresente) {
-				f.resetBb();
+				DiskManager.getSingleton().readPage(pageId,f.getBb());
 			}
 			return f.getBb();
 			

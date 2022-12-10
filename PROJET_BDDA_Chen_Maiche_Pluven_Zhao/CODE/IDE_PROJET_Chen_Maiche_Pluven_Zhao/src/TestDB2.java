@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.nio.ByteBuffer;
+
 
 public class TestDB2 {
     public static void main(String[] args) throws ClassNotFoundException, IOException{
@@ -8,10 +8,6 @@ public class TestDB2 {
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
 		DBManager dbm = DBManager.getSingleton();
-
-		ByteBuffer bb = ByteBuffer.allocate(4);
-		DiskManager.getSingleton().readPage(new PageId(0, 0), bb);
-		System.out.println("m = " + bb.getInt(0));
 
 		dbm.init();
 
