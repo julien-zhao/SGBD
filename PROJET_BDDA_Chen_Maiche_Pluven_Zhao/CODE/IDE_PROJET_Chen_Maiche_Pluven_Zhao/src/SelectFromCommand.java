@@ -128,13 +128,6 @@ public class SelectFromCommand extends XCommand{
                 System.out.println("Column " + col + " does not exist");
                 return;
             }
-            /*if(!val.matches("[0-9]+.[0-9]+") && !val.matches("[0-9]+")){
-                if(!op.equals("=")||!op.equals("<>")){
-                    System.out.println("Operator " + op + " is not valid for string");
-                    return;
-                }
-                
-            }*/
         }
 
         public boolean execute(Record r){
