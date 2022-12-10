@@ -5,7 +5,7 @@ import java.io.IOException;
 public class TestDBManager {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/"; //".//..//..//DB//"
+		DBParams.DBPath = ".//..//..//DB//"; //".//..//..//DB//"
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
@@ -71,6 +71,22 @@ public class TestDBManager {
 		System.out.println("SELECT * FROM R WHERE C1<2:");
 		dbm.processCommand("SELECT * FROM R WHERE C1<2");
 		
+		System.out.println("\n****************************************");
+		System.out.println("SELECT * FROM R WHERE C2>aga:");
+		dbm.processCommand("SELECT * FROM R WHERE C2>aga");
+		
+		System.out.println("\n****************************************");
+		System.out.println("SELECT * FROM R WHERE C2<aga:");
+		dbm.processCommand("SELECT * FROM R WHERE C2<aga");
+		
+		System.out.println("\n****************************************");
+		System.out.println("SELECT * FROM R WHERE C2>=agh:");
+		dbm.processCommand("SELECT * FROM R WHERE C2>=agh");
+		
+		System.out.println("\n****************************************");
+		System.out.println("SELECT * FROM R WHERE C2>=ab:");
+		dbm.processCommand("SELECT * FROM R WHERE C2>=ab");
+		
 		
 		System.out.println("\n******************************************************");
 		System.out.println("Début du DBManager (INSERT par lot et DELETE):");
@@ -85,7 +101,7 @@ public class TestDBManager {
 
 		System.out.println("****************************************");
 		System.out.println("INSERT INTO S FILECONTENTS(S1.csv):");
-		dbm.processCommand("INSERT INTO S FILECONTENTS(C:/Users/Max/Desktop/git/sgbd/PROJET_BDDA_Chen_Maiche_Pluven_Zhao/RESSOURCES/S.csv)");
+		dbm.processCommand("INSERT INTO S FILECONTENTS(C:\\Users\\nicozoro56\\Desktop\\git\\sgbd\\PROJET_BDDA_Chen_Maiche_Pluven_Zhao\\RESSOURCES\\S.csv)");
 
 		System.out.println("****************************************");
 		
@@ -100,6 +116,7 @@ public class TestDBManager {
 
 		System.out.println("SELECT C1 FROM S WHERE C1>100 AND C1<110:");
 		dbm.processCommand("SELECT C1 FROM S WHERE C1>100 AND C1<110");
+		
 
 		/* 
 		System.out.println("****************************************");

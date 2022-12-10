@@ -128,13 +128,13 @@ public class SelectFromCommand extends XCommand{
                 System.out.println("Column " + col + " does not exist");
                 return;
             }
-            if(!val.matches("[0-9]+.[0-9]+") && !val.matches("[0-9]+")){
+            /*if(!val.matches("[0-9]+.[0-9]+") && !val.matches("[0-9]+")){
                 if(!op.equals("=")||!op.equals("<>")){
                     System.out.println("Operator " + op + " is not valid for string");
                     return;
                 }
                 
-            }
+            }*/
         }
 
         public boolean execute(Record r){
@@ -201,6 +201,7 @@ public class SelectFromCommand extends XCommand{
             }
             return false;
         }
+        
 
         private boolean executeVARCHAR(String eCol) {
             if(op.equals("=")){
@@ -208,6 +209,19 @@ public class SelectFromCommand extends XCommand{
             }
             if(op.equals("<>")){
                 return !eCol.equals(val);
+            }
+            int res = eCol.compareToIgnoreCase(val);
+            if(op.equals(">")&&(res>0)){
+            	return true;
+            }
+            if(op.equals("<")&&(res<0)){
+            	return true;
+            }
+            if(op.equals(">=")&&(res>=0)){
+                return true;
+            }
+            if(op.equals("<=")&&(res<=0)){
+                return true;
             }
             return false;
         }
