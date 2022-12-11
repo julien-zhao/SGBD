@@ -5,7 +5,7 @@ import java.io.IOException;
 public class TestDBManager {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		DBParams.DBPath = "PROJET_BDDA_Chen_Maiche_Pluven_Zhao/DB/"; //.//..//..//DB//
+		DBParams.DBPath = ".//..//..//DB//"; //.//..//..//DB//
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFiles = 4;
 		DBParams.frameCount = 2;
@@ -101,7 +101,7 @@ public class TestDBManager {
 
 		System.out.println("****************************************");
 		System.out.println("INSERT INTO S FILECONTENTS(S1.csv):");
-		dbm.processCommand("INSERT INTO S FILECONTENTS(PROJET_BDDA_Chen_Maiche_Pluven_Zhao/RESSOURCES/S.csv)");
+		dbm.processCommand("INSERT INTO S FILECONTENTS(C:\\Users\\nicozoro56\\Desktop\\git\\sgbd\\PROJET_BDDA_Chen_Maiche_Pluven_Zhao\\RESSOURCES\\S.csv)");
 
 		System.out.println("****************************************");
 		
@@ -112,17 +112,16 @@ public class TestDBManager {
 		System.out.println("****************************************");
 		System.out.println("SELECT * FROM S WHERE C3=12:");
 		dbm.processCommand("SELECT * FROM S WHERE C3=12)");
-		System.out.println("****************************************");
 
+		System.out.println("****************************************");
 		System.out.println("SELECT C1 FROM S WHERE C1>100 AND C1<110:");
 		dbm.processCommand("SELECT C1 FROM S WHERE C1>100 AND C1<110");
 		
-
-		/* 
+		
 		System.out.println("****************************************");
 		System.out.println("DELETE * FROM S WHERE C3=12 AND C1=167:");
 		dbm.processCommand("DELETE * FROM S WHERE C3=12 AND C1=167");
-		*/
+	
 		
 	}
 }

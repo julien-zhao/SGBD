@@ -43,10 +43,10 @@ public class DBManager {
             c = new DropDBCommand(cmd);
             c.execute();
         }
-        /*else if(cmd.startsWith("DELETE")){
+        else if(cmd.startsWith("DELETE")){
             c = new DeleteCommand(cmd);
             c.execute();
-        }*/
+        }
         else{
             System.out.println("Commande non reconnue");
         }

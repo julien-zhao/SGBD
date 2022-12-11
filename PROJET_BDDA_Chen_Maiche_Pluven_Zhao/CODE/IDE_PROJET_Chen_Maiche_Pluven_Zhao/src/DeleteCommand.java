@@ -12,13 +12,11 @@ public class DeleteCommand extends XCommand{
         criteres = new Vector<Critere>();
 
         String[] tokens = command.split(" ");
-        relation = Catalog.getSingleton().getRelationInfo(tokens[2]);
+        relation = Catalog.getSingleton().getRelationInfo(tokens[3]);
         if(relation == null){
-            System.out.println("Relation " + tokens[2] + " does not exist");
+            System.out.println("Relation " + tokens[3] + " does not exist");
             return;
         }
-        
-        /*
         String[] c = tokens[1].split(",");
 
         if(tokens[1].equals("*")){
@@ -30,10 +28,9 @@ public class DeleteCommand extends XCommand{
             for (int i = 0; i < c.length; i++) {
                 colonne.add(c[i]);
             }
-        }*/
-
-        if(tokens.length > 3){
-            tokens = Arrays.copyOfRange(tokens, 4, tokens.length);
+        }
+        if(tokens.length > 4){
+            tokens = Arrays.copyOfRange(tokens, 5, tokens.length);
             for (int i = 0; i < tokens.length; i+=2) {
                 criteres.add(new Critere(tokens[i]));
             }
@@ -57,11 +54,12 @@ public class DeleteCommand extends XCommand{
                 return;
             }
         }
-        Vector<Record> records = FileManager.getSingleton().getRecordsInRelation(relation);
+        FileManager fm = FileManager.getSingleton();
+        Vector<Record> records = fm.getRecordsInRelation(relation);
+
         for(Record r : records){
             boolean ok = true;
             for(Critere c : criteres){
-
                 if(!c.execute(r)){
                     ok = false;
                     break;
@@ -70,6 +68,8 @@ public class DeleteCommand extends XCommand{
             if(ok){
                 for(String s : colonne){
                     System.out.print(r.getColValue(s) + " ");
+                    //fm.deleteRecordInDataPage(null, null);
+                    //fm.deleteRecordInRelation(relation, null);
                 }
                 System.out.println();
             }
@@ -120,17 +120,13 @@ public class DeleteCommand extends XCommand{
                 val = tokens[1];
             }
 
-            if(!colonne.contains(col)){
-                System.out.println("Column " + col + " does not exist");
-                return;
+            if(val.contains(")")){
+                val = val.substring(0, val.length()-1);
             }
 
-            if(!val.matches("[0-9]+.[0-9]+") && !val.matches("[0-9]+")){
-                if(!op.equals("=")||!op.equals("<>")){
-                    System.out.println("Operator " + op + " is not valid for string");
-                    return;
-                }
-                
+            if(!relation.getTabInfo().contains(new ColInfo(col, ""))){
+                System.out.println("Column " + col + " does not exist");
+                return;
             }
         }
 
@@ -138,28 +134,94 @@ public class DeleteCommand extends XCommand{
             
             String eCol = r.getValues().get(relation.getColonneIndex(col));
 
+            relation.getColonneType(col);
+            if(relation.getColonneType(col).startsWith("VARCHAR")){
+                return executeVARCHAR(eCol);
+            }
+            if(relation.getColonneType(col).equals("INTEGER")){
+                int eColInt = Integer.parseInt(eCol);
+                return executeINTEGER(eColInt);
+            }
+            if(relation.getColonneType(col).equals("REAL")){
+                double eColDouble = Double.parseDouble(eCol);
+                return executeREAL(eColDouble);
+            }
+            return false;
+        }
+
+        private boolean executeINTEGER(int eCol) {
+            double valInt = Double.parseDouble(val);
             if(op.equals("=")){
-                return eCol.equals(val);
+                return eCol == valInt;
+            }
+            if(op.equals("<>")){
+                return eCol != valInt;
             }
             if(op.equals(">")){
-                return eCol.compareTo(val) > 0;
+                return eCol > valInt;
             }
             if(op.equals("<")){
-                return eCol.compareTo(val) < 0;
+                return eCol < valInt;
             }
             if(op.equals(">=")){
-                return eCol.compareTo(val) >= 0;
+                return eCol >= valInt;
             }
             if(op.equals("<=")){
-                return eCol.compareTo(val) <= 0;
+                return eCol <= valInt;
+            }
+            return false;
+        }
+
+        private boolean executeREAL(double eCol) {
+            double valInt = Double.parseDouble(val);
+            if(op.equals("=")){
+                return eCol == valInt;
+            }
+            if(op.equals("<>")){
+                return eCol != valInt;
+            }
+            if(op.equals(">")){
+                return eCol > valInt;
+            }
+            if(op.equals("<")){
+                return eCol < valInt;
+            }
+            if(op.equals(">=")){
+                return eCol >= valInt;
+            }
+            if(op.equals("<=")){
+                return eCol <= valInt;
+            }
+            return false;
+        }
+        
+
+        private boolean executeVARCHAR(String eCol) {
+            if(op.equals("=")){
+                return eCol.equals(val);
             }
             if(op.equals("<>")){
                 return !eCol.equals(val);
             }
+            int res = eCol.compareToIgnoreCase(val);
+            if(op.equals(">")&&(res>0)){
+            	return true;
+            }
+            if(op.equals("<")&&(res<0)){
+            	return true;
+            }
+            if(op.equals(">=")&&(res>=0)){
+                return true;
+            }
+            if(op.equals("<=")&&(res<=0)){
+                return true;
+            }
             return false;
         }
-    }
-    
-}
 
+        public String toString() {
+            return col + " " + op + " " + val;
+        }
+    }
+}
     
