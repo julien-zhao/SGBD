@@ -123,6 +123,6 @@ public class TestDBManager {
 		System.out.println("DELETE * FROM S WHERE C3=12 AND C1=167:");
 		dbm.processCommand("DELETE * FROM S WHERE C3=12 AND C1=167");
 		*/
-		
+		dbm.finish();
 	}
 }

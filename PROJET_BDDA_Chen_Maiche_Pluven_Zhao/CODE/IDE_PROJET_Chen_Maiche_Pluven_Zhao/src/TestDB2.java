@@ -11,15 +11,9 @@ public class TestDB2 {
 
 		dbm.init();
 
-		System.out.println(Catalog.getSingleton().getRelationInfo("R").getHeaderPageId());
-		int m = BufferManager.getSingleton().getPage(Catalog.getSingleton().getRelationInfo("R").getHeaderPageId()).getInt(0);
-        System.out.println(m);
-
         System.out.println("\n****************************************");
 		System.out.println("Le SELECT * FROM R:");
 		dbm.processCommand("SELECT * FROM R");
-        
-
         
         dbm.finish();
     }

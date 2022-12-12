@@ -21,7 +21,7 @@ public class RecordIterator {
     public Record getNextRecord() throws IOException {
         int m = p.getInt(DBParams.pageSize - 8);
         if (slotIdx < m) {
-            int pos = p.getInt(DBParams.pageSize - (8 - (4 * slotIdx)));
+            int pos = p.getInt(DBParams.pageSize - (16 + (8 * slotIdx)));
             if (pos != -1) {
                 Record rec = new Record(relInfo);
                 rec.readFromBuffer(p, pos);
@@ -30,6 +30,14 @@ public class RecordIterator {
             }
         }
         return null;
+    }
+
+    public boolean hasNext() throws IOException {
+        int m = p.getInt(DBParams.pageSize - 8);
+        if (slotIdx >= m) {
+            return false;
+        }
+        return true;
     }
 
     public void close() throws IOException {
