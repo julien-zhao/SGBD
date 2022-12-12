@@ -48,8 +48,8 @@ public class TestDBJoin {
 		dbm.processCommand("INSERT INTO S VALUES (4,5)");
 
         System.out.println("\n****************************************");
-		System.out.println("SELECT * FROM R,S WHERE R.C1=S.AA AND R.C3=S.BB:");
-		dbm.processCommand("SELECT * FROM R,S WHERE R.C1=S.AA AND R.C3=S.BB");
+		System.out.println("SELECT * FROM R,S :");
+		dbm.processCommand("SELECT * FROM R,S");
 
 
         System.out.println("\n****************************************");

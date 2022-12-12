@@ -62,15 +62,9 @@ public class SelectFromCommand extends XCommand{
 
         if(tokens.length > 4){
             tokens = Arrays.copyOfRange(tokens, 5, tokens.length);
-            if(isJoin){
-                for (int i = 0; i < tokens.length; i+=4) {
-                    criteres.add(new Critere(tokens[i]));
-                }
-            }else{
-                for (int i = 0; i < tokens.length; i+=2) {
-                    criteres.add(new Critere(tokens[i]));
-                }
-            }
+            for (int i = 0; i < tokens.length; i+=2) {
+                criteres.add(new Critere(tokens[i]));
+            } 
         }
     }
 
@@ -163,6 +157,7 @@ public class SelectFromCommand extends XCommand{
                             nb++;
                         }
                     }
+                    ri2.reset();
                 }
                 ri2.close();
                 ri.reset();
