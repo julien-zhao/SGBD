@@ -32,24 +32,24 @@ public class TestDBJoin {
 		dbm.processCommand("INSERT INTO R VALUES (3,ac,1)");
 
 		System.out.println("\n****************************************");
-		System.out.println("CREATE TABLE S (AA:INTEGER,BB:INTEGER):");
-		dbm.processCommand("CREATE TABLE S (AA:INTEGER,BB:INTEGER)");
+		System.out.println("CREATE TABLE S (AA:INTEGER,BB:INTEGER,CC:INTEGER,DD:INTEGER,EE:INTEGER,FF:INTEGER,GG:INTEGER,HH:INTEGER):");
+		dbm.processCommand("CREATE TABLE S (AA:INTEGER,BB:INTEGER,CC:INTEGER,DD:INTEGER,EE:INTEGER,FF:INTEGER,GG:INTEGER,HH:INTEGER)");
 
         System.out.println("\n****************************************");
-		System.out.println("INSERT INTO S VALUES (1,2):");
-		dbm.processCommand("INSERT INTO S VALUES (1,2)");
+		System.out.println("INSERT INTO S VALUES (1,2,3,4,5,6,7,8):");
+		dbm.processCommand("INSERT INTO S VALUES (1,2,3,4,5,6,7,8)");
 
         System.out.println("\n****************************************");
-		System.out.println("INSERT INTO S VALUES (3,2):");
-		dbm.processCommand("INSERT INTO S VALUES (3,2)");
+		System.out.println("INSERT INTO S VALUES (8,7,6,5,4,3,2,1):");
+		dbm.processCommand("INSERT INTO S VALUES (8,7,6,5,4,3,2,1)");
 
         System.out.println("\n****************************************");
-		System.out.println("INSERT INTO S VALUES (4,5):");
-		dbm.processCommand("INSERT INTO S VALUES (4,5)");
+		System.out.println("INSERT INTO S VALUES (5,6,8,1,3,2,7,4):");
+		dbm.processCommand("INSERT INTO S VALUES (5,6,8,1,3,2,7,4)");
 
         System.out.println("\n****************************************");
-		System.out.println("SELECT * FROM R,S :");
-		dbm.processCommand("SELECT * FROM R,S");
+		System.out.println("SELECT * FROM R,S WHERE R.C1<S.CC :");
+		dbm.processCommand("SELECT * FROM R,S WHERE R.C1<S.CC");
 
 
         System.out.println("\n****************************************");

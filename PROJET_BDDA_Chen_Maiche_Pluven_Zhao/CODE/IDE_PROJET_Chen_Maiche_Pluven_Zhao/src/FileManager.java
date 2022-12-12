@@ -51,7 +51,7 @@ public class FileManager {
 		ByteBuffer header = bm.getPage(hpId);
 		int nb = header.getInt(0);
 		for(int i=12;i<=4+nb*12;i+=12) {
-			if(header.getInt(i)>=sizeRecord) {
+			if(header.getInt(i)>=sizeRecord + 8) {
 				PageId pIdS = new PageId(header.getInt(i-8),header.getInt(i-4));
 				bm.freePage(hpId, false);
 				return pIdS;
