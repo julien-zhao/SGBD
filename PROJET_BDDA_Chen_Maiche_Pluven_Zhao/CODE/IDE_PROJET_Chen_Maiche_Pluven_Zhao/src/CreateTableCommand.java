@@ -47,6 +47,6 @@ public class CreateTableCommand extends XCommand{
 
         Catalog.getSingleton().addRelationInfo(ri);
 
-        System.out.println("Table " + nomRelation + " created.");
+        //System.out.println("Table " + nomRelation + " created.");
     }
 }

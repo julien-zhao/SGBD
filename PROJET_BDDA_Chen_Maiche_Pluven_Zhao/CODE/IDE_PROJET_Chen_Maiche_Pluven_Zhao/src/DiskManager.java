@@ -127,7 +127,7 @@ public class DiskManager {
 		try{
 			fis = new FileInputStream(DBParams.DBPath+"saveLog.bdda");
 		}catch(FileNotFoundException e){
-			System.out.println("Fichier saveLog.bdda non trouvé");
+			//System.out.println("Fichier saveLog.bdda non trouvé");
 			return;
 		}	
 		ObjectInputStream ois = null;

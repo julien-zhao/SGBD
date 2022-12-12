@@ -66,7 +66,7 @@ public class Catalog implements Serializable{
 		}
 	
 		catch(IOException e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();

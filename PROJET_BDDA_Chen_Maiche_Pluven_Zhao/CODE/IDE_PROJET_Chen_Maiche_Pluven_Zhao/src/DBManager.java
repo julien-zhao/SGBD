@@ -14,7 +14,7 @@ public class DBManager {
     }
 
     public void init() throws ClassNotFoundException, IOException   {  // throws IOException
-        DiskManager.getSingleton().getSaveLog();;
+        DiskManager.getSingleton().getSaveLog();
         BufferManager.getSingleton();
         Catalog.getSingleton().Init();
     }

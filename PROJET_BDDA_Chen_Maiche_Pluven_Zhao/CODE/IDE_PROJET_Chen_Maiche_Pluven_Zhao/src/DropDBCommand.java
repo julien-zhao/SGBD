@@ -14,6 +14,6 @@ public class DropDBCommand extends XCommand{
 
         DiskManager.getSingleton().reset();
         Catalog.getSingleton().reset();
-        System.out.println("Database dropped");
+        //System.out.println("Database dropped");
     }
 } 
