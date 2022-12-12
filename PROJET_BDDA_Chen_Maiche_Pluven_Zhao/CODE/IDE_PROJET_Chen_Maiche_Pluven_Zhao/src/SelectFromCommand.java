@@ -163,8 +163,8 @@ public class SelectFromCommand extends XCommand{
                             nb++;
                         }
                     }
-                    ri2.close();
                 }
+                ri2.close();
                 ri.reset();
             }
             ri.close();
@@ -376,6 +376,9 @@ public class SelectFromCommand extends XCommand{
                 eColJoin = rJoin.getValues().get(relationJoin.getColonneIndex(vVal));
             }
             
+            if(relation.getColonneType(vCol)==null){
+                vCol = vVal;
+            }
 
             if(relation.getColonneType(vCol).startsWith("VARCHAR")){
                 return executeVARCHAR(eCol, eColJoin);

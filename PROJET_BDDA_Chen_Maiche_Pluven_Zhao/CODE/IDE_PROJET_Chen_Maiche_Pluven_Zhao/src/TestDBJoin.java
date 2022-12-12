@@ -28,6 +28,10 @@ public class TestDBJoin {
 		dbm.processCommand("INSERT INTO R VALUES (2,ac,2)");
 
 		System.out.println("\n****************************************");
+		System.out.println("INSERT INTO R VALUES (3,ac,1):");
+		dbm.processCommand("INSERT INTO R VALUES (3,ac,1)");
+
+		System.out.println("\n****************************************");
 		System.out.println("CREATE TABLE S (AA:INTEGER,BB:INTEGER):");
 		dbm.processCommand("CREATE TABLE S (AA:INTEGER,BB:INTEGER)");
 
@@ -44,13 +48,13 @@ public class TestDBJoin {
 		dbm.processCommand("INSERT INTO S VALUES (4,5)");
 
         System.out.println("\n****************************************");
-		System.out.println("SELECT * FROM R,S WHERE R.C1=S.AA:");
-		dbm.processCommand("SELECT * FROM R,S WHERE R.C1=S.AA");
+		System.out.println("SELECT * FROM R,S WHERE R.C1=S.AA AND R.C3=S.BB:");
+		dbm.processCommand("SELECT * FROM R,S WHERE R.C1=S.AA AND R.C3=S.BB");
 
 
         System.out.println("\n****************************************");
 		System.out.println("SELECT * FROM R,S WHERE R.C3=S.BB AND R.C1<S.BB:");
-		dbm.processCommand("SELECT * FROM R,S WHERE R.C3=S.BB AND R.C1<S.BB");
+		dbm.processCommand("SELECT * FROM R,S WHERE R.C3=S.BB AND R.C1<S.BB ");
 
         dbm.finish();
 
