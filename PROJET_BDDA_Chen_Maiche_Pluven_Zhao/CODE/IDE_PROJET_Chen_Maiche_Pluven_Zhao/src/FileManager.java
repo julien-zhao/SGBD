@@ -114,7 +114,7 @@ public class FileManager {
 		BufferManager bm = BufferManager.getSingleton();
 		ByteBuffer p = bm.getPage(pageId);
 		int m = p.getInt(DBParams.pageSize-8);
-		p.putInt(DBParams.pageSize-(8-(4*recordId.slotIdx)), -1);
+		p.putInt(DBParams.pageSize-(8+(4*recordId.slotIdx)), -1);
 		bm.freePage(pageId, true);
 	}
 
