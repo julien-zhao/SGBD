@@ -110,14 +110,13 @@ public class FileManager {
 		return r;
 	}
 
-	/*public void deleteRecordInDataPage(PageId pageId,RecordId recordId) throws IOException {
+	public void deleteRecordInDataPage(PageId pageId,RecordId recordId) throws IOException {
 		BufferManager bm = BufferManager.getSingleton();
 		ByteBuffer p = bm.getPage(pageId);
 		int m = p.getInt(DBParams.pageSize-8);
 		p.putInt(DBParams.pageSize-(8-(4*recordId.slotIdx)), -1);
 		bm.freePage(pageId, true);
-	}*/
-	
+	}
 
 	public Vector<PageId> getAllDataPages(RelationInfo relInfo) throws IOException{
 		BufferManager bm = BufferManager.getSingleton();
